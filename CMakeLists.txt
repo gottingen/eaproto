@@ -54,7 +54,9 @@ include(carbin_cc_proto)
 set(PROTO_FILES
         eaproto/common/error_code.proto
         eaproto/meta/meta_struct.proto
+        eaproto/qu/operator/normalize.proto
 )
+
 file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/output/include/eaproto)
 set(PROTOC_FLAGS ${PROTOC_FLAGS} -I${PROTOBUF_INCLUDE_DIR} -I${PROJECT_SOURCE_DIR})
 

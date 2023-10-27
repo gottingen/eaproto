@@ -1,0 +1,60 @@
+// Copyright 2023 The Elastic AI Search Authors.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      https://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+syntax="proto2";
+package EA.proto.qu;
+
+import "eaproto/common/error_code.proto";
+
+enum NormalizeOption {
+  DEFAULT = 0;
+  NO_FULL_WIDTH_TO_HALF = 0x1;
+  UPPER_CASE_TO_LOWER = 0x2;
+  NO_COMPLICATED_TO_SIMPLFIED = 0x4;
+  NO_BLANK_TO_ONE_SPACE = 0x8;
+  PUNCTUAT_TO_SPACE = 0x10;
+  NO_REMOVE_BAD_CHAR = 0x20;
+  REMOVE_SOME_SPACE = 0x40;
+  PUNCTUAT_REMOVE = 0x80;
+  ARABIC_TO_NUMBER = 0x100;
+  REMOVE_EMOJI = 0x200;
+  REPLACE_SYNONYM = 0x400;
+};
+
+message NormalizeResult {
+  required string query = 1;
+  required string output = 2;
+}
+
+message NormalizeRequest {
+  required NormalizeOption option = 1;
+  required string query = 2;
+};
+
+message NormalizeResponse {
+  required EA.proto.ErrCode code = 1;
+  optional string msg = 2;
+  optional NormalizeResult result = 3;
+};
+
+message BatchRequest {
+  required NormalizeOption option = 1;
+  repeated string query = 2;
+};
+
+message BatchResponse {
+  required EA.proto.ErrCode code = 1;
+  optional  string msg = 2;
+  repeated NormalizeResult results = 3;
+};

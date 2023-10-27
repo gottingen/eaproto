@@ -1,0 +1,1 @@
+../../../../carbin/pkg/protocolbuffers__protobuf/install/include/google/protobuf/util/type_resolver.h

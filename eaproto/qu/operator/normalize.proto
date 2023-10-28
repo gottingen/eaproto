@@ -44,7 +44,7 @@ message NormalizeRequest {
 
 message NormalizeResponse {
   required EA.proto.ErrCode code = 1;
-  optional string msg = 2;
+  optional string errmsg = 2;
   optional NormalizeResult result = 3;
 };
 
@@ -55,6 +55,6 @@ message BatchRequest {
 
 message BatchResponse {
   required EA.proto.ErrCode code = 1;
-  optional  string msg = 2;
+  optional  string errmsg = 2;
   repeated NormalizeResult results = 3;
 };

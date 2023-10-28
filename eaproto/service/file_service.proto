@@ -28,7 +28,7 @@ message InfoFileResponse {
   optional string cksm   =  3;
   // for raft or backup server
   optional string redirect = 4;
-  optional string msg = 5;
+  optional string errmsg = 5;
 }
 
 message SaveFileRequest {
@@ -43,7 +43,7 @@ message SaveFileResponse {
   required ErrCode success = 1;
   // for raft or backup server
   optional string redirect = 2;
-  optional string msg = 3;
+  optional string errmsg = 3;
 }
 
 message GetFileRequest {
@@ -58,7 +58,7 @@ message GetFileResponse {
   optional bytes content = 3;
   optional int64 size    = 4;
   optional string cksm   = 5;
-  optional string msg = 6;
+  optional string errmsg = 6;
 }
 
 service SearchEngine {

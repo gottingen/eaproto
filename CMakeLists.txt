@@ -53,6 +53,7 @@ include(carbin_cc_proto)
 #file(GLOB PROTO_FILES "${PROJECT_SOURCE_DIR}/elasticann/proto/*.proto")
 set(PROTO_FILES
         eaproto/common/error_code.proto
+        eaproto/file_service/file_service.proto
         eaproto/meta/meta_struct.proto
         eaproto/qu/operator/normalize.proto
 )

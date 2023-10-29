@@ -14,6 +14,7 @@
 //
 syntax="proto2";
 package EA.proto.qu;
+option cc_generic_services = true;
 
 import "eaproto/common/error_code.proto";
 

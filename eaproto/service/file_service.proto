@@ -15,6 +15,7 @@
 
 syntax="proto2";
 package EA.proto;
+option cc_generic_services = true;
 import "eaproto/common/error_code.proto";
 
 

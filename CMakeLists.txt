@@ -53,6 +53,19 @@ include(carbin_cc_proto)
 #file(GLOB PROTO_FILES "${PROJECT_SOURCE_DIR}/elasticann/proto/*.proto")
 set(PROTO_FILES
         eaproto/common/error_code.proto
+        eaproto/common/primitive.proto
+        eaproto/db/binlog.proto
+        eaproto/db/common.proto
+        eaproto/db/console.proto
+        eaproto/db/expr.proto
+        eaproto/db/meta.interface.proto
+        eaproto/db/olap.proto
+        eaproto/db/optype.proto
+        eaproto/db/plan.proto
+        eaproto/db/raft.proto
+        eaproto/db/reverse.proto
+        eaproto/db/statistics.proto
+        eaproto/db/store.interface.proto
         eaproto/service/file_service.proto
         eaproto/service/raft.proto
         eaproto/meta/meta_struct.proto

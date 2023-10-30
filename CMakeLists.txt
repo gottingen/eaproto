@@ -69,6 +69,7 @@ set(PROTO_FILES
         eaproto/db/store.interface.proto
         eaproto/db/store.struct.proto
         eaproto/db/test_decode.proto
+        eaproto/service/plugin_service.proto
 )
 
 file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/output/include/eaproto)

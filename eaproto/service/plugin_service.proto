@@ -50,7 +50,7 @@ message DownloadPluginResponse {
   optional string errmsg = 6;
 }
 
-service SearchEngine {
+service PluginService {
 
   // save file
   rpc upload_plugin(UploadPluginRequest) returns (UploadPluginResponse);

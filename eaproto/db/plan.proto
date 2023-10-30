@@ -14,7 +14,7 @@
 //
 syntax="proto2";
 import "eaproto/db/common.proto";
-import "eaproto/db/optype.proto";
+import "eaproto/common/optype.proto";
 import "eaproto/db/expr.proto";
 package EA.proto;
 //option cc_enable_arenas = true;

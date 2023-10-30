@@ -14,9 +14,36 @@
 //
 
 syntax="proto2";
-package EA.proto.service;
+package EA.proto;
 option cc_generic_services = true;
 import "eaproto/common/error_code.proto";
+
+message CreatePluginRequest {
+  required string name  =  1;
+  required string owner  = 2;
+}
+
+message RemovePluginRequest {
+  required string name  =  1;
+}
+
+message QueryPluginRequest {
+  required string name  =  1;
+  optional bool   enable_cksm = 2;
+}
+
+message PluginInfo {
+  required string version = 1;
+  required bool   finish  = 2;
+  optional string chsm    = 3;
+  optional int32  size    = 4;
+  optional string data    = 5;
+  optional string owner    = 6;
+};
+
+message QueryPluginResponse {
+  repeated PluginInfo  plugins = 3;
+}
 
 message UploadPluginRequest {
   required string name  =  1;
@@ -27,34 +54,9 @@ message UploadPluginRequest {
   required string cksm   =  6;
 }
 
-message UploadPluginResponse {
-  required ErrCode errcode = 1;
-  // for raft or backup server
-  optional string redirect = 2;
-  optional string errmsg = 3;
-}
-
 message DownloadPluginRequest {
   required string name  = 1;
   required string version  = 2;
   required int64 offset  = 3;
   required int64 count    = 4;
 }
-
-message DownloadPluginResponse {
-  required ErrCode errcode = 1;
-  optional string redirect = 2;
-  optional bytes content = 3;
-  optional int64 size    = 4;
-  optional string cksm   = 5;
-  optional string errmsg = 6;
-}
-
-service PluginService {
-
-  // save file
-  rpc upload_plugin(UploadPluginRequest) returns (UploadPluginResponse);
-
-  // save file
-  rpc get_file(DownloadPluginRequest) returns (DownloadPluginResponse);
-};

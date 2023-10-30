@@ -17,58 +17,34 @@ syntax="proto2";
 package EA.proto;
 option cc_generic_services = true;
 import "eaproto/common/error_code.proto";
+import "eaproto/common/optype.proto";
+import "eaproto/service/plugin_struct.proto";
 
+message FileManageRequest {
+    required OpType                op_type = 1;
+    optional UploadPluginRequest   upload_plugin = 2;
+    optional DownloadPluginRequest download_plugin = 3;
+    optional CreatePluginRequest   create_plugin = 4;
+    optional RemovePluginRequest   remove_plugin = 5;
+    optional QueryPluginRequest    query_plugin  = 6;
+};
 
-message InfoFileRequest {
-  required string file_name  =  1;
-}
-
-message InfoFileResponse {
-  required ErrCode success = 1;
-  optional int64 size    =  2;
-  optional string cksm   =  3;
+message FileResponse {
+  required OpType op_type = 1;
+  required ErrCode errcode = 2;
   // for raft or backup server
-  optional string redirect = 4;
-  optional string errmsg = 5;
-}
+  optional string redirect = 3;
+  optional string errmsg = 4;
+  optional bytes content = 5;
+  optional int64 size    = 6;
+  optional string cksm   = 7;
+  optional QueryPluginResponse query_plugin = 8;
 
-message SaveFileRequest {
-  required string file_name  =  1;
-  required int64 offset  =  2;
-  required int64 size    =  3;
-  required bytes content =  4;
-  required string cksm   =  5;
-}
+};
 
-message SaveFileResponse {
-  required ErrCode success = 1;
-  // for raft or backup server
-  optional string redirect = 2;
-  optional string errmsg = 3;
-}
+service FileService {
 
-message GetFileRequest {
-  required string index  = 1;
-  required int64 offset  = 2;
-  required int64 count    = 3;
-}
+  // plugin file management
+  rpc plugin_manager(FileManageRequest) returns (FileResponse);
 
-message GetFileResponse {
-  required ErrCode success = 1;
-  optional string redirect = 2;
-  optional bytes content = 3;
-  optional int64 size    = 4;
-  optional string cksm   = 5;
-  optional string errmsg = 6;
-}
-
-service SearchEngine {
-
-  // get file info
-  rpc info_file(InfoFileRequest) returns (InfoFileResponse);
-  // save file
-  rpc save_file(SaveFileRequest) returns (SaveFileResponse);
-
-  // save file
-  rpc get_file(GetFileRequest) returns (GetFileResponse);
 };

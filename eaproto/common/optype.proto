@@ -17,7 +17,8 @@ package EA.proto;
 //option cc_enable_arenas = true;
 
 // 1-100是预留给store的操作
-// 100+是meta上的操作
+// 101-300是meta上的操作
+// 301-400 file op
 enum OpType {
     // for store
     OP_NONE                                 = 0;
@@ -145,4 +146,12 @@ enum OpType {
     OP_SWAP_TABLE                           = 192; //原子交换两个表名
     OP_MODIFY_PARTITION                     = 193;
     OP_UPDATE_CHARSET                       = 194;
+
+    // file op
+    OP_CREATE_PLUGIN                       = 301;
+    OP_UPLOAD_PLUGIN                       = 302;
+    OP_DOWNLOAD_PLUGIN                     = 303;
+    OP_QUERY_PLUGIN                        = 304;
+    OP_REMOVE_PLUGIN                       = 305;
+
 };

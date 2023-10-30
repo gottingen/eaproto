@@ -1,4 +1,4 @@
-// Copyright 2023 The Elastic AI Search Authors.
+// Copyright 2023 The Turbo Authors.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,13 +12,73 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-
 syntax="proto2";
-package EA.proto.db;
+package EA.proto;
 option cc_generic_services = true;
 //option cc_enable_arenas = true;
-import "eaproto/common/error_code.proto";
-import "eaproto/common/primitive.proto";
+
+enum ErrCode {
+    SUCCESS = 0;
+    NOT_LEADER = 1;
+    PARSE_FROM_PB_FAIL = 2;
+    PARSE_TO_PB_FAIL = 3;
+    UNSUPPORT_REQ_TYPE = 4;
+    INPUT_PARAM_ERROR = 5;
+    GET_VALUE_FAIL = 6;
+    PUT_VALUE_FAIL = 7;
+    DELETE_VALUE_FAIL = 8;
+    INTERNAL_ERROR = 9;
+    VERSION_OLD = 10;
+    REGION_ERROR_STATUS = 11;
+    EXEC_FAIL = 12;
+    DISABLE_WRITE_TIMEOUT = 13;
+    SPLIT_TIMEOUT = 14;
+    REGION_ALREADY_EXIST = 15;
+    REGION_NOT_EXIST = 16;
+    HAVE_NOT_INIT = 17;
+    // TXN_FOLLOW_UP = 18;
+    CANNOT_ADD_PEER = 19;
+    PEER_NOT_EQUAL  = 20;
+    CONNECT_FAIL    = 21;
+    CANCELLED = 22;
+    DDL_UNIQUE_KEY_FAIL = 23;
+    TXN_IS_EXISTING     = 24;
+    TXN_IS_ROLLBACK     = 25;
+    BACKUP_SAME_LOG_INDEX = 26;
+    BACKUP_ERROR = 27;
+    RETRY_LATER  = 28;
+    LESS_THAN_OLDEST_TS  = 29;
+    IN_PROCESS   = 30;
+    STORE_BUSY   = 31;
+    LEARNER_NOT_READY = 32;
+    STORE_ROCKS_HANG  = 33;
+};
+
+enum PrimitiveType {
+    INVALID_TYPE = 0;
+    NULL_TYPE = 1;
+    BOOL = 2;
+    INT8 = 3;
+    INT16 = 4;
+    INT32 = 5;
+    INT64 = 6;
+    UINT8 = 7;
+    UINT16 = 8;
+    UINT32 = 9;
+    UINT64 = 10;
+    FLOAT = 11;
+    DOUBLE = 12;
+    STRING = 13;
+    DATETIME = 14;
+    TIMESTAMP = 15;
+    DATE = 16;
+    HLL = 17;
+    TIME = 18;
+    PLACE_HOLDER = 19;
+    HEX = 20;
+    BITMAP = 21;
+    TDIGEST = 22;
+};
 
 enum SchemaType {
     DYNAMIC = 1;
@@ -61,8 +121,6 @@ message SchemaConf {
     optional string sign_forceindex         = 12;
     optional int32 tail_split_num           = 13; // 尾分裂新region数
     optional int32 tail_split_step          = 14;
-    optional int64 auto_inc_rand_max        = 15; //meta挂掉后降级到随机id
-    optional int32 binlog_backup_days       = 16; //binlog备份天数
 };
 
 enum Engine {

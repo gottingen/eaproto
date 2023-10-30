@@ -1,4 +1,4 @@
-// Copyright 2023 The Elastic AI Search Authors.
+// Copyright 2023 The Turbo Authors.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,14 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-
-
 syntax="proto2";
 import "eaproto/db/common.proto";
-import "eaproto/db/meta.interface.proto";
-package EA.proto.db;
+import "eaproto/db/meta.struct.proto";
+package EA.proto;
 option cc_generic_services = true;
-import "eaproto/common/error_code.proto";
+
 
 enum WatchOpType {
     WATCH_UNKNOWN         = 1;
@@ -106,7 +104,6 @@ message WatchTableInfo {
     optional int64              main_table_id        = 13;
     optional int64              region_split_lines   = 14;
     optional int64              table_size           = 15;
-    optional string             binlog               = 16;
 };
 
 message WatchUserInfo {

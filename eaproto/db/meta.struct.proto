@@ -13,11 +13,13 @@
 // limitations under the License.
 //
 syntax = "proto2";
+import "eaproto/common/error_code.proto";
 import "eaproto/db/common.proto";
 import "eaproto/db/optype.proto";
 import "eaproto/db/raft.proto";
 import "eaproto/db/statistics.proto";
 import "eaproto/db/expr.proto";
+
 package EA.proto;
 option cc_generic_services = true;
 

@@ -13,6 +13,7 @@
 // limitations under the License.
 //
 syntax="proto2";
+import "eaproto/common/error_code.proto";
 import "eaproto/db/common.proto";
 package EA.proto;
 //option cc_enable_arenas = true;

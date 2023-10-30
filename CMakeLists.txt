@@ -52,6 +52,7 @@ include(user_cxx_config)
 include(carbin_cc_proto)
 #file(GLOB PROTO_FILES "${PROJECT_SOURCE_DIR}/elasticann/proto/*.proto")
 set(PROTO_FILES
+        eaproto/common/error_code.proto
         eaproto/db/base_subscribe.proto
         eaproto/db/binlog.proto
         eaproto/db/common.proto

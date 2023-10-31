@@ -29,11 +29,11 @@ message FileManageRequest {
     optional QueryPluginRequest    query_plugin  = 6;
 };
 
-message FileResponse {
+message FileManageResponse {
   required OpType op_type = 1;
   required ErrCode errcode = 2;
   // for raft or backup server
-  optional string redirect = 3;
+  optional string leader = 3;
   optional string errmsg = 4;
   optional bytes content = 5;
   optional int64 size    = 6;
@@ -45,6 +45,6 @@ message FileResponse {
 service FileService {
 
   // plugin file management
-  rpc plugin_manager(FileManageRequest) returns (FileResponse);
+  rpc plugin_manager(FileManageRequest) returns (FileManageResponse);
 
 };

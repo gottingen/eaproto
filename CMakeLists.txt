@@ -24,7 +24,7 @@ project(eaproto CXX)
 set(PROJECT_DESCRIPTION "Hercules is an ahead of time compiler for a subset of the Python language framework.")
 set(PROJECT_VERSION_MAJOR 0)
 set(PROJECT_VERSION_MINOR 1)
-set(PROJECT_VERSION_PATCH 5)
+set(PROJECT_VERSION_PATCH 6)
 set(PROJECT_VERSION "${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH}")
 set(CARBIN_VERSION 0.2.0)
 list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/carbin_cmake)
@@ -54,6 +54,7 @@ include(carbin_cc_proto)
 set(PROTO_FILES
         eaproto/common/error_code.proto
         eaproto/common/optype.proto
+        eaproto/common/version.proto
         eaproto/db/base_subscribe.proto
         eaproto/db/binlog.proto
         eaproto/db/common.proto

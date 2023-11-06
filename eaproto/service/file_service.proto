@@ -19,6 +19,8 @@ option cc_generic_services = true;
 import "eaproto/common/error_code.proto";
 import "eaproto/common/optype.proto";
 import "eaproto/service/plugin_struct.proto";
+import "eaproto/service/config_struct.proto";
+import "eaproto/common/version.proto";
 
 message FileManageRequest {
     required OpType                op_type = 1;
@@ -42,9 +44,26 @@ message FileManageResponse {
 
 };
 
+message ConfigManagerRequest {
+  required OpType                op_type = 1;
+  optional ConfigEntity          config = 2;
+}
+
+message ConfigManagerResponse {
+  required OpType op_type = 1;
+  required ErrCode errcode = 2;
+  // for raft or backup server
+  optional string leader = 3;
+  optional string errmsg = 4;
+  optional bytes content = 5;
+  repeated Version versions = 6;
+  repeated string config = 7;
+};
+
 service FileService {
 
   // plugin file management
   rpc plugin_manager(FileManageRequest) returns (FileManageResponse);
 
+  rpc config_manager(ConfigManagerRequest) returns (ConfigManagerResponse);
 };

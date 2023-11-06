@@ -153,5 +153,9 @@ enum OpType {
     OP_DOWNLOAD_PLUGIN                     = 303;
     OP_QUERY_PLUGIN                        = 304;
     OP_REMOVE_PLUGIN                       = 305;
-
+    OP_CREATE_CONFIG                       = 306;
+    OP_GET_CONFIG                          = 307;
+    OP_REMOVE_CONFIG                       = 308;
+    OP_LIST_CONFIG_VERSION                 = 309;
+    OP_LIST_CONFIG                         = 310;
 };

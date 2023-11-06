@@ -23,6 +23,10 @@ enum ConfigType {
   CF_JSON = 0;
   CF_GFLAGS = 1;
   CF_TEXT = 3;
+  CF_TOML = 4;
+  CF_XML = 5;
+  CF_YAML = 6;
+  CF_INI = 7;
 };
 
 message ConfigEntity {

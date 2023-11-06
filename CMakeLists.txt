@@ -73,7 +73,7 @@ set(PROTO_FILES
         eaproto/db/test_decode.proto
         eaproto/service/plugin_struct.proto
         eaproto/service/config_struct.proto
-        eaproto/service/file_service.proto
+        eaproto/service/service.proto
 )
 
 file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/output/include/eaproto)

@@ -22,16 +22,17 @@ import "eaproto/service/plugin_struct.proto";
 import "eaproto/service/config_struct.proto";
 import "eaproto/common/version.proto";
 
-message FileManageRequest {
+message ServiceRequest {
     required OpType                op_type = 1;
     optional UploadPluginRequest   upload_plugin = 2;
     optional DownloadPluginRequest download_plugin = 3;
     optional CreatePluginRequest   create_plugin = 4;
     optional RemovePluginRequest   remove_plugin = 5;
     optional QueryPluginRequest    query_plugin  = 6;
+    optional ConfigEntity          config = 7;
 };
 
-message FileManageResponse {
+message ServiceResponse {
   required OpType op_type = 1;
   required ErrCode errcode = 2;
   // for raft or backup server
@@ -41,29 +42,15 @@ message FileManageResponse {
   optional int64 size    = 6;
   optional string cksm   = 7;
   optional QueryPluginResponse query_plugin = 8;
+  optional ConfigEntity config = 9;
+  repeated string config_list = 10;
+  repeated Version versions = 11;
 
 };
 
-message ConfigManagerRequest {
-  required OpType                op_type = 1;
-  optional ConfigEntity          config = 2;
-}
-
-message ConfigManagerResponse {
-  required OpType op_type = 1;
-  required ErrCode errcode = 2;
-  // for raft or backup server
-  optional string leader = 3;
-  optional string errmsg = 4;
-  optional ConfigEntity config = 5;
-  repeated Version versions = 6;
-  repeated string config_list = 7;
-};
-
-service FileService {
+service EAService {
 
   // plugin file management
-  rpc plugin_manager(FileManageRequest) returns (FileManageResponse);
+  rpc service(ServiceRequest) returns (ServiceResponse);
 
-  rpc config_manager(ConfigManagerRequest) returns (ConfigManagerResponse);
 };

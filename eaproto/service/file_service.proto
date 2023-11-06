@@ -55,9 +55,9 @@ message ConfigManagerResponse {
   // for raft or backup server
   optional string leader = 3;
   optional string errmsg = 4;
-  optional bytes content = 5;
+  optional ConfigEntity config = 5;
   repeated Version versions = 6;
-  repeated string config = 7;
+  repeated string config_list = 7;
 };
 
 service FileService {

@@ -42,9 +42,7 @@ message QueryConfig {
 }
 
 message QueryConfigResponse {
-  optional string name = 1;
-  optional Version version = 2;
-  optional ConfigEntity config = 3;
-  repeated string config_list = 4;
-  repeated Version versions = 5;
+  optional ConfigEntity config = 1;
+  repeated string config_list = 2;
+  repeated Version versions = 3;
 }

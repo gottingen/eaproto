@@ -148,14 +148,44 @@ enum OpType {
     OP_UPDATE_CHARSET                       = 194;
 
     // file op
-    OP_CREATE_PLUGIN                       = 301;
-    OP_UPLOAD_PLUGIN                       = 302;
-    OP_DOWNLOAD_PLUGIN                     = 303;
-    OP_QUERY_PLUGIN                        = 304;
-    OP_REMOVE_PLUGIN                       = 305;
-    OP_CREATE_CONFIG                       = 306;
-    OP_GET_CONFIG                          = 307;
-    OP_REMOVE_CONFIG                       = 308;
-    OP_LIST_CONFIG_VERSION                 = 309;
-    OP_LIST_CONFIG                         = 310;
+    OP_CREATE_PLUGIN                       = 401;
+    OP_UPLOAD_PLUGIN                       = 402;
+    OP_DOWNLOAD_PLUGIN                     = 403;
+    OP_QUERY_PLUGIN                        = 404;
+    OP_REMOVE_PLUGIN                       = 405;
+    OP_CREATE_CONFIG                       = 406;
+    OP_REMOVE_CONFIG                       = 407;
+};
+
+enum QueryOpType {
+  QUERY_LOGICAL                          = 1;
+  QUERY_PHYSICAL                         = 2;
+  QUERY_INSTANCE                         = 3;
+  QUERY_USERPRIVILEG                     = 4;
+  QUERY_NAMESPACE                        = 5;
+  QUERY_DATABASE                         = 6;
+  QUERY_SCHEMA                           = 7;
+  QUERY_REGION                           = 8;
+  QUERY_INSTANCE_FLATTEN                 = 101;
+  QUERY_PRIVILEGE_FLATTEN                = 102;
+  QUERY_REGION_FLATTEN                   = 103;
+  QUERY_TABLE_FLATTEN                    = 104;
+  QUERY_SCHEMA_FLATTEN                   = 105;
+  QUERY_TRANSFER_LEADER                  = 201;
+  QUERY_SET_PEER                         = 202;
+  QUERY_DIFF_REGION_IDS                  = 301;
+  QUERY_REGION_IDS                       = 302;
+  QUERY_DDLWORK                          = 303;
+  QUERY_REGION_PEER_STATUS               = 304;
+  QUERY_INSTANCE_PARAM                   = 305;
+  QUERY_INDEX_DDL_WORK                   = 306;
+  QUERY_NETWORK_SEGMENT                  = 307;
+  QUERY_RESOURCE_TAG_SWITCH              = 308;
+  QUERY_SHOW_VIRINDX_INFO_SQL            = 309;//展示虚拟索引的影响
+  QUERY_REGION_LEARNER_STATUS            = 310;
+  QUERY_FAST_IMPORTER_TABLES             = 311;
+  /// for ops
+  QUERY_GET_CONFIG                       = 401;
+  QUERY_LIST_CONFIG_VERSION              = 402;
+  QUERY_LIST_CONFIG                      = 403;
 };

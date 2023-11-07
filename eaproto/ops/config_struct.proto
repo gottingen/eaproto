@@ -35,3 +35,16 @@ message ConfigEntity {
   optional string content = 3;
   optional ConfigType type = 4 [default = CF_JSON];
 }
+
+message QueryConfig {
+  required string name = 1;
+  optional Version version = 2;
+}
+
+message QueryConfigResponse {
+  required string name = 1;
+  optional Version version = 2;
+  optional ConfigEntity config = 3;
+  repeated string config_list = 4;
+  repeated Version versions = 5;
+}

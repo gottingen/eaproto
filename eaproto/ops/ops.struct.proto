@@ -38,12 +38,18 @@ message OpsServiceResponse {
   // for raft or backup server
   optional string leader = 3;
   optional string errmsg = 4;
-  optional bytes content = 5;
-  optional int64 size    = 6;
-  optional string cksm   = 7;
-  optional QueryPluginResponse query_plugin = 8;
-  optional ConfigEntity config = 9;
-  repeated string config_list = 10;
-  repeated Version versions = 11;
+};
 
+message QueryOpsServiceRequest {
+    required QueryOpType           op_type = 1;
+    optional QueryConfig           query_config = 2;
+};
+
+message QueryOpsServiceResponse {
+  required OpType op_type = 1;
+  required ErrCode errcode = 2;
+  // for raft or backup server
+  optional string leader = 3;
+  optional string errmsg = 4;
+  optional QueryConfigResponse config_response = 5;
 };

@@ -42,6 +42,6 @@ service RouterService {
 
   rpc ops_manage(OpsServiceRequest) returns (OpsServiceResponse);
   
-  rpc ops_query(OpsServiceRequest) returns (OpsServiceResponse);
+  rpc ops_query(QueryOpsServiceRequest) returns (QueryOpsServiceResponse);
 
 };

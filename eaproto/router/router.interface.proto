@@ -29,6 +29,7 @@
 syntax = "proto2";
 import "eaproto/db/raft.proto";
 import "eaproto/db/meta.struct.proto";
+import "eaproto/ops/ops.struct.proto";
 
 package EA.proto;
 option cc_generic_services = true;
@@ -38,5 +39,9 @@ service RouterService {
   rpc meta_manager(MetaManagerRequest) returns (MetaManagerResponse);
 
   rpc query(QueryRequest) returns (QueryResponse);
+
+  rpc ops_manage(OpsServiceRequest) returns (OpsServiceResponse);
+  
+  rpc ops_query(OpsServiceRequest) returns (OpsServiceResponse);
 
 };

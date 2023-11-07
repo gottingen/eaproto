@@ -46,7 +46,7 @@ message QueryOpsServiceRequest {
 };
 
 message QueryOpsServiceResponse {
-  required OpType op_type = 1;
+  required QueryOpType op_type = 1;
   required ErrCode errcode = 2;
   // for raft or backup server
   optional string leader = 3;

@@ -34,6 +34,7 @@ message ConfigEntity {
   optional Version version = 2;
   optional string content = 3;
   optional ConfigType type = 4 [default = CF_JSON];
+  required int32 time = 5;
 }
 
 message QueryConfig {

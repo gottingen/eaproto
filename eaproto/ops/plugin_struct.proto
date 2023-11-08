@@ -20,13 +20,21 @@ import "eaproto/common/error_code.proto";
 import "eaproto/common/version.proto";
 
 
+enum Platform {
+  PF_lINUX = 1;
+  PF_OSX   = 2;
+  PF_WINDOWS =3;
+}
 message PluginInfo {
-  required string name  =  1;
-  required Version version = 2;
-  optional bool   finish  = 3;
-  optional string chsm    = 4;
-  optional int32  size    = 5;
-  optional int32  time    = 6;
+  required string name        = 1;
+  optional Version version    = 2;
+  required bool   finish      = 3 [default = false];
+  required bool   tombstone   = 4 [default = false];
+  required Platform platform  = 5 [default = PF_lINUX];
+  required int32  size        = 6 [default = 0];
+  required int32  upload_size = 7 [default = 0];
+  required string chsm        = 8 [default = ""];
+  required int32  time        = 9 [default = 0];
 };
 
 message QueryPluginResponse {
@@ -35,8 +43,8 @@ message QueryPluginResponse {
 
 message PluginRequest {
   required PluginInfo plugin = 1;
-  optional int64 offset      =  2;
-  optional bytes content     =  3;
+  optional int64 offset      = 2;
+  optional bytes content     = 3;
   optional int64 count       = 4;
 }
 

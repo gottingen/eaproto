@@ -19,58 +19,30 @@ option cc_generic_services = true;
 import "eaproto/common/error_code.proto";
 import "eaproto/common/version.proto";
 
-message CreatePluginRequest {
-  required string name  =  1;
-  required Version version  = 2;
-}
-
-message RemovePluginRequest {
-  required string name  =  1;
-  optional Version version  = 2;
-}
-
-message QueryPluginRequest {
-  required string name  =  1;
-  optional bool   enable_cksm = 2;
-}
 
 message PluginInfo {
   required string name  =  1;
   required Version version = 2;
-  required bool   finish  = 3;
+  optional bool   finish  = 3;
   optional string chsm    = 4;
   optional int32  size    = 5;
-  optional string data    = 6;
+  optional int32  time    = 6;
 };
 
 message QueryPluginResponse {
   repeated PluginInfo  plugins = 3;
 }
 
-message UploadPluginRequest {
-  required string name  =  1;
-  optional Version version  = 2;
-  required int64 offset  =  3;
-  required int64 size    =  4;
-  required bytes content =  5;
-  required string cksm   =  6;
+message PluginRequest {
+  required PluginInfo plugin = 1;
+  optional int64 offset      =  2;
+  optional bytes content     =  3;
+  optional int64 count       = 4;
 }
 
-message DownloadPluginRequest {
-  required string name  = 1;
-  optional Version version  = 2;
-  required int64 offset  = 3;
-  required int64 count    = 4;
+message PluginResponse {
+  repeated PluginInfo plugin = 1;
+  optional int64 offset      =  2;
+  optional bytes content     =  3;
 }
 
-message PluginEntity {
-  required string name  = 1;
-  repeated Version version = 2;
-  required bool   finish  = 3;
-  optional string chsm    = 4;
-  optional int32  size    = 5;
-};
-
-message Plugins {
-  repeated PluginEntity plugins = 1;
-};

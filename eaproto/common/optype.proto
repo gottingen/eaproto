@@ -150,8 +150,6 @@ enum OpType {
     // file op
     OP_CREATE_PLUGIN                       = 401;
     OP_UPLOAD_PLUGIN                       = 402;
-    OP_DOWNLOAD_PLUGIN                     = 403;
-    OP_QUERY_PLUGIN                        = 404;
     OP_REMOVE_PLUGIN                       = 405;
     OP_CREATE_CONFIG                       = 406;
     OP_REMOVE_CONFIG                       = 407;
@@ -188,4 +186,9 @@ enum QueryOpType {
   QUERY_GET_CONFIG                       = 401;
   QUERY_LIST_CONFIG_VERSION              = 402;
   QUERY_LIST_CONFIG                      = 403;
+  /// for plugin
+  QUERY_DOWNLOAD_PLUGIN                  = 404;
+  QUERY_PLUGIN_INFO                      = 405;
+  QUERY_LIST_PLUGIN_VERSION              = 406;
+  QUERY_LIST_PLUGIN                      = 407;
 };

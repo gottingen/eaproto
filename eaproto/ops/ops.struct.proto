@@ -24,12 +24,8 @@ import "eaproto/common/version.proto";
 
 message OpsServiceRequest {
     required OpType                op_type = 1;
-    optional UploadPluginRequest   upload_plugin = 2;
-    optional DownloadPluginRequest download_plugin = 3;
-    optional CreatePluginRequest   create_plugin = 4;
-    optional RemovePluginRequest   remove_plugin = 5;
-    optional QueryPluginRequest    query_plugin  = 6;
-    optional ConfigEntity          config = 7;
+    optional PluginRequest         plugin = 2;
+    optional ConfigEntity          config = 3;
 };
 
 message OpsServiceResponse {
@@ -52,4 +48,5 @@ message QueryOpsServiceResponse {
   optional string leader = 3;
   optional string errmsg = 4;
   optional QueryConfigResponse config_response = 5;
+  optional PluginResponse      plugin_response = 6;
 };

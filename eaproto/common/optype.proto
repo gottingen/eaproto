@@ -148,11 +148,13 @@ enum OpType {
     OP_UPDATE_CHARSET                       = 194;
 
     // file op
-    OP_CREATE_PLUGIN                       = 401;
-    OP_UPLOAD_PLUGIN                       = 402;
+    OP_CREATE_CONFIG                       = 401;
+    OP_REMOVE_CONFIG                       = 402;
+    OP_CREATE_PLUGIN                       = 403;
+    OP_UPLOAD_PLUGIN                       = 404;
     OP_REMOVE_PLUGIN                       = 405;
-    OP_CREATE_CONFIG                       = 406;
-    OP_REMOVE_CONFIG                       = 407;
+    OP_REMOVE_TOMBSTONE_PLUGIN             = 406;
+    OP_RESTORE_TOMBSTONE_PLUGIN             = 407;
 };
 
 enum QueryOpType {
@@ -191,4 +193,7 @@ enum QueryOpType {
   QUERY_PLUGIN_INFO                      = 405;
   QUERY_LIST_PLUGIN_VERSION              = 406;
   QUERY_LIST_PLUGIN                      = 407;
+  QUERY_TOMBSTONE_PLUGIN_INFO            = 408;
+  QUERY_TOMBSTONE_LIST_PLUGIN_VERSION    = 409;
+  QUERY_TOMBSTONE_LIST_PLUGIN            = 410;
 };

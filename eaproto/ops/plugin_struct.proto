@@ -34,7 +34,7 @@ message PluginEntiry {
   required Platform platform  = 5 [default = PF_lINUX];
   required int32  size        = 6 [default = 0];
   required int32  upload_size = 7 [default = 0];
-  required string chsm        = 8 [default = ""];
+  required string cksm        = 8 [default = ""];
   required int32  time        = 9 [default = 0];
 };
 
@@ -46,13 +46,9 @@ message PluginInfo {
   optional Platform platform  = 5;
   optional int32  size        = 6;
   optional int32  upload_size = 7;
-  optional string chsm        = 8;
+  optional string cksm        = 8;
   optional int32  time        = 9;
 };
-
-message QueryPluginResponse {
-  repeated PluginInfo  plugins = 3;
-}
 
 message PluginRequest {
   required PluginInfo plugin = 1;
@@ -67,3 +63,13 @@ message PluginResponse {
   optional bytes content     =  3;
 }
 
+message QueryPlugin {
+  required string name = 1;
+  optional Version version = 2;
+}
+
+message QueryPluginResponse {
+  optional PluginInfo plugin = 1;
+  repeated string plugin_list = 2;
+  repeated Version versions = 3;
+}

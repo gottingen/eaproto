@@ -39,6 +39,7 @@ message OpsServiceResponse {
 message QueryOpsServiceRequest {
     required QueryOpType           op_type = 1;
     optional QueryConfig           query_config = 2;
+    optional QueryPlugin           query_plugin = 3;
 };
 
 message QueryOpsServiceResponse {
@@ -48,5 +49,5 @@ message QueryOpsServiceResponse {
   optional string leader = 3;
   optional string errmsg = 4;
   optional QueryConfigResponse config_response = 5;
-  optional PluginResponse      plugin_response = 6;
+  optional QueryPluginResponse plugin_response = 6;
 };

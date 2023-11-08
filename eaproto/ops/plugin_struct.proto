@@ -66,10 +66,13 @@ message PluginResponse {
 message QueryPlugin {
   required string name = 1;
   optional Version version = 2;
+  optional int64 offset      = 3;
+  optional int64 count       = 4;
 }
 
 message QueryPluginResponse {
   optional PluginInfo plugin = 1;
   repeated string plugin_list = 2;
   repeated Version versions = 3;
+  optional bytes content     =  4;
 }

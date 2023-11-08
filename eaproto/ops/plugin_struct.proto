@@ -25,9 +25,10 @@ enum Platform {
   PF_OSX   = 2;
   PF_WINDOWS =3;
 }
-message PluginInfo {
+/// for server serialize
+message PluginEntiry {
   required string name        = 1;
-  optional Version version    = 2;
+  required Version version    = 2;
   required bool   finish      = 3 [default = false];
   required bool   tombstone   = 4 [default = false];
   required Platform platform  = 5 [default = PF_lINUX];
@@ -35,6 +36,18 @@ message PluginInfo {
   required int32  upload_size = 7 [default = 0];
   required string chsm        = 8 [default = ""];
   required int32  time        = 9 [default = 0];
+};
+
+message PluginInfo {
+  required string name        = 1;
+  optional Version version    = 2;
+  optional bool   finish      = 3;
+  optional bool   tombstone   = 4;
+  optional Platform platform  = 5;
+  optional int32  size        = 6;
+  optional int32  upload_size = 7;
+  optional string chsm        = 8;
+  optional int32  time        = 9;
 };
 
 message QueryPluginResponse {

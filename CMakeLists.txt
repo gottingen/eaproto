@@ -64,17 +64,18 @@ set(PROTO_FILES
         eaproto/db/meta.interface.proto
         eaproto/db/meta.struct.proto
         eaproto/db/plan.proto
-        eaproto/db/raft.proto
         eaproto/db/reverse.proto
         eaproto/db/statistics.proto
         eaproto/db/store.interface.proto
         eaproto/db/store.struct.proto
         eaproto/db/test_decode.proto
-        eaproto/router/router.interface.proto
-        eaproto/ops/plugin_struct.proto
         eaproto/ops/config_struct.proto
+        eaproto/ops/file_struct.proto
+        eaproto/ops/plugin_struct.proto
         eaproto/ops/ops.struct.proto
         eaproto/ops/ops.interface.proto
+        eaproto/raft/raft.proto
+        eaproto/router/router.interface.proto
 )
 
 file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/output/include/eaproto)

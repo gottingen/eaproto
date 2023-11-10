@@ -17,7 +17,7 @@ package EA.proto;
 
 import "eaproto/common/error_code.proto";
 import "eaproto/db/common.proto";
-import "eaproto/db/raft.proto";
+import "eaproto/raft/raft.proto";
 import "eaproto/db/plan.proto";
 import "eaproto/common/optype.proto";
 import "eaproto/db/statistics.proto";

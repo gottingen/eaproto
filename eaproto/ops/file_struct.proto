@@ -20,58 +20,53 @@ import "eaproto/common/error_code.proto";
 import "eaproto/common/version.proto";
 
 
-enum Platform {
-  PF_lINUX = 1;
-  PF_OSX   = 2;
-  PF_WINDOWS =3;
-}
 /// for server serialize
-message PluginEntiry {
+message FileEntiry {
   required string name        = 1;
   required Version version    = 2;
   required bool   finish      = 3 [default = false];
   required bool   tombstone   = 4 [default = false];
-  required Platform platform  = 5 [default = PF_lINUX];
+  required string ext         = 5 [default = ""];
   required int32  size        = 6 [default = 0];
   required int32  upload_size = 7 [default = 0];
   required string cksm        = 8 [default = ""];
   required int32  time        = 9 [default = 0];
 };
 
-message PluginInfo {
+message FileInfo {
   required string name        = 1;
   optional Version version    = 2;
   optional bool   finish      = 3;
   optional bool   tombstone   = 4;
-  optional Platform platform  = 5;
+  optional string ext  = 5;
   optional int32  size        = 6;
   optional int32  upload_size = 7;
   optional string cksm        = 8;
   optional int32  time        = 9;
 };
 
-message PluginRequest {
-  required PluginInfo plugin = 1;
+message FileRequest {
+  required FileInfo plugin = 1;
   optional int64 offset      = 2;
   optional bytes content     = 3;
   optional int64 count       = 4;
 }
 
-message PluginResponse {
-  repeated PluginInfo plugin = 1;
+message FileResponse {
+  repeated FileInfo plugin = 1;
   optional int64 offset      =  2;
   optional bytes content     =  3;
 }
 
-message QueryPluginRequest {
+message QueryFileRequest {
   required string name = 1;
   optional Version version = 2;
   optional int64 offset      = 3;
   optional int64 count       = 4;
 }
 
-message QueryPluginResponse {
-  optional PluginInfo plugin = 1;
+message QueryFileResponse {
+  optional FileInfo plugin = 1;
   repeated string plugin_list = 2;
   repeated Version versions = 3;
   optional bytes content     =  4;

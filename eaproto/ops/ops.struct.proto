@@ -19,13 +19,15 @@ option cc_generic_services = true;
 import "eaproto/common/error_code.proto";
 import "eaproto/common/optype.proto";
 import "eaproto/ops/plugin_struct.proto";
+import "eaproto/ops/file_struct.proto";
 import "eaproto/ops/config_struct.proto";
 import "eaproto/common/version.proto";
 
 message OpsServiceRequest {
     required OpType                op_type = 1;
-    optional PluginRequest         plugin = 2;
-    optional ConfigEntity          config = 3;
+    optional PluginRequest         request_plugin = 2;
+    optional ConfigEntity          request_config = 3;
+    optional FileRequest           request_file = 4;
 };
 
 message OpsServiceResponse {
@@ -37,9 +39,10 @@ message OpsServiceResponse {
 };
 
 message QueryOpsServiceRequest {
-    required QueryOpType           op_type = 1;
-    optional QueryConfig           query_config = 2;
-    optional QueryPlugin           query_plugin = 3;
+    required QueryOpType                  op_type = 1;
+    optional QueryConfigRequest           query_config = 2;
+    optional QueryPluginRequest           query_plugin = 3;
+    optional QueryFileRequest             query_file = 4;
 };
 
 message QueryOpsServiceResponse {
@@ -50,4 +53,5 @@ message QueryOpsServiceResponse {
   optional string errmsg = 4;
   optional QueryConfigResponse config_response = 5;
   optional QueryPluginResponse plugin_response = 6;
+  optional QueryFileResponse   file_response =   7;
 };

@@ -13,7 +13,7 @@
 // limitations under the License.
 //
 syntax = "proto2";
-import "eaproto/db/raft.proto";
+import "eaproto/raft/raft.proto";
 import "eaproto/db/meta.struct.proto";
 import "eaproto/common/error_code.proto";
 

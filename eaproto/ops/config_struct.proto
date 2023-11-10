@@ -37,7 +37,7 @@ message ConfigEntity {
   required int32 time = 5;
 }
 
-message QueryConfig {
+message QueryConfigRequest {
   required string name = 1;
   optional Version version = 2;
 }

@@ -46,14 +46,14 @@ message FileInfo {
 };
 
 message FileRequest {
-  required FileInfo plugin = 1;
+  required FileInfo file = 1;
   optional int64 offset      = 2;
   optional bytes content     = 3;
   optional int64 count       = 4;
 }
 
 message FileResponse {
-  repeated FileInfo plugin = 1;
+  repeated FileInfo file = 1;
   optional int64 offset      =  2;
   optional bytes content     =  3;
 }
@@ -66,8 +66,8 @@ message QueryFileRequest {
 }
 
 message QueryFileResponse {
-  optional FileInfo plugin = 1;
-  repeated string plugin_list = 2;
+  optional FileInfo file = 1;
+  repeated string file_list = 2;
   repeated Version versions = 3;
   optional bytes content     =  4;
 }

@@ -40,8 +40,16 @@ service RouterService {
 
   rpc query(QueryRequest) returns (QueryResponse);
 
-  rpc ops_manage(OpsServiceRequest) returns (OpsServiceResponse);
+  rpc config_manage(OpsServiceRequest) returns (OpsServiceResponse);
   
-  rpc ops_query(QueryOpsServiceRequest) returns (QueryOpsServiceResponse);
+  rpc config_query(QueryOpsServiceRequest) returns (QueryOpsServiceResponse);
+
+  rpc plugin_manage(OpsServiceRequest) returns (OpsServiceResponse);
+  
+  rpc plugin_query(QueryOpsServiceRequest) returns (QueryOpsServiceResponse);
+
+  rpc file_manage(OpsServiceRequest) returns (OpsServiceResponse);
+  
+  rpc file_query(QueryOpsServiceRequest) returns (QueryOpsServiceResponse);
 
 };

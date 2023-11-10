@@ -19,11 +19,28 @@ option cc_generic_services = true;
 
 import "eaproto/ops/ops.struct.proto";
 
-service OpsService {
+service ConfigService {
 
-  // plugin file management
-  rpc ops_manage(OpsServiceRequest) returns (OpsServiceResponse);
-  
-  rpc ops_query(QueryOpsServiceRequest) returns (QueryOpsServiceResponse);
+  // config management
+  rpc config_manage(OpsServiceRequest) returns (OpsServiceResponse);
+  // config query
+  rpc config_query(QueryOpsServiceRequest) returns (QueryOpsServiceResponse);
+
+};
+
+service PluginService {
+
+  // plugin management
+  rpc plugin_manage(OpsServiceRequest) returns (OpsServiceResponse);
+  // plugin query
+  rpc plugin_query(QueryOpsServiceRequest) returns (QueryOpsServiceResponse);
+
+};
+
+service FileService {
+  // file management
+  rpc file_manage(OpsServiceRequest) returns (OpsServiceResponse);
+  // file query
+  rpc file_query(QueryOpsServiceRequest) returns (QueryOpsServiceResponse);
 
 };

@@ -26,7 +26,7 @@ enum Platform {
   PF_WINDOWS =3;
 }
 /// for server serialize
-message PluginEntiry {
+message PluginEntity {
   required string name        = 1;
   required Version version    = 2;
   required bool   finish      = 3 [default = false];

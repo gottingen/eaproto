@@ -21,7 +21,7 @@ import "eaproto/common/version.proto";
 
 
 /// for server serialize
-message DictEntiry {
+message DictEntity {
   required string name        = 1;
   required Version version    = 2;
   required bool   finish      = 3 [default = false];

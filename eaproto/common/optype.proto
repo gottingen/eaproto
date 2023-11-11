@@ -155,11 +155,11 @@ enum OpType {
     OP_REMOVE_PLUGIN                       = 405;
     OP_REMOVE_TOMBSTONE_PLUGIN             = 406;
     OP_RESTORE_TOMBSTONE_PLUGIN            = 407;
-    OP_CREATE_FILE                         = 408;
-    OP_UPLOAD_FILE                         = 409;
-    OP_REMOVE_FILE                         = 410;
-    OP_REMOVE_TOMBSTONE_FILE               = 411;
-    OP_RESTORE_TOMBSTONE_FILE              = 412;
+    OP_CREATE_DICT                         = 408;
+    OP_UPLOAD_DICT                         = 409;
+    OP_REMOVE_DICT                         = 410;
+    OP_REMOVE_TOMBSTONE_DICT               = 411;
+    OP_RESTORE_TOMBSTONE_DICT              = 412;
 };
 
 enum QueryOpType {
@@ -202,11 +202,11 @@ enum QueryOpType {
   QUERY_TOMBSTONE_LIST_PLUGIN_VERSION    = 409;
   QUERY_TOMBSTONE_LIST_PLUGIN            = 410;
 
-  QUERY_DOWNLOAD_FILE                   = 411;
-  QUERY_INFO_FILE                       = 412;
-  QUERY_LIST_FILE_VERSION               = 413;
-  QUERY_LIST_FILE                       = 414;
-  QUERY_TOMBSTONE_FILE_INFO             = 415;
-  QUERY_TOMBSTONE_LIST_FILE_VERSION     = 416;
-  QUERY_TOMBSTONE_LIST_FILE             = 417;
+  QUERY_DOWNLOAD_DICT                   = 411;
+  QUERY_INFO_DICT                       = 412;
+  QUERY_LIST_DICT_VERSION               = 413;
+  QUERY_LIST_DICT                       = 414;
+  QUERY_TOMBSTONE_DICT_INFO             = 415;
+  QUERY_TOMBSTONE_LIST_DICT_VERSION     = 416;
+  QUERY_TOMBSTONE_LIST_DICT             = 417;
 };

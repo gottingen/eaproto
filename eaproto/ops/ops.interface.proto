@@ -46,12 +46,24 @@ service DictService {
 
 };
 
-service DiscoverService {
+service DiscoveryService {
   // dict management
   rpc dict_manage(OpsServiceRequest) returns (OpsServiceResponse);
   // dict query
   rpc dict_query(QueryOpsServiceRequest) returns (QueryOpsServiceResponse);
 
+  /// for restful
+  rpc create_appid(DiscoveryRestfulRequest) returns (DiscoveryRestfulResponse);
+  rpc remove_appid(DiscoveryRestfulRequest) returns (DiscoveryRestfulResponse);
+  rpc set_appid(DiscoveryRestfulRequest) returns (DiscoveryRestfulResponse);
+  rpc instance_registry(DiscoveryRestfulRequest) returns (DiscoveryRestfulResponse);
+  rpc renew_instance(DiscoveryRestfulRequest) returns (DiscoveryRestfulResponse);
+  rpc set_instance(DiscoveryRestfulRequest) returns (DiscoveryRestfulResponse);
+  rpc get_instances(DiscoveryRestfulRequest) returns (DiscoveryRestfulResponse);
+  rpc list_appid(DiscoveryRestfulRequest) returns (DiscoveryRestfulResponse);
+  rpc info_appid(DiscoveryRestfulRequest) returns (DiscoveryRestfulResponse);
+};
+service DiscoveryRestfulService {
   /// for restful
   rpc create_appid(DiscoveryRestfulRequest) returns (DiscoveryRestfulResponse);
   rpc remove_appid(DiscoveryRestfulRequest) returns (DiscoveryRestfulResponse);

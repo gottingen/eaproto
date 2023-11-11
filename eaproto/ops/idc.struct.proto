@@ -26,3 +26,9 @@ message PhysicalRoom {
   required string logical_room = 1;
   repeated string physical_rooms = 2;
 };
+
+message MovePhysicalRequest {
+  required string physical_room = 1;
+  required string old_logical_room = 2;
+  required string new_logical_room = 3;
+};

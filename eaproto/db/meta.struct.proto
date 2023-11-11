@@ -364,12 +364,6 @@ message InstanceInfo {
   optional int64 rocks_hang_check_cost = 17;
 };
 
-message MovePhysicalRequest {
-  required string physical_room = 1;
-  required string old_logical_room = 2;
-  required string new_logical_room = 3;
-};
-
 message AlterTableRequest {
   required string table_name = 1;
   required string namespace = 2;

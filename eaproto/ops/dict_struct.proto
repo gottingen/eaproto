@@ -21,7 +21,7 @@ import "eaproto/common/version.proto";
 
 
 /// for server serialize
-message FileEntiry {
+message DictEntiry {
   required string name        = 1;
   required Version version    = 2;
   required bool   finish      = 3 [default = false];
@@ -33,7 +33,7 @@ message FileEntiry {
   required int32  time        = 9 [default = 0];
 };
 
-message FileInfo {
+message DictInfo {
   required string name        = 1;
   optional Version version    = 2;
   optional bool   finish      = 3;
@@ -45,29 +45,29 @@ message FileInfo {
   optional int32  time        = 9;
 };
 
-message FileRequest {
-  required FileInfo file = 1;
+message DictRequest {
+  required DictInfo dict = 1;
   optional int64 offset      = 2;
   optional bytes content     = 3;
   optional int64 count       = 4;
 }
 
-message FileResponse {
-  repeated FileInfo file = 1;
+message DictResponse {
+  repeated DictInfo dict = 1;
   optional int64 offset      =  2;
   optional bytes content     =  3;
 }
 
-message QueryFileRequest {
+message QueryDictRequest {
   required string name = 1;
   optional Version version = 2;
   optional int64 offset      = 3;
   optional int64 count       = 4;
 }
 
-message QueryFileResponse {
-  optional FileInfo file = 1;
-  repeated string file_list = 2;
+message QueryDictResponse {
+  optional DictInfo dict = 1;
+  repeated string dict_list = 2;
   repeated Version versions = 3;
   optional bytes content     =  4;
 }

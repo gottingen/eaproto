@@ -70,7 +70,7 @@ set(PROTO_FILES
         eaproto/db/store.struct.proto
         eaproto/db/test_decode.proto
         eaproto/ops/config_struct.proto
-        eaproto/ops/file_struct.proto
+        eaproto/ops/dict_struct.proto
         eaproto/ops/plugin_struct.proto
         eaproto/ops/ops.struct.proto
         eaproto/ops/ops.interface.proto

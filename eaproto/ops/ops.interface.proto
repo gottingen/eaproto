@@ -37,10 +37,10 @@ service PluginService {
 
 };
 
-service FileService {
-  // file management
-  rpc file_manage(OpsServiceRequest) returns (OpsServiceResponse);
-  // file query
-  rpc file_query(QueryOpsServiceRequest) returns (QueryOpsServiceResponse);
+service DictService {
+  // dict management
+  rpc dict_manage(OpsServiceRequest) returns (OpsServiceResponse);
+  // dict query
+  rpc dict_query(QueryOpsServiceRequest) returns (QueryOpsServiceResponse);
 
 };

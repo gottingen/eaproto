@@ -160,6 +160,14 @@ enum OpType {
     OP_REMOVE_DICT                         = 410;
     OP_REMOVE_TOMBSTONE_DICT               = 411;
     OP_RESTORE_TOMBSTONE_DICT              = 412;
+
+    // for discovery
+    OP_CREATE_APPID                        = 450;
+    OP_REMOVE_APPID                        = 451;
+    OP_SET_APPID                           = 452;
+    OP_REGISTRY_INSTANCE                   = 453;
+    OP_RENEW_INSTANCE                      = 454;
+    OP_SET_INSTANCE                        = 455;
 };
 
 enum QueryOpType {
@@ -209,4 +217,9 @@ enum QueryOpType {
   QUERY_TOMBSTONE_DICT_INFO             = 415;
   QUERY_TOMBSTONE_LIST_DICT_VERSION     = 416;
   QUERY_TOMBSTONE_LIST_DICT             = 417;
+
+  /// for discovery
+  QUERY_APPID_INSTANCE                  = 450;
+  QUERY_APPID_LIST                      = 451;
+  QUERY_APPID_INFO                      = 452;
 };

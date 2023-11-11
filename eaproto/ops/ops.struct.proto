@@ -21,13 +21,15 @@ import "eaproto/common/optype.proto";
 import "eaproto/ops/plugin_struct.proto";
 import "eaproto/ops/dict_struct.proto";
 import "eaproto/ops/config_struct.proto";
+import "eaproto/ops/discovery_struct.proto";
 import "eaproto/common/version.proto";
 
 message OpsServiceRequest {
-    required OpType                op_type = 1;
-    optional PluginRequest         request_plugin = 2;
-    optional ConfigEntity          request_config = 3;
-    optional DictRequest           request_dict = 4;
+    required OpType                op_type           = 1;
+    optional PluginRequest         request_plugin    = 2;
+    optional ConfigEntity          request_config    = 3;
+    optional DictRequest           request_dict      = 4;
+    optional DiscoveryRequest      request_discovery = 5;
 };
 
 message OpsServiceResponse {
@@ -39,19 +41,21 @@ message OpsServiceResponse {
 };
 
 message QueryOpsServiceRequest {
-    required QueryOpType                  op_type = 1;
-    optional QueryConfigRequest           query_config = 2;
-    optional QueryPluginRequest           query_plugin = 3;
-    optional QueryDictRequest             query_dict = 4;
+    required QueryOpType                  op_type         = 1;
+    optional QueryConfigRequest           query_config    = 2;
+    optional QueryPluginRequest           query_plugin    = 3;
+    optional QueryDictRequest             query_dict      = 4;
+    optional DiscoveryRequest             query_discovery = 5;
 };
 
 message QueryOpsServiceResponse {
-  required QueryOpType op_type = 1;
-  required ErrCode errcode = 2;
+  required QueryOpType         op_type            = 1;
+  required ErrCode             errcode            = 2;
   // for raft or backup server
-  optional string leader = 3;
-  optional string errmsg = 4;
-  optional QueryConfigResponse config_response = 5;
-  optional QueryPluginResponse plugin_response = 6;
-  optional QueryDictResponse   dict_response =   7;
+  optional string              leader             = 3;
+  optional string              errmsg             = 4;
+  optional QueryConfigResponse config_response    = 5;
+  optional QueryPluginResponse plugin_response    = 6;
+  optional QueryDictResponse   dict_response      = 7;
+  optional DiscoveryResponse   discovery_response = 8;
 };

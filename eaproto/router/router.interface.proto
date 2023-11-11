@@ -52,4 +52,8 @@ service RouterService {
   
   rpc dict_query(QueryOpsServiceRequest) returns (QueryOpsServiceResponse);
 
+  rpc dicovery_manage(OpsServiceRequest) returns (OpsServiceResponse);
+  
+  rpc discovery_query(QueryOpsServiceRequest) returns (QueryOpsServiceResponse);
+
 };

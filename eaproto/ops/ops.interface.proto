@@ -18,6 +18,7 @@ package EA.proto;
 option cc_generic_services = true;
 
 import "eaproto/ops/ops.struct.proto";
+import "eaproto/ops/discovery_struct.proto";
 
 service ConfigService {
 
@@ -43,4 +44,22 @@ service DictService {
   // dict query
   rpc dict_query(QueryOpsServiceRequest) returns (QueryOpsServiceResponse);
 
+};
+
+service DiscoverService {
+  // dict management
+  rpc dict_manage(OpsServiceRequest) returns (OpsServiceResponse);
+  // dict query
+  rpc dict_query(QueryOpsServiceRequest) returns (QueryOpsServiceResponse);
+
+  /// for restful
+  rpc create_appid(DiscoveryRestfulRequest) returns (DiscoveryRestfulResponse);
+  rpc remove_appid(DiscoveryRestfulRequest) returns (DiscoveryRestfulResponse);
+  rpc set_appid(DiscoveryRestfulRequest) returns (DiscoveryRestfulResponse);
+  rpc instance_registry(DiscoveryRestfulRequest) returns (DiscoveryRestfulResponse);
+  rpc renew_instance(DiscoveryRestfulRequest) returns (DiscoveryRestfulResponse);
+  rpc set_instance(DiscoveryRestfulRequest) returns (DiscoveryRestfulResponse);
+  rpc get_instances(DiscoveryRestfulRequest) returns (DiscoveryRestfulResponse);
+  rpc list_appid(DiscoveryRestfulRequest) returns (DiscoveryRestfulResponse);
+  rpc info_appid(DiscoveryRestfulRequest) returns (DiscoveryRestfulResponse);
 };

@@ -48,9 +48,9 @@ service DictService {
 
 service DiscoveryService {
   // dict management
-  rpc dict_manage(OpsServiceRequest) returns (OpsServiceResponse);
+  rpc discovery_manage(OpsServiceRequest) returns (OpsServiceResponse);
   // dict query
-  rpc dict_query(QueryOpsServiceRequest) returns (QueryOpsServiceResponse);
+  rpc discovery_query(QueryOpsServiceRequest) returns (QueryOpsServiceResponse);
 };
 
 service DiscoveryRestfulService {

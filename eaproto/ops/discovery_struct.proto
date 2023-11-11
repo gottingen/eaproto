@@ -17,6 +17,7 @@ syntax="proto2";
 package EA.proto;
 option cc_generic_services = true;
 import "eaproto/common/error_code.proto";
+import "eaproto/ops/idc.struct.proto";
 
 /// for server serialization
 message InstanceEntity {
@@ -40,7 +41,9 @@ message AppEntity {
     required int32  status         = 4;
     // this only update in memory
     required int64  renew_time     = 5;
-    map<string, string> attributes = 6;
+    required LogicalRoom logical   = 6;
+    optional string main_logical   = 7; 
+    map<string, string> attributes = 8;
 }
 /// for server serialization
 
@@ -51,32 +54,21 @@ message AppEntityList {
 /// create/remove/renew/set/registry
 /// list/get
 message DiscoveryRequest {
-    required string appid          = 1;
+    optional string appid          = 1;
     optional string address        = 2;
-    optional string logical        = 3;
-    optional string physical       = 4;
-    optional string resource       = 5;
-    optional int64  version        = 6;
-    optional int32  status         = 7;
-    map<string, string> attributes = 8;
+    optional string resource       = 3;
+    optional int64  version        = 4;
+    optional int32  status         = 5;
+    optional LogicalRoom logical   = 6;
+    optional PhysicalRoom physical = 7;
+    optional string main_logical   = 8;
+    map<string, string> attributes = 9;
 }
 
 message DiscoveryResponse {
     repeated AppEntity      appids           = 1;
     repeated InstanceEntity instances        = 2;
-    required int32          errcode          = 3;
-    optional string         errmsg           = 4;    
-}
-
-message DiscoveryRestfulRequest {
-    required string appid          = 1;
-    optional string address        = 2;
-    optional string logical        = 3;
-    optional string physical       = 4;
-    optional string resource       = 5;
-    optional int64  version        = 6;
-    optional int32  status         = 7;
-    map<string, string> attributes = 8;
+    repeated PhysicalRoom physical           = 3;    
 }
 
 
@@ -84,6 +76,7 @@ message DiscoveryRestfulResponse {
     required int32          errcode          = 1;
     optional string         errmsg           = 2; 
     repeated AppEntity      appids           = 3;
-    repeated InstanceEntity instances        = 4;   
+    repeated InstanceEntity instances        = 4;
+    optional PhysicalRoom   physical         = 5;   
 }
 

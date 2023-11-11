@@ -55,13 +55,35 @@ service DiscoveryService {
 
 service DiscoveryRestfulService {
   /// for restful
-  rpc create_appid(DiscoveryRestfulRequest) returns (DiscoveryRestfulResponse);
-  rpc remove_appid(DiscoveryRestfulRequest) returns (DiscoveryRestfulResponse);
-  rpc set_appid(DiscoveryRestfulRequest) returns (DiscoveryRestfulResponse);
-  rpc instance_registry(DiscoveryRestfulRequest) returns (DiscoveryRestfulResponse);
-  rpc renew_instance(DiscoveryRestfulRequest) returns (DiscoveryRestfulResponse);
-  rpc set_instance(DiscoveryRestfulRequest) returns (DiscoveryRestfulResponse);
-  rpc get_instances(DiscoveryRestfulRequest) returns (DiscoveryRestfulResponse);
-  rpc list_appid(DiscoveryRestfulRequest) returns (DiscoveryRestfulResponse);
-  rpc info_appid(DiscoveryRestfulRequest) returns (DiscoveryRestfulResponse);
+  rpc create_logical(DiscoveryRequest) returns (DiscoveryRestfulResponse);
+
+  rpc remove_logical(DiscoveryRequest) returns (DiscoveryRestfulResponse);
+
+  rpc get_logical(DiscoveryRequest) returns (DiscoveryRestfulResponse);
+
+  rpc create_physical(DiscoveryRequest) returns (DiscoveryRestfulResponse);
+
+  rpc remove_physical(DiscoveryRequest) returns (DiscoveryRestfulResponse);
+
+  rpc move_physical(DiscoveryRequest) returns (DiscoveryRestfulResponse);
+
+  rpc get_physical(DiscoveryRequest) returns (DiscoveryRestfulResponse);
+
+  rpc create_appid(DiscoveryRequest) returns (DiscoveryRestfulResponse);
+
+  rpc remove_appid(DiscoveryRequest) returns (DiscoveryRestfulResponse);
+  
+  rpc set_appid(DiscoveryRequest) returns (DiscoveryRestfulResponse);
+  
+  rpc instance_registry(DiscoveryRequest) returns (DiscoveryRestfulResponse);
+  
+  rpc renew_instance(DiscoveryRequest) returns (DiscoveryRestfulResponse);
+  
+  rpc set_instance(DiscoveryRequest) returns (DiscoveryRestfulResponse);
+  
+  rpc get_instances(DiscoveryRequest) returns (DiscoveryRestfulResponse);
+  
+  rpc list_appid(DiscoveryRequest) returns (DiscoveryRestfulResponse);
+  
+  rpc info_appid(DiscoveryRequest) returns (DiscoveryRestfulResponse);
 };

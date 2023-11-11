@@ -19,6 +19,7 @@ import "eaproto/common/optype.proto";
 import "eaproto/raft/raft.proto";
 import "eaproto/db/statistics.proto";
 import "eaproto/db/expr.proto";
+import "eaproto/ops/idc.struct.proto";
 
 package EA.proto;
 option cc_generic_services = true;
@@ -334,16 +335,11 @@ message UserPrivilege {
 };
 
 
-//集群信息
-//逻辑机房
-message LogicalRoom {
-  repeated string logical_rooms = 1;
-};
-
-//物理机房和逻辑机房对应关系
-message PhysicalRoom {
-  required string logical_room = 1;
-  repeated string physical_rooms = 2;
+message IdcInfo {
+  //物理机房和逻辑机房对应关系
+  repeated PhysicalRoom logical_physical_map = 1;
+  //实例和物理机房对应关系
+  repeated InstanceInfo   instance_infos = 2;
 };
 
 message InstanceInfo {
@@ -696,12 +692,6 @@ message BaikalOtherHeartBeatResponse {
   optional InstanceParam instance_param = 5; // baikaldb动态参数
 };
 
-message IdcInfo {
-  //物理机房和逻辑机房对应关系
-  repeated PhysicalRoom logical_physical_map = 1;
-  //实例和物理机房对应关系
-  repeated InstanceInfo   instance_infos = 2;
-};
 
 message BaikalHeartBeatResponse {
   required ErrCode errcode = 1;

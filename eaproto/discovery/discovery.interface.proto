@@ -33,21 +33,17 @@ service DiscoveryRestfulService {
 
   rpc remove_zone(Zone) returns (DiscoveryRestfulResponse);
 
-  rpc remove_zone_tombstone(Zone) returns (DiscoveryRestfulResponse);
-
   rpc create_appid(AppID) returns (DiscoveryRestfulResponse);
 
   rpc remove_appid(AppID) returns (DiscoveryRestfulResponse);
-
-  rpc remove_appid_tombstone(AppID) returns (DiscoveryRestfulResponse);
 
   rpc set_appid_privilege(AppIDPrivilege) returns (DiscoveryRestfulResponse);
 
   rpc set_appid_attr(AppID) returns (DiscoveryRestfulResponse);
 
-  rpc set_instance_registry(InstanceRegistry) returns (DiscoveryRestfulResponse);
+  rpc instance_registry(InstanceRegistry) returns (DiscoveryRestfulResponse);
 
-  rpc set_instance_remove(InstanceRegistry) returns (DiscoveryRestfulResponse);
+  rpc instance_remove(InstanceRegistry) returns (DiscoveryRestfulResponse);
 
   rpc set_instance_remove_tombstone(InstanceRegistry) returns (DiscoveryRestfulResponse);
 
@@ -57,20 +53,12 @@ service DiscoveryRestfulService {
 
   rpc get_zone(Zone) returns (DiscoveryRestfulResponse);
 
-  rpc get_zone_list_tombstone(RestfulEmptyReques) returns (DiscoveryRestfulResponse);
-
-  rpc get_zone_tombstone(Zone) returns (DiscoveryRestfulResponse);
-
   rpc get_zone_instance(Zone) returns (DiscoveryRestfulResponse);
 
   rpc get_appid_list(RestfulEmptyReques) returns (DiscoveryRestfulResponse);
 
   rpc get_appid(AppID) returns (DiscoveryRestfulResponse);
 
-  rpc get_appid_list_tombstone(RestfulEmptyReques) returns (DiscoveryRestfulResponse);
-
-  rpc get_appid_tombstone(AppID) returns (DiscoveryRestfulResponse);
-
-  rpc get_appid_instance(AppID) returns (DiscoveryRestfulResponse);
+  rpc get_appid_instance(AppIDFecth) returns (DiscoveryRestfulResponse);
 
 };

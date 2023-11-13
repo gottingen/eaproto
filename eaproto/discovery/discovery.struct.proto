@@ -63,6 +63,15 @@ message AppID {
     map<string, string>            attributes     = 7;
 };
 
+message AppIDFecth {
+    required string                appid          = 1;
+    required AppIDPrivilege        privilege      = 2; 
+    required int32                 status         = 3;
+    repeated string                zones          = 4;
+    required string                resource       = 5;
+};
+
+
 /// for server serialization
 message InstanceEntity {
     optional string appid             = 1;
@@ -103,7 +112,8 @@ message DiscoveryOpRequest {
     optional Zone                   zone_request       = 2;
     optional AppID                  appid_request      = 3;
     optional InstanceRegistry       instance_registry  = 4;
-    optional InstanceHeartBeat      instance_heartbeat = 5;           
+    optional InstanceHeartBeat      instance_heartbeat = 5;
+    optional AppIDFecth             appid_fetch        = 6;           
 }
 
 message DiscoveryOpResponse {

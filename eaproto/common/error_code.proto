@@ -52,4 +52,12 @@ enum ErrCode {
   STORE_BUSY   = 31;
   LEARNER_NOT_READY = 32;
   STORE_ROCKS_HANG  = 33;
+
+  /// for discovery
+  DS_NO_CHANGE      = 100;
+  DS_BAD_PARAM      = 101;
+  DS_NO_RIGHT       = 102;       
+  DS_NOT_FOUND      = 103;
+  DS_DIFF_INS       = 104;
+  DS_INTERNAL       = 105;
 };

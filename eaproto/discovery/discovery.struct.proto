@@ -16,7 +16,7 @@
 syntax="proto2";
 package EA.proto;
 option cc_generic_services = true;
-import "eaproto/discovery/error_code.proto";
+import "eaproto/common/error_code.proto";
 import "eaproto/discovery/optype.proto";
 
 message ZoneDistanceEntity {
@@ -118,7 +118,7 @@ message DiscoveryOpRequest {
 
 message DiscoveryOpResponse {
     required DiscoveryOp           op_type    = 1;
-    required DiscoveryError        errcode    = 2;
+    required ErrCode               errcode    = 2;
     // for raft or backup server
     optional string                leader     = 3;
     optional string                errmsg     = 4;

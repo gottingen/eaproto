@@ -69,7 +69,6 @@ set(PROTO_FILES
         eaproto/db/store.interface.proto
         eaproto/db/store.struct.proto
         eaproto/db/test_decode.proto
-        eaproto/discovery/error_code.proto
         eaproto/discovery/optype.proto
         eaproto/discovery/discovery.struct.proto
         eaproto/discovery/discovery.interface.proto

@@ -55,12 +55,13 @@ message AppIDPrivilege {
 
 message AppID {
     required string                appid          = 1;
-    optional AppIDPrivilege        privilege      = 2; 
-    optional int64                 version        = 3;
-    optional int32                 status         = 4;
-    optional int64                 create_time_ms = 5;
-    optional int64                 renew_time     = 6;             
-    map<string, string>            attributes     = 7;
+    optional int64                 appid_id       = 2;
+    optional AppIDPrivilege        privilege      = 3; 
+    optional int64                 version        = 4;
+    optional int32                 status         = 5;
+    optional int64                 create_time_ms = 6;
+    optional int64                 renew_time     = 7;             
+    map<string, string>            attributes     = 8;
 };
 
 message AppIDFecth {

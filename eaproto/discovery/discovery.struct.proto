@@ -55,7 +55,7 @@ message AppIDPrivilege {
 
 message AppID {
     required string                appid          = 1;
-    optional int64                 appid_id       = 2;
+    optional int64                 id             = 2;
     optional AppIDPrivilege        privilege      = 3; 
     optional int64                 version        = 4;
     optional int32                 status         = 5;
@@ -77,7 +77,8 @@ message AppIDFecth {
 message InstanceEntity {
     optional string appid             = 1;
     optional string address           = 2;
-    optional string zone              = 3;
+    optional string id                = 3;
+    optional string zone              = 4;
     optional string resource          = 5;
     optional int64  version           = 6;
     optional int32  status            = 7;

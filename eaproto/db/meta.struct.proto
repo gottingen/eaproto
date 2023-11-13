@@ -19,7 +19,6 @@ import "eaproto/common/optype.proto";
 import "eaproto/raft/raft.proto";
 import "eaproto/db/statistics.proto";
 import "eaproto/db/expr.proto";
-import "eaproto/ops/idc.struct.proto";
 
 package EA.proto;
 option cc_generic_services = true;
@@ -478,6 +477,21 @@ message VirtualIndexInfluence{
   optional int64   virtual_index_id = 1;
   optional string  virtual_index_name = 2;
   optional string  influenced_sql = 3;
+};
+
+message LogicalRoom {
+  repeated string logical_rooms = 1;
+};
+
+message PhysicalRoom {
+  required string logical_room = 1;
+  repeated string physical_rooms = 2;
+};
+
+message MovePhysicalRequest {
+  required string physical_room = 1;
+  required string old_logical_room = 2;
+  required string new_logical_room = 3;
 };
 
 message MetaManagerRequest {

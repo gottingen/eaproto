@@ -21,7 +21,6 @@ import "eaproto/common/optype.proto";
 import "eaproto/ops/plugin_struct.proto";
 import "eaproto/ops/dict_struct.proto";
 import "eaproto/ops/config_struct.proto";
-import "eaproto/ops/discovery_struct.proto";
 import "eaproto/common/version.proto";
 
 message OpsServiceRequest {
@@ -29,7 +28,6 @@ message OpsServiceRequest {
     optional PluginRequest         request_plugin    = 2;
     optional ConfigEntity          request_config    = 3;
     optional DictRequest           request_dict      = 4;
-    optional DiscoveryRequest      request_discovery = 5;
 };
 
 message OpsServiceResponse {
@@ -45,7 +43,6 @@ message QueryOpsServiceRequest {
     optional QueryConfigRequest           query_config    = 2;
     optional QueryPluginRequest           query_plugin    = 3;
     optional QueryDictRequest             query_dict      = 4;
-    optional DiscoveryRequest             query_discovery = 5;
 };
 
 message QueryOpsServiceResponse {
@@ -57,5 +54,4 @@ message QueryOpsServiceResponse {
   optional QueryConfigResponse config_response    = 5;
   optional QueryPluginResponse plugin_response    = 6;
   optional QueryDictResponse   dict_response      = 7;
-  optional DiscoveryResponse   discovery_response = 8;
 };

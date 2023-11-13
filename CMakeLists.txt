@@ -69,10 +69,12 @@ set(PROTO_FILES
         eaproto/db/store.interface.proto
         eaproto/db/store.struct.proto
         eaproto/db/test_decode.proto
+        eaproto/discovery/error_code.proto
+        eaproto/discovery/optype.proto
+        eaproto/discovery/discovery.struct.proto
+        eaproto/discovery/discovery.interface.proto
         eaproto/ops/config_struct.proto
         eaproto/ops/dict_struct.proto
-        eaproto/ops/discovery_struct.proto
-        eaproto/ops/idc.struct.proto
         eaproto/ops/plugin_struct.proto
         eaproto/ops/ops.struct.proto
         eaproto/ops/ops.interface.proto

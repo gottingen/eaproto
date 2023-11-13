@@ -1,0 +1,131 @@
+// Copyright 2023 The Elastic AI Search Authors.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      https://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+
+syntax="proto2";
+package EA.proto;
+option cc_generic_services = true;
+import "eaproto/discovery/error_code.proto";
+import "eaproto/discovery/optype.proto";
+
+message ZoneDistanceEntity {
+    required string     target_zone       = 2;
+    optional int64      distance          = 3; 
+}
+
+message Zone {
+    required string             name          = 1;
+    optional int64              zone_id       = 2;
+    repeated ZoneDistanceEntity distances     = 3;
+    map<string, string>         attributes    = 4;
+}
+
+enum AppAP {
+    ACCESS  = 1;
+    PROVIDE = 2;
+};
+
+message PrivilegeZone {
+  required string zone     = 1;
+  optional int64 zone_id   = 2;
+  optional AppAP privilege = 3;
+  optional bool force      = 4;
+};
+
+message AppIDPrivilege {
+    optional string                appid          = 1;
+    optional string                password       = 2;
+    optional string                token          = 3;
+    repeated PrivilegeZone         privilege_zone = 4;
+    repeated string                addresses      = 5;
+    optional bool                  encrypt        = 6;
+    optional bool                  need_auth_addr = 7;
+}
+
+message AppID {
+    required string                appid          = 1;
+    optional AppIDPrivilege        privilege      = 2; 
+    optional int64                 version        = 3;
+    optional int32                 status         = 4;
+    optional int64                 create_time_ms = 5;
+    optional int64                 renew_time     = 6;             
+    map<string, string>            attributes     = 7;
+};
+
+/// for server serialization
+message InstanceEntity {
+    optional string appid             = 1;
+    optional string address           = 2;
+    optional string zone              = 3;
+    optional string resource          = 5;
+    optional int64  version           = 6;
+    optional int32  status            = 7;
+    optional int64  registry_time_ms  = 8;
+    optional int64  renew_time_ms     = 9;
+    map<string, string> attributes    = 10;
+    map<string, string> params        = 11;
+}
+
+/// for server serialization
+message InstanceRegistry {
+    required string appid          = 1;
+    required string hostname       = 2;
+    required string address        = 3;
+    required string zone           = 4;
+    optional string color          = 5;
+    required string resource       = 6;
+    required int32  status         = 7;
+    map<string, string> attributes = 8;
+}
+
+/// for server serialization
+message InstanceHeartBeat {
+    required string      appid          = 1;
+    required string      address        = 2;
+    required string      resource       = 3;
+    required string      zone           = 4;
+    map<string, string>  params         = 5;
+}
+
+message DiscoveryOpRequest {
+    required DiscoveryOp            op_type            = 1;
+    optional Zone                   zone_request       = 2;
+    optional AppID                  appid_request      = 3;
+    optional InstanceRegistry       instance_registry  = 4;
+    optional InstanceHeartBeat      instance_heartbeat = 5;           
+}
+
+message DiscoveryOpResponse {
+    required DiscoveryOp           op_type    = 1;
+    required DiscoveryError        errcode    = 2;
+    // for raft or backup server
+    optional string                leader     = 3;
+    optional string                errmsg     = 4;
+    repeated Zone                  zone       = 5;
+    repeated AppID                 apps       = 6;
+    repeated InstanceEntity        instances  = 7;
+    optional int64                 timstamp   = 8;       
+}
+
+message DiscoveryRestfulResponse {
+    required int32           errcode   = 1;
+    optional string         errmsg     = 2;
+    repeated Zone           zone       = 3;
+    repeated AppID          apps       = 4;
+    repeated InstanceEntity instances  = 5;
+    optional int64          timstamp   = 6;       
+}
+
+message RestfulEmptyReques {
+}

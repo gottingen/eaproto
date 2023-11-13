@@ -17,18 +17,15 @@ syntax="proto2";
 package EA.proto;
 option cc_generic_services = true;
 
+/// for discovery will provide http interface, so 
+/// we make the error code must be consistent with the http error code. 
 
-message LogicalRoom {
-  repeated string logical_rooms = 1;
-};
-
-message PhysicalRoom {
-  required string logical_room = 1;
-  repeated string physical_rooms = 2;
-};
-
-message MovePhysicalRequest {
-  required string physical_room = 1;
-  required string old_logical_room = 2;
-  required string new_logical_room = 3;
+enum DiscoveryError {
+    SUCCESS        = 0;
+    NO_CHANGE      = 304;
+    BAD_PARAM      = 400;
+    NO_RIGHT       = 403;       
+    NOT_FOUND      = 404;
+    DIFF_INS       = 409;
+    INTERNAL_ERROR = 500;
 };

@@ -25,39 +25,81 @@ service DiscoveryService {
 }
 
 service DiscoveryRestfulService {
-  /// for restful
-  rpc create_zone(Zone) returns (DiscoveryRestfulResponse);
+  /// for bg
+  rpc create_bg(DiscoveryRestfulRequest) returns (DiscoveryRestfulResponse);
 
-  rpc set_zone(Zone) returns (DiscoveryRestfulResponse);
+  rpc remove_bg(DiscoveryRestfulRequest) returns (DiscoveryRestfulResponse);
+  
+  rpc set_bg(DiscoveryRestfulRequest) returns (DiscoveryRestfulResponse);
+  
+  /// for user privilege
+  rpc create_user(DiscoveryRestfulRequest) returns (DiscoveryRestfulResponse);
 
-  rpc remove_zone(Zone) returns (DiscoveryRestfulResponse);
+  rpc remove_user(DiscoveryRestfulRequest) returns (DiscoveryRestfulResponse);
+  
+  rpc remove_user_privilege(DiscoveryRestfulRequest) returns (DiscoveryRestfulResponse);
+  
+  rpc add_user_privilege(DiscoveryRestfulRequest) returns (DiscoveryRestfulResponse);
 
-  rpc create_appid(AppID) returns (DiscoveryRestfulResponse);
+  /// for zone
+  rpc create_zone(DiscoveryRestfulRequest) returns (DiscoveryRestfulResponse);
 
-  rpc remove_appid(AppID) returns (DiscoveryRestfulResponse);
+  rpc remove_zone(DiscoveryRestfulRequest) returns (DiscoveryRestfulResponse);
+  
+  rpc add_zone_attr(DiscoveryRestfulRequest) returns (DiscoveryRestfulResponse);
 
-  rpc set_appid_privilege(AppIDPrivilege) returns (DiscoveryRestfulResponse);
+  rpc remove_zone_attr(DiscoveryRestfulRequest) returns (DiscoveryRestfulResponse);
 
-  rpc set_appid_attr(AppID) returns (DiscoveryRestfulResponse);
 
-  rpc instance_registry(InstanceRegistry) returns (DiscoveryRestfulResponse);
+  /// for app
+  rpc create_appid(DiscoveryRestfulRequest) returns (DiscoveryRestfulResponse);
 
-  rpc instance_remove(InstanceRegistry) returns (DiscoveryRestfulResponse);
+  rpc remove_appid(DiscoveryRestfulRequest) returns (DiscoveryRestfulResponse);
 
-  rpc set_instance_remove_tombstone(InstanceRegistry) returns (DiscoveryRestfulResponse);
+  rpc add_appid_attr(DiscoveryRestfulRequest) returns (DiscoveryRestfulResponse);
 
-  rpc instance_heartbeat(InstanceHeartBeat) returns (DiscoveryRestfulResponse);
+  rpc remove_appid_attr(DiscoveryRestfulRequest) returns (DiscoveryRestfulResponse);
 
+  /// for instance
+  rpc instance_registry(DiscoveryRestfulRequest) returns (DiscoveryRestfulResponse);
+
+  rpc instance_remove(DiscoveryRestfulRequest) returns (DiscoveryRestfulResponse);
+
+  rpc remove_instance_tombstone(DiscoveryRestfulRequest) returns (DiscoveryRestfulResponse);
+
+  rpc instance_heartbeat(DiscoveryRestfulRequest) returns (DiscoveryRestfulResponse);
+
+  /// for query bg
+  rpc get_bg_list(DiscoveryRestfulRequest) returns (DiscoveryRestfulResponse);
+
+  rpc get_bg(DiscoveryRestfulRequest) returns (DiscoveryRestfulResponse);
+
+  rpc get_bg_zone_list(DiscoveryRestfulRequest) returns (DiscoveryRestfulResponse);
+
+  rpc get_bg_app_list(DiscoveryRestfulRequest) returns (DiscoveryRestfulResponse);
+
+  rpc get_bg_instance_list(DiscoveryRestfulRequest) returns (DiscoveryRestfulResponse);
+
+
+  /// for query zone
   rpc get_zone_list(RestfulEmptyReques) returns (DiscoveryRestfulResponse);
 
-  rpc get_zone(Zone) returns (DiscoveryRestfulResponse);
+  rpc get_zone(ZoneInfo) returns (DiscoveryRestfulResponse);
 
-  rpc get_zone_instance(Zone) returns (DiscoveryRestfulResponse);
+  rpc get_zone_app_list(ZoneInfo) returns (DiscoveryRestfulResponse);
 
+  rpc get_zone_instance_list(ZoneInfo) returns (DiscoveryRestfulResponse);
+  
+  /// for query app
   rpc get_appid_list(RestfulEmptyReques) returns (DiscoveryRestfulResponse);
 
-  rpc get_appid(AppID) returns (DiscoveryRestfulResponse);
+  rpc get_appid(AppInfo) returns (DiscoveryRestfulResponse);
 
   rpc get_appid_instance(AppIDFecth) returns (DiscoveryRestfulResponse);
+
+  /// for query user
+  rpc get_user_list(RestfulEmptyReques) returns (DiscoveryRestfulResponse);
+  rpc get_user_token(RestfulEmptyReques) returns (DiscoveryRestfulResponse);
+  rpc get_user(RestfulEmptyReques) returns (DiscoveryRestfulResponse);
 
 };

@@ -18,32 +18,48 @@ package EA.proto;
 option cc_generic_services = true;
 
 enum DiscoveryOp {
-    OP_NONE                         = 0;
-    CREATE_ZONE                     = 1;
-    SET_ZONE                        = 2;
-    REMOVE_ZONE                     = 3;
-    REMOVE_ZONE_TOMBSTONE           = 4;
+    DS_OP_NONE                         = 0;
+    DS_CREATE_BG                       = 1;
+    DS_REMOVE_BG                       = 2;
+    DS_MODIFY_BG                       = 3;
 
-    CREATE_APPID                    = 5;
-    REMVOE_APPID                    = 6;
-    REMOVE_APPID_TOMBSTONE          = 7;
-    SET_APPID_PR                    = 8;
-    SET_APPID_ATTR                  = 9;
+    DS_CREATE_ZONE                     = 4;
+    DS_ADD_ZONE_ATTR                   = 5;
+    DS_REMOVE_ZONE_ATTR                = 6;
+    DS_REMOVE_ZONE                     = 7;
 
-    INSTANCE_REGISTRY               = 10;
-    INSTANCE_REMOVE                 = 11;
-    INSTANCE_REMOVE_TOMBSTONE       = 12;         
-    INSTANCE_HEATBEAT               = 13;
+    DS_CREATE_USER                     = 8;
+    DS_REMOVE_USER                     = 9;
+    DS_RESET_USER_PASSWD               = 10;
+    DS_ADD_USER_PRIVILEGE              = 11;
+    DS_REMOVE_USER_PRIVILEGE           = 12;
 
-    QUERY_ZONE_LIST                 = 14;
-    QUERY_ZONE                      = 15;
-    QUERY_ZONE_TOMBSTONE            = 16;
-    QUERY_ZONE_LIST_TOMBSTONE       = 17;
-    QUERY_ZONE_INSTANCE             = 18;
+    DS_CREATE_APPID                    = 13;
+    DS_REMVOE_APPID                    = 14;
+    DS_ADD_APPID_ATTR                  = 15;
+    DS_REMOVE_APPID_ATTR               = 16;
 
-    QUERY_APPID_LIST                = 19;
-    QUERY_APPID                     = 20;
-    QUERY_APPID_LIST_TOMBSTONE      = 21;
-    QUERY_APPID_TOMBSTONE           = 22;
-    QUERY_APPID_INSTANCE            = 23;
+    DS_INSTANCE_REGISTRY               = 17;
+    DS_INSTANCE_REMOVE                 = 18;
+    DS_INSTANCE_REMOVE_TOMBSTONE       = 19;         
+    DS_INSTANCE_HEATBEAT               = 20;
+
+    DS_QUERY_BG_LIST                   = 21;
+    DS_QUERY_BG                        = 22;
+    DS_QUERY_BG_ZONE_LIST              = 23;
+    DS_QUERY_BG_APP_LIST               = 24;
+    DS_QUERY_BG_INSTANCE_LIST          = 25;
+
+    DS_QUERY_ZONE_LIST                 = 26;
+    DS_QUERY_ZONE                      = 27;
+    DS_QUERY_ZONE_APP_LIST             = 28;
+    DS_QUERY_ZONE_INSTANCE_LIST        = 29;
+
+    DS_QUERY_APPID_LIST                = 30;
+    DS_QUERY_APPID                     = 31;
+    DS_QUERY_APPID_INSTANCE            = 32;
+
+    DS_QUERY_UP_LIST                   = 33;
+    DS_QUERY_UP_TOKEN                  = 34;
+    DS_QUERY_UP                        = 35;
 }

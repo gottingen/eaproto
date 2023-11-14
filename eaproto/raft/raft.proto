@@ -17,13 +17,33 @@ syntax="proto2";
 package EA.proto;
 option cc_generic_services = true;
 
-message NameSpaceInfo {
-  required string namespace_name = 1;
-  optional int64 namespace_id = 2;
-  optional int64 quota = 3;
-  optional int64 version = 4;
-  optional bool deleted = 5;
-  optional string resource_tag = 6;
-  optional int64 byte_size_per_record = 7;
-  optional int64 replica_num = 8;
+import "eaproto/common/error_code.proto";
+
+enum RaftControlOp {
+  SetPeer = 1;
+  TransLeader = 2;
+  SnapShot = 3;
+  GetLeader = 4;
+  ShutDown = 5;
+  Vote = 6;
+  ResetVoteTime = 7;
+};
+
+// operation request/response
+
+message RaftControlRequest {
+  required RaftControlOp op_type = 1;
+  optional int64 region_id = 2;
+  optional string new_leader = 3;
+  repeated string old_peers = 4;
+  repeated string new_peers = 5;
+  optional int64 election_time = 6;
+  optional bool force = 7;
+};
+
+message RaftControlResponse {
+  required int64 region_id = 1;
+  required ErrCode errcode = 2;
+  optional string leader = 3;
+  optional string errmsg = 4;
 };

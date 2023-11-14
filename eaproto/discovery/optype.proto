@@ -1,0 +1,65 @@
+// Copyright 2023 The Elastic AI Search Authors.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      https://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+
+syntax="proto2";
+package EA.proto;
+option cc_generic_services = true;
+
+enum DiscoveryOp {
+    DS_OP_NONE                         = 0;
+    DS_CREATE_BG                       = 1;
+    DS_REMOVE_BG                       = 2;
+    DS_MODIFY_BG                       = 3;
+
+    DS_CREATE_ZONE                     = 4;
+    DS_ADD_ZONE_ATTR                   = 5;
+    DS_REMOVE_ZONE_ATTR                = 6;
+    DS_REMOVE_ZONE                     = 7;
+
+    DS_CREATE_USER                     = 8;
+    DS_REMOVE_USER                     = 9;
+    DS_RESET_USER_PASSWD               = 10;
+    DS_ADD_USER_PRIVILEGE              = 11;
+    DS_REMOVE_USER_PRIVILEGE           = 12;
+
+    DS_CREATE_APPID                    = 13;
+    DS_REMVOE_APPID                    = 14;
+    DS_ADD_APPID_ATTR                  = 15;
+    DS_REMOVE_APPID_ATTR               = 16;
+
+    DS_INSTANCE_REGISTRY               = 17;
+    DS_INSTANCE_REMOVE                 = 18;
+    DS_INSTANCE_REMOVE_TOMBSTONE       = 19;         
+    DS_INSTANCE_HEATBEAT               = 20;
+
+    DS_QUERY_BG_LIST                   = 21;
+    DS_QUERY_BG                        = 22;
+    DS_QUERY_BG_ZONE_LIST              = 23;
+    DS_QUERY_BG_APP_LIST               = 24;
+    DS_QUERY_BG_INSTANCE_LIST          = 25;
+
+    DS_QUERY_ZONE_LIST                 = 26;
+    DS_QUERY_ZONE                      = 27;
+    DS_QUERY_ZONE_APP_LIST             = 28;
+    DS_QUERY_ZONE_INSTANCE_LIST        = 29;
+
+    DS_QUERY_APPID_LIST                = 30;
+    DS_QUERY_APPID                     = 31;
+    DS_QUERY_APPID_INSTANCE            = 32;
+
+    DS_QUERY_UP_LIST                   = 33;
+    DS_QUERY_UP_TOKEN                  = 34;
+    DS_QUERY_UP                        = 35;
+}

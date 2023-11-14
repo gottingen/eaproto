@@ -17,13 +17,30 @@ syntax="proto2";
 package EA.proto;
 option cc_generic_services = true;
 
-message NameSpaceInfo {
-  required string namespace_name = 1;
-  optional int64 namespace_id = 2;
-  optional int64 quota = 3;
-  optional int64 version = 4;
-  optional bool deleted = 5;
-  optional string resource_tag = 6;
-  optional int64 byte_size_per_record = 7;
-  optional int64 replica_num = 8;
+
+enum PrimitiveType {
+  INVALID_TYPE = 0;
+  NULL_TYPE = 1;
+  BOOL = 2;
+  INT8 = 3;
+  INT16 = 4;
+  INT32 = 5;
+  INT64 = 6;
+  UINT8 = 7;
+  UINT16 = 8;
+  UINT32 = 9;
+  UINT64 = 10;
+  FLOAT = 11;
+  DOUBLE = 12;
+  STRING = 13;
+  DATETIME = 14;
+  TIMESTAMP = 15;
+  DATE = 16;
+  HLL = 17;
+  TIME = 18;
+  PLACE_HOLDER = 19;
+  HEX = 20;
+  BITMAP = 21;
+  TDIGEST = 22;
+  MAXVALUE_TYPE = 23;
 };

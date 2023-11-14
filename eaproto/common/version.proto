@@ -17,13 +17,8 @@ syntax="proto2";
 package EA.proto;
 option cc_generic_services = true;
 
-message NameSpaceInfo {
-  required string namespace_name = 1;
-  optional int64 namespace_id = 2;
-  optional int64 quota = 3;
-  optional int64 version = 4;
-  optional bool deleted = 5;
-  optional string resource_tag = 6;
-  optional int64 byte_size_per_record = 7;
-  optional int64 replica_num = 8;
+message Version {
+  required int32 major = 1;
+  required int32 minor = 2;
+  required int32 patch = 3;
 };

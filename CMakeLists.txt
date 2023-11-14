@@ -24,7 +24,7 @@ project(eaproto CXX)
 set(PROJECT_DESCRIPTION "Hercules is an ahead of time compiler for a subset of the Python language framework.")
 set(PROJECT_VERSION_MAJOR 0)
 set(PROJECT_VERSION_MINOR 1)
-set(PROJECT_VERSION_PATCH 5)
+set(PROJECT_VERSION_PATCH 6)
 set(PROJECT_VERSION "${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH}")
 set(CARBIN_VERSION 0.2.0)
 list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/carbin_cmake)
@@ -53,8 +53,34 @@ include(carbin_cc_proto)
 #file(GLOB PROTO_FILES "${PROJECT_SOURCE_DIR}/elasticann/proto/*.proto")
 set(PROTO_FILES
         eaproto/common/error_code.proto
-        eaproto/meta/meta_struct.proto
+        eaproto/common/optype.proto
+        eaproto/common/version.proto
+        eaproto/db/base_subscribe.proto
+        eaproto/db/binlog.proto
+        eaproto/db/common.proto
+        eaproto/db/console.proto eaproto/db/event.proto
+        eaproto/db/expr.proto
+        eaproto/db/fc.proto
+        eaproto/db/meta.interface.proto
+        eaproto/db/meta.struct.proto
+        eaproto/db/plan.proto
+        eaproto/db/reverse.proto
+        eaproto/db/statistics.proto
+        eaproto/db/store.interface.proto
+        eaproto/db/store.struct.proto
+        eaproto/db/test_decode.proto
+        eaproto/discovery/optype.proto
+        eaproto/discovery/discovery.struct.proto
+        eaproto/discovery/discovery.interface.proto
+        eaproto/ops/config_struct.proto
+        eaproto/ops/dict_struct.proto
+        eaproto/ops/plugin_struct.proto
+        eaproto/ops/ops.struct.proto
+        eaproto/ops/ops.interface.proto
+        eaproto/raft/raft.proto
+        eaproto/router/router.interface.proto
 )
+
 file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/output/include/eaproto)
 set(PROTOC_FLAGS ${PROTOC_FLAGS} -I${PROTOBUF_INCLUDE_DIR} -I${PROJECT_SOURCE_DIR})
 
@@ -96,7 +122,7 @@ install(DIRECTORY ${PROJECT_NAME}
         FILES_MATCHING
         PATTERN "*.inc"
         PATTERN "*.h"
-        )
+)
 
 # Layout. This works for all platforms:
 #   * <prefix>/lib*/cmake/<PROJECT-NAME>

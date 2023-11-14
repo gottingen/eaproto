@@ -16,14 +16,34 @@
 syntax="proto2";
 package EA.proto;
 option cc_generic_services = true;
+import "eaproto/common/error_code.proto";
+import "eaproto/common/version.proto";
 
-message NameSpaceInfo {
-  required string namespace_name = 1;
-  optional int64 namespace_id = 2;
-  optional int64 quota = 3;
-  optional int64 version = 4;
-  optional bool deleted = 5;
-  optional string resource_tag = 6;
-  optional int64 byte_size_per_record = 7;
-  optional int64 replica_num = 8;
+enum ConfigType {
+  CF_JSON = 0;
+  CF_GFLAGS = 1;
+  CF_TEXT = 3;
+  CF_TOML = 4;
+  CF_XML = 5;
+  CF_YAML = 6;
+  CF_INI = 7;
 };
+
+message ConfigEntity {
+  required string name = 1;
+  optional Version version = 2;
+  optional string content = 3;
+  optional ConfigType type = 4 [default = CF_JSON];
+  required int32 time = 5;
+}
+
+message QueryConfigRequest {
+  required string name = 1;
+  optional Version version = 2;
+}
+
+message QueryConfigResponse {
+  optional ConfigEntity config = 1;
+  repeated string config_list = 2;
+  repeated Version versions = 3;
+}

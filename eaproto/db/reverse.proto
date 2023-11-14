@@ -1,4 +1,5 @@
-// Copyright 2023 The Elastic AI Search Authors.
+
+// Copyright 2023 The Turbo Authors.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,18 +13,23 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-
 syntax="proto2";
 package EA.proto;
-option cc_generic_services = true;
+//option cc_enable_arenas = true;
 
-message NameSpaceInfo {
-  required string namespace_name = 1;
-  optional int64 namespace_id = 2;
-  optional int64 quota = 3;
-  optional int64 version = 4;
-  optional bool deleted = 5;
-  optional string resource_tag = 6;
-  optional int64 byte_size_per_record = 7;
-  optional int64 replica_num = 8;
+enum ReverseNodeType {
+    REVERSE_NODE_NORMAL = 0;
+    REVERSE_NODE_DELETE = 1;
+};
+
+//--common
+message CommonReverseNode
+{
+    optional bytes key = 1;//must
+    required ReverseNodeType flag = 2;//must
+    optional float weight = 3;
+};
+message CommonReverseList
+{
+    repeated CommonReverseNode reverse_nodes = 1;//must
 };

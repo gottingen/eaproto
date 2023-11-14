@@ -1,0 +1,212 @@
+// Copyright 2023 The Elastic AI Search Authors.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      https://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+
+syntax="proto2";
+package EA.proto;
+option cc_generic_services = true;
+import "eaproto/common/error_code.proto";
+import "eaproto/discovery/optype.proto";
+
+//
+//1. load bg
+//2. load zone
+//3. load user
+//4. load app 
+message BusinessGroupInfo {
+  required string bg_name   = 1;
+  optional int64  bg_id     = 2;
+  optional int64  version   = 3;
+  optional bool   deleted   = 4;
+};
+
+message ZoneDistanceEntity {
+    required string     target_zone       = 2;
+    optional int64      distance          = 3; 
+}
+
+message ZoneInfo {
+    required string             name          = 1;
+    optional int64              zone_id       = 2;
+    required string             bg_name       = 3;
+    optional int64              bg_id         = 4;
+    required int32              status        = 5; //< 0 normal, 1 stoped 3, down grade
+    map<string, string>         attributes    = 6;
+}
+
+message DiscoveryPrivilege {
+    required bool access   = 1 [default = false];
+    required bool provide  = 2 [default = false];
+    required bool admin    = 3 [default = false];
+};
+
+message PrivilegeZone {
+    required string              zone     = 1;
+    optional int64               zone_id  = 2;
+    optional bool                force    = 3;
+    optional bool                access   = 4 [default = false];
+    optional bool                provide  = 5 [default = false];
+};
+
+message PrivilegeApp {
+    required string              app        = 1;
+    optional int64               app_id     = 2;
+    optional bool                force      = 3;
+     optional bool               access     = 4 [default = false];
+    optional bool                provide    = 5 [default = false];
+};
+
+message PrivilegeBG {
+    required string              bg_name    = 1;
+    optional int64               bg_id      = 2;
+    optional bool                force      = 3;
+    optional bool                access     = 4 [default = false];
+    optional bool                provide    = 5 [default = false];
+    optional bool                admin      = 6 [default = false];
+};
+
+message DiscoveryUserPrivilege {
+    required string         username        = 1;
+    optional int64          user_id         = 2;
+    optional string         password        = 3;
+    optional string         token           = 4;
+    optional string         bg_name         = 5;
+    optional int64          bg_id           = 6;
+    repeated PrivilegeBG    privilege_bg    = 7;
+    repeated PrivilegeZone  privilege_zone  = 8;
+    repeated PrivilegeApp   privilege_app   = 9;
+    repeated string         ip              = 10;
+    repeated string         own_apps        = 11;
+    optional int64          version         = 12;
+    optional bool           need_auth_addr  = 13;
+    optional string         resource_tag    = 14;
+    optional bool           is_global_admin = 15;  // can admin user for all bg but not global admin
+    optional bool           is_super_admin  = 16;  
+};
+
+
+message AppInfo {
+    required string                appid          = 1;
+    optional int64                 id             = 2;
+    required string                username       = 3;
+    optional int64                 user_id        = 4;
+    required string                bg_name        = 5;
+    optional int64                 bg_id          = 6;
+    optional int64                 version        = 7;
+    optional int32                 status         = 8;
+    optional int64                 create_time_ms = 9;
+    optional int64                 renew_time     = 10;             
+    map<string, string>            attributes     = 11;
+};
+
+message AppIDFecth {
+    required string                appid          = 1;
+    optional string                token          = 2; 
+    required int32                 status         = 3;
+    repeated string                zones          = 4;
+    required string                resource       = 5;
+};
+
+
+/// for server serialization
+message InstanceEntity {
+    optional string appid             = 1;
+    optional string address           = 2;
+    optional string id                = 3;
+    optional string zone              = 4;
+    optional string resource          = 5;
+    optional int64  version           = 6;
+    optional int32  status            = 7;
+    optional int64  registry_time_ms  = 8;
+    optional int64  renew_time_ms     = 9;
+    map<string, string> attributes    = 10;
+    map<string, string> params        = 11;
+}
+
+/// for server serialization
+message InstanceRegistry {
+    required string appid          = 1;
+    required string hostname       = 2;
+    required string address        = 3;
+    required string zone           = 4;
+    optional string color          = 5;
+    required string resource       = 6;
+    required int32  status         = 7;
+    map<string, string> attributes = 8;
+}
+
+/// for server serialization
+message InstanceHeartBeat {
+    required string      appid          = 1;
+    required string      address        = 2;
+    required string      resource       = 3;
+    required string      zone           = 4;
+    map<string, string>  params         = 5;
+}
+
+message AuthInfo {
+    optional string user   = 1;
+    optional string passwd = 2;
+    optional string token  = 3;
+}
+message DiscoveryOpRequest {
+    required DiscoveryOp            op_type            = 1;
+    required AuthInfo               auth               = 2;  
+    optional ZoneInfo               zone_request       = 3;
+    optional AppInfo                appid_request      = 4;
+    optional InstanceRegistry       instance_registry  = 5;
+    optional InstanceHeartBeat      instance_heartbeat = 6;
+    optional AppIDFecth             appid_fetch        = 7;
+    optional DiscoveryUserPrivilege privilege_request  = 8;
+    optional BusinessGroupInfo      bg_request         = 9;           
+}
+
+message DiscoveryOpResponse {
+    required DiscoveryOp           op_type             = 1;
+    required ErrCode               errcode             = 2;
+    // for raft or backup server
+    optional string                 leader             = 3;
+    optional string                 errmsg             = 4;
+    repeated ZoneInfo               zone               = 5;
+    repeated AppInfo                apps               = 6;
+    repeated InstanceEntity         instances          = 7;
+    optional int64                  timstamp           = 8;
+    optional DiscoveryUserPrivilege privilege          = 9;
+    optional BusinessGroupInfo      bg_info            = 10;       
+}
+
+message DiscoveryRestfulRequest {
+    required AuthInfo               auth       = 1;
+    optional ZoneInfo               zone       = 2;
+    optional AppInfo                appid      = 3;
+    optional InstanceRegistry       registry   = 4;
+    optional InstanceHeartBeat      heartbeat  = 5;
+    optional AppIDFecth             fetch      = 6;
+    optional DiscoveryUserPrivilege privilege  = 7;
+    optional BusinessGroupInfo      bg         = 8;           
+}
+
+message DiscoveryRestfulResponse {
+    required int32                  errcode            = 1;
+    optional string                 errmsg             = 2;
+    repeated ZoneInfo               zone               = 3;
+    repeated AppInfo                apps               = 4;
+    repeated InstanceEntity         instances          = 5;
+    optional int64                  timstamp           = 6;
+    optional DiscoveryUserPrivilege privilege          = 9;
+    optional BusinessGroupInfo      bg_info            = 10;       
+}
+
+message RestfulEmptyReques {
+}

@@ -17,13 +17,30 @@ syntax="proto2";
 package EA.proto;
 option cc_generic_services = true;
 
-message NameSpaceInfo {
-  required string namespace_name = 1;
-  optional int64 namespace_id = 2;
-  optional int64 quota = 3;
-  optional int64 version = 4;
-  optional bool deleted = 5;
-  optional string resource_tag = 6;
-  optional int64 byte_size_per_record = 7;
-  optional int64 replica_num = 8;
+import "eaproto/ops/ops.struct.proto";
+
+service ConfigService {
+
+  // config management
+  rpc config_manage(OpsServiceRequest) returns (OpsServiceResponse);
+  // config query
+  rpc config_query(QueryOpsServiceRequest) returns (QueryOpsServiceResponse);
+
+};
+
+service PluginService {
+
+  // plugin management
+  rpc plugin_manage(OpsServiceRequest) returns (OpsServiceResponse);
+  // plugin query
+  rpc plugin_query(QueryOpsServiceRequest) returns (QueryOpsServiceResponse);
+
+};
+
+service DictService {
+  // dict management
+  rpc dict_manage(OpsServiceRequest) returns (OpsServiceResponse);
+  // dict query
+  rpc dict_query(QueryOpsServiceRequest) returns (QueryOpsServiceResponse);
+
 };

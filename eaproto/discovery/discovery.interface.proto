@@ -50,6 +50,8 @@ service DiscoveryRestfulService {
 
   rpc remove_zone_attr(DiscoveryRestfulRequest) returns (DiscoveryRestfulResponse);
 
+  rpc set_zone(DiscoveryRestfulRequest) returns (DiscoveryRestfulResponse);
+
 
   /// for app
   rpc create_appid(DiscoveryRestfulRequest) returns (DiscoveryRestfulResponse);

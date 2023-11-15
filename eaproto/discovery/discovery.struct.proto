@@ -79,10 +79,10 @@ message PrivilegeBG {
 message DiscoveryUserPrivilege {
     required string         username        = 1;
     optional int64          user_id         = 2;
-    optional string         password        = 3;
+    required string         password        = 3;
     optional string         token           = 4;
-    optional string         bg_name         = 5;
-    optional int64          bg_id           = 6;
+    required string         bg_name         = 5 [default = "root"];
+    optional int64          bg_id           = 6 [default = 0];
     repeated PrivilegeBG    privilege_bg    = 7;
     repeated PrivilegeZone  privilege_zone  = 8;
     repeated PrivilegeApp   privilege_app   = 9;
@@ -93,8 +93,6 @@ message DiscoveryUserPrivilege {
     optional string         resource_tag    = 14;
     required bool           is_global_admin = 15 [default = false];  // can admin user for all bg but not global admin
     required bool           is_super_admin  = 16 [default = false];
-    required bool           is_bg_admin     = 17 [default = false];
-    required bool           is_admin        = 18 [default = false];  
 };
 
 
@@ -158,9 +156,9 @@ message InstanceHeartBeat {
 }
 
 message AuthInfo {
-    optional string user   = 1;
-    optional string passwd = 2;
-    optional string token  = 3;
+    optional string user_name   = 1;
+    optional string passwd      = 2;
+    optional string token       = 3;
 }
 message DiscoveryOpRequest {
     required DiscoveryOp            op_type            = 1;

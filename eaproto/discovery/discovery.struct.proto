@@ -83,16 +83,13 @@ message DiscoveryUserPrivilege {
     optional string         token           = 4;
     required string         bg_name         = 5 [default = "root"];
     optional int64          bg_id           = 6 [default = 0];
-    repeated PrivilegeBG    privilege_bg    = 7;
-    repeated PrivilegeZone  privilege_zone  = 8;
-    repeated PrivilegeApp   privilege_app   = 9;
-    repeated string         ip              = 10;
-    repeated string         own_apps        = 11;
-    optional int64          version         = 12;
-    required bool           need_auth_addr  = 13 [default = false];
-    optional string         resource_tag    = 14;
-    required bool           is_global_admin = 15 [default = false];  // can admin user for all bg but not global admin
-    required bool           is_super_admin  = 16 [default = false];
+    repeated string         ip              = 7;
+    repeated string         own_apps        = 8;
+    optional int64          version         = 9;
+    required bool           need_auth_addr  = 10 [default = false];
+    optional string         resource_tag    = 11;
+    required bool           is_global_admin = 12 [default = false];  // can admin user for all bg but not global admin
+    required bool           is_super_admin  = 13 [default = false];
 };
 
 
@@ -108,9 +105,10 @@ message AppInfo {
     optional int64                 create_time_ms = 9;
     optional int64                 renew_time     = 10;             
     map<string, string>            attributes     = 11;
+    repeated string                visitor        = 12;
 };
 
-message AppIDFecth {
+message AppFecth {
     required string                appid          = 1;
     optional string                token          = 2; 
     required int32                 status         = 3;
@@ -164,10 +162,10 @@ message DiscoveryOpRequest {
     required DiscoveryOp            op_type            = 1;
     required AuthInfo               auth               = 2;  
     optional ZoneInfo               zone_request       = 3;
-    optional AppInfo                appid_request      = 4;
+    optional AppInfo                app_request        = 4;
     optional InstanceRegistry       instance_registry  = 5;
     optional InstanceHeartBeat      instance_heartbeat = 6;
-    optional AppIDFecth             appid_fetch        = 7;
+    optional AppFecth               app_fetch          = 7;
     optional DiscoveryUserPrivilege privilege_request  = 8;
     optional BusinessGroupInfo      bg_request         = 9;           
 }
@@ -192,7 +190,7 @@ message DiscoveryRestfulRequest {
     optional AppInfo                appid      = 3;
     optional InstanceRegistry       registry   = 4;
     optional InstanceHeartBeat      heartbeat  = 5;
-    optional AppIDFecth             fetch      = 6;
+    optional AppFecth               fetch      = 6;
     optional DiscoveryUserPrivilege privilege  = 7;
     optional BusinessGroupInfo      bg         = 8;           
 }

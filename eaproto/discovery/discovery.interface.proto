@@ -58,9 +58,13 @@ service DiscoveryRestfulService {
 
   rpc remove_appid(DiscoveryRestfulRequest) returns (DiscoveryRestfulResponse);
 
-  rpc add_appid_attr(DiscoveryRestfulRequest) returns (DiscoveryRestfulResponse);
+  rpc add_app_attr(DiscoveryRestfulRequest) returns (DiscoveryRestfulResponse);
 
-  rpc remove_appid_attr(DiscoveryRestfulRequest) returns (DiscoveryRestfulResponse);
+  rpc remove_app_attr(DiscoveryRestfulRequest) returns (DiscoveryRestfulResponse);
+
+  rpc remove_app_visitor_attr(DiscoveryRestfulRequest) returns (DiscoveryRestfulResponse);
+
+  rpc add_app_visitor_attr(DiscoveryRestfulRequest) returns (DiscoveryRestfulResponse);
 
   /// for instance
   rpc instance_registry(DiscoveryRestfulRequest) returns (DiscoveryRestfulResponse);
@@ -97,7 +101,7 @@ service DiscoveryRestfulService {
 
   rpc get_appid(AppInfo) returns (DiscoveryRestfulResponse);
 
-  rpc get_appid_instance(AppIDFecth) returns (DiscoveryRestfulResponse);
+  rpc get_appid_instance(AppFecth) returns (DiscoveryRestfulResponse);
 
   /// for query user
   rpc get_user_list(RestfulEmptyReques) returns (DiscoveryRestfulResponse);

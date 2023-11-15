@@ -36,32 +36,34 @@ enum DiscoveryOp {
     DS_ADD_USER_PRIVILEGE              = 13;
     DS_REMOVE_USER_PRIVILEGE           = 14;
 
-    DS_CREATE_APPID                    = 15;
-    DS_REMVOE_APPID                    = 16;
-    DS_ADD_APPID_ATTR                  = 17;
-    DS_REMOVE_APPID_ATTR               = 18;
+    DS_CREATE_APP                      = 15;
+    DS_REMVOE_APP                      = 16;
+    DS_ADD_APP_ATTR                    = 17;
+    DS_REMOVE_APP_ATTR                 = 18;
+    DS_ADD_APP_VISITOR                 = 19;
+    DS_REMOVE_APP_VISITOR              = 20;
 
-    DS_INSTANCE_REGISTRY               = 19;
-    DS_INSTANCE_REMOVE                 = 20;
-    DS_INSTANCE_REMOVE_TOMBSTONE       = 21;         
-    DS_INSTANCE_HEATBEAT               = 22;
+    DS_INSTANCE_REGISTRY               = 21;
+    DS_INSTANCE_REMOVE                 = 22;
+    DS_INSTANCE_REMOVE_TOMBSTONE       = 23;         
+    DS_INSTANCE_HEATBEAT               = 24;
 
-    DS_QUERY_BG_LIST                   = 23;
-    DS_QUERY_BG                        = 24;
-    DS_QUERY_BG_ZONE_LIST              = 25;
-    DS_QUERY_BG_APP_LIST               = 26;
-    DS_QUERY_BG_INSTANCE_LIST          = 27;
+    DS_QUERY_BG_LIST                   = 25;
+    DS_QUERY_BG                        = 26;
+    DS_QUERY_BG_ZONE_LIST              = 27;
+    DS_QUERY_BG_APP_LIST               = 28;
+    DS_QUERY_BG_INSTANCE_LIST          = 29;
 
-    DS_QUERY_ZONE_LIST                 = 28;
-    DS_QUERY_ZONE                      = 29;
-    DS_QUERY_ZONE_APP_LIST             = 30;
-    DS_QUERY_ZONE_INSTANCE_LIST        = 31;
+    DS_QUERY_ZONE_LIST                 = 30;
+    DS_QUERY_ZONE                      = 31;
+    DS_QUERY_ZONE_APP_LIST             = 32;
+    DS_QUERY_ZONE_INSTANCE_LIST        = 33;
 
-    DS_QUERY_APPID_LIST                = 32;
-    DS_QUERY_APPID                     = 33;
-    DS_QUERY_APPID_INSTANCE            = 34;
+    DS_QUERY_APPID_LIST                = 34;
+    DS_QUERY_APPID                     = 35;
+    DS_QUERY_APPID_INSTANCE            = 36;
 
-    DS_QUERY_UP_LIST                   = 35;
-    DS_QUERY_UP_TOKEN                  = 36;
-    DS_QUERY_UP                        = 37;
+    DS_QUERY_UP_LIST                   = 37;
+    DS_QUERY_UP_TOKEN                  = 38;
+    DS_QUERY_UP                        = 39;
 }

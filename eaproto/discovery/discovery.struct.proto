@@ -182,7 +182,7 @@ message DiscoveryOpResponse {
     optional int64                  timstamp           = 8;
     optional DiscoveryUserPrivilege privilege          = 9;
     optional BusinessGroupInfo      bg_info            = 10;
-    optional BusinessGroupInfo      user_list          = 11;       
+    repeated string                 user_list          = 11;       
 }
 
 message DiscoveryRestfulRequest {
@@ -205,7 +205,7 @@ message DiscoveryRestfulResponse {
     optional int64                  timstamp           = 6;
     optional DiscoveryUserPrivilege privilege          = 7;
     optional BusinessGroupInfo      bg_info            = 8;  
-    optional BusinessGroupInfo      user_list          = 9;     
+    repeated string                 user_list          = 9;     
 }
 
 message RestfulEmptyReques {

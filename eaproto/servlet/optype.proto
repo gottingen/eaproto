@@ -1,0 +1,66 @@
+// Copyright 2023 The Elastic AI Search Authors.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      https://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+
+syntax="proto2";
+package EA.proto;
+option cc_generic_services = true;
+
+enum ServletOp {
+    SOP_NONE                           = 0;
+    SOP_CREATE_SERVLET_SPACE           = 1;
+    SOP_REMOVE_SERVLET_SPACE           = 2;
+
+    SOP_CREATE_SERVLET                 = 3;
+    SOP_REMOVE_SERVLET                 = 4;
+
+    SOP_CREATE_SERVLET_ZONE            = 7;
+    SOP_REMOVE_SERVLET_ZONE            = 8;
+    SOP_SET_SERVLET_ZONE               = 9;
+
+
+    SOP_INIT_ADMIN_USER                = 10;
+    SOP_CREATE_USER                    = 11;
+    SOP_REMOVE_USER                    = 12;
+    SOP_RESET_PASSWD                   = 13;
+    SOP_ADD_PRIVELIGE                  = 14;
+    SOP_REMOVE_PRIVELIGE               = 15;
+    SOP_ADD_ACCESS_IP_ADMIN            = 16;
+    SOP_REMOVE_ACCESS_IP_ADMIN         = 17;
+
+
+    SOP_CREATE_APP                     = 18;
+    SOP_REMOVE_APP                     = 19;
+    SOP_ADD_ACCESS_IP                  = 20;
+    SOP_REMOVE_ACCESS_IP               = 21;
+    SOP_ADD_ACCESS_USER                = 22;
+    SOP_REMOVE_ACCESS_USER             = 23;
+    SOP_ADD_DEPLOY_ZONE                = 24;
+    SOP_REMOVE_DEPLOY_ZONE             = 25;
+
+
+    SOP_INSTANCE_REGISTRY               = 26;
+    SOP_INSTANCE_REMOVE                 = 27;
+    SOP_INSTANCE_HEATBEAT               = 28;
+
+    SOP_QUERY_SERVLET_SPACE_LIST        = 29;
+    SOP_QUERY_SERVLET_SPACE             = 30;
+
+    SOP_QUERY_SERVLET                   = 31;
+    SOP_QUERY_APP                       = 32;
+    SOP_QUERY_ZONE                      = 33;
+
+    SOP_QUERY_USER_LIST                 = 34;
+    SOP_QUERY_USER_TOKEN                = 35;
+}

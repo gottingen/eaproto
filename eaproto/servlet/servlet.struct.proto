@@ -1,0 +1,181 @@
+// Copyright 2023 The Elastic AI Search Authors.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      https://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+
+syntax="proto2";
+package EA.proto;
+option cc_generic_services = true;
+import "eaproto/common/error_code.proto";
+import "eaproto/discovery/optype.proto";
+
+//
+//1. load Servlet
+//2. load ServletZone
+//3. load user
+//4. load app 
+
+message ServletSpace {
+    repeated string servlet_space_list   = 1;
+};
+
+// servlet key servlet_space + servlet
+message Servlet {
+    required string servlet_space = 1;
+    repeated string servlet_list  = 2;
+};
+
+// Zone key servlet_space + servlet + zone
+message ServletZone {
+    required string             name                = 1;
+    required string             servlet_space       = 2;
+    required string             servlet             = 3;
+    required int32              status              = 4; //< 0 normal, 1 stoped 3, down grade
+}
+
+// App key servlet_space + servlet + app
+message ServletApp {
+    required string                app_name          = 1;
+    required string                servlet_space     = 2;
+    required string                servlet           = 3;
+    optional int64                 version           = 4;
+    optional int32                 status            = 5;
+    optional int64                 create_time_ms    = 6;
+    optional int64                 renew_time        = 7;
+    repeated string                deploy_zone       = 9;
+    repeated string                access_ip         = 10;
+    repeated string                access_user       = 11;
+    repeated string                provide_user      = 12;
+    required bool                  need_auth_addr    = 13 [default = false];             
+};
+
+
+/// for server serialization
+message InstanceEntity {
+    optional string servlet_space     = 1;
+    optional string servlet           = 2;
+    optional string zone              = 3;
+    optional string app               = 4;
+    optional string address           = 5;
+    optional string env               = 6;
+    optional string color             = 7;
+    optional int64  version           = 8;
+    optional int32  status            = 9;
+    optional int64  registry_time_ms  = 10;
+    optional int64  renew_time_ms     = 11;
+}
+
+message ServletUser {
+    required string         username        = 1;
+    required string         password        = 2;
+    optional string         token           = 3;
+    repeated string         servlet_space   = 4;
+    repeated string         access_ip       = 5;
+    optional int64          version         = 6;
+    required bool           need_auth_addr  = 7 [default = false];
+    required bool           is_super_admin  = 8 [default = false];
+    required bool           is_admin        = 9 [default = false];
+};
+
+message AppFecth {
+    required string                servlet_space  = 1;
+    required string                servlet        = 2;
+    repeated string                zone           = 3;
+    required string                color          = 4;
+    required string                env            = 5;
+    required string                app            = 6;
+    optional string                token          = 7; 
+    required int32                 status         = 8;
+
+};
+
+
+
+
+/// for server serialization
+message InstanceRegistry {
+    required string                servlet_space  = 1;
+    required string                servlet        = 2;
+    repeated string                zone           = 3;
+    required string                color          = 4;
+    required string                env            = 5;
+    required string                app            = 6;
+    optional string                token          = 7; 
+    required int32                 status         = 8;
+}
+
+/// for server serialization
+message InstanceRenew {
+    required string                servlet_space  = 1;
+    required string                servlet        = 2;
+    repeated string                zone           = 3;
+    required string                color          = 4;
+    required string                env            = 5;
+    required string                app            = 6;
+    optional string                token          = 7; 
+    required int32                 status         = 8;
+    required int64                 version        = 9;
+}
+
+message AuthInfo {
+    optional string user_name   = 1;
+    optional string passwd      = 2;
+    optional string token       = 3;
+}
+
+message ServletOpRequest {
+    required DiscoveryOp            op_type            = 1;
+    required AuthInfo               auth               = 2;  
+    optional ServletSpace           servlet_space      = 3;
+    optional Servlet                servlet        = 4;
+    optional ServletZone            zone  = 5;
+    optional ServletApp             app = 6;
+    optional ServletUser            user          = 7;
+    optional AppFecth               fetch  = 8;
+    optional InstanceRegistry       refistry         = 9;
+    optional InstanceRenew          renew = 10;           
+}
+
+message ServletOpResponse {
+    required DiscoveryOp           op_type             = 1;
+    required ErrCode               errcode             = 2;
+    // for raft or backup server
+    optional string                 leader             = 3;
+    optional string                 errmsg             = 4;     
+}
+
+message ServletQueryRequest {
+    required DiscoveryOp            op_type            = 1;
+    required AuthInfo               auth               = 2;  
+    optional ServletSpace           servlet_space      = 3;
+    optional Servlet                servlet        = 4;
+    optional ServletZone            zone  = 5;
+    optional ServletApp             app = 6;
+    optional ServletUser            user          = 7;
+    optional AppFecth               fetch  = 8;
+    optional InstanceRegistry       refistry         = 9;
+    optional InstanceRenew          renew = 10;           
+}
+
+message ServletQueryResponse {
+    required DiscoveryOp           op_type             = 1;
+    required ErrCode               errcode             = 2;
+    // for raft or backup server
+    optional string                 leader             = 3;
+    optional string                 errmsg             = 4;
+    optional ServletSpace           servlet_space      = 5;
+    optional Servlet                servlet            = 6;
+    repeated ServletZone            zone_list          = 7;
+    repeated ServletApp             app_list           = 8;
+    repeated ServletUser            user               = 9; 
+}

@@ -69,9 +69,6 @@ set(PROTO_FILES
         eaproto/db/store.interface.proto
         eaproto/db/store.struct.proto
         eaproto/db/test_decode.proto
-        eaproto/discovery/optype.proto
-        eaproto/discovery/discovery.struct.proto
-        eaproto/discovery/discovery.interface.proto
         eaproto/ops/config_struct.proto
         eaproto/ops/dict_struct.proto
         eaproto/ops/plugin_struct.proto
@@ -79,6 +76,9 @@ set(PROTO_FILES
         eaproto/ops/ops.interface.proto
         eaproto/raft/raft.proto
         eaproto/router/router.interface.proto
+        eaproto/servlet/servlet.struct.proto
+        eaproto/servlet/servlet.interface.proto
+        eaproto/servlet/optype.proto
 )
 
 file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/output/include/eaproto)

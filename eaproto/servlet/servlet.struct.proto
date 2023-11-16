@@ -17,7 +17,7 @@ syntax="proto2";
 package EA.proto;
 option cc_generic_services = true;
 import "eaproto/common/error_code.proto";
-import "eaproto/discovery/optype.proto";
+import "eaproto/servlet/optype.proto";
 
 //
 //1. load Servlet
@@ -134,7 +134,7 @@ message AuthInfo {
 }
 
 message ServletOpRequest {
-    required DiscoveryOp            op_type            = 1;
+    required ServletOp            op_type            = 1;
     required AuthInfo               auth               = 2;  
     optional ServletSpace           servlet_space      = 3;
     optional Servlet                servlet        = 4;
@@ -147,7 +147,7 @@ message ServletOpRequest {
 }
 
 message ServletOpResponse {
-    required DiscoveryOp           op_type             = 1;
+    required ServletOp           op_type             = 1;
     required ErrCode               errcode             = 2;
     // for raft or backup server
     optional string                 leader             = 3;
@@ -155,7 +155,7 @@ message ServletOpResponse {
 }
 
 message ServletQueryRequest {
-    required DiscoveryOp            op_type            = 1;
+    required ServletOp            op_type            = 1;
     required AuthInfo               auth               = 2;  
     optional ServletSpace           servlet_space      = 3;
     optional Servlet                servlet        = 4;
@@ -168,7 +168,7 @@ message ServletQueryRequest {
 }
 
 message ServletQueryResponse {
-    required DiscoveryOp           op_type             = 1;
+    required ServletOp           op_type             = 1;
     required ErrCode               errcode             = 2;
     // for raft or backup server
     optional string                 leader             = 3;

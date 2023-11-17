@@ -106,7 +106,7 @@ message AppFecth {
 message InstanceRegistry {
     required string                servlet_space  = 1;
     required string                servlet        = 2;
-    repeated string                zone           = 3;
+    required string                zone           = 3;
     required string                color          = 4;
     required string                env            = 5;
     required string                app            = 6;

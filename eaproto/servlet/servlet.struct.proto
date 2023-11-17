@@ -110,8 +110,9 @@ message InstanceRegistry {
     required string                color          = 4;
     required string                env            = 5;
     required string                app            = 6;
-    optional string                token          = 7; 
-    required int32                 status         = 8;
+    required string                address        = 7;
+    optional string                token          = 8; 
+    required int32                 status         = 9;
 }
 
 /// for server serialization

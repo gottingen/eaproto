@@ -55,20 +55,6 @@ set(PROTO_FILES
         eaproto/common/error_code.proto
         eaproto/common/optype.proto
         eaproto/common/version.proto
-        eaproto/db/base_subscribe.proto
-        eaproto/db/binlog.proto
-        eaproto/db/common.proto
-        eaproto/db/console.proto eaproto/db/event.proto
-        eaproto/db/expr.proto
-        eaproto/db/fc.proto
-        eaproto/db/meta.interface.proto
-        eaproto/db/meta.struct.proto
-        eaproto/db/plan.proto
-        eaproto/db/reverse.proto
-        eaproto/db/statistics.proto
-        eaproto/db/store.interface.proto
-        eaproto/db/store.struct.proto
-        eaproto/db/test_decode.proto
         eaproto/ops/config_struct.proto
         eaproto/ops/dict_struct.proto
         eaproto/ops/plugin_struct.proto
@@ -76,9 +62,6 @@ set(PROTO_FILES
         eaproto/ops/ops.interface.proto
         eaproto/raft/raft.proto
         eaproto/router/router.interface.proto
-        eaproto/servlet/servlet.struct.proto
-        eaproto/servlet/servlet.interface.proto
-        eaproto/servlet/optype.proto
 )
 
 file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/output/include/eaproto)

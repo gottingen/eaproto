@@ -18,7 +18,6 @@ package EA.proto;
 option cc_generic_services = true;
 import "eaproto/ops/config.struct.proto";
 
-
 service ConfigRestfulService {
 
     // config management
@@ -26,10 +25,10 @@ service ConfigRestfulService {
     
     rpc remove_config(ConfigEntity) returns (ConfigRestfulResponse);
     // config query
-    rpc get_config(ConfigEntity) returns (ConfigRestfulResponse);
+    rpc get_config(ConfigEmptyRequest) returns (ConfigRestfulResponse);
 
-    rpc get_config_list(ConfigEntity) returns (ConfigRestfulResponse);
+    rpc get_config_list(ConfigEmptyRequest) returns (ConfigRestfulResponse);
 
-    rpc get_config_version_list(ConfigEntity) returns (ConfigRestfulResponse);
+    rpc get_config_version_list(ConfigEmptyRequest) returns (ConfigRestfulResponse);
 
 };

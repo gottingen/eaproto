@@ -20,7 +20,7 @@ import "eaproto/common/error_code.proto";
 import "eaproto/common/optype.proto";
 import "eaproto/ops/plugin_struct.proto";
 import "eaproto/ops/dict_struct.proto";
-import "eaproto/ops/config_struct.proto";
+import "eaproto/ops/config.struct.proto";
 import "eaproto/common/version.proto";
 
 message OpsServiceRequest {

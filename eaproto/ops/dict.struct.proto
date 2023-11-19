@@ -1,0 +1,84 @@
+// Copyright 2023 The Elastic AI Search Authors.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      https://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+
+syntax="proto2";
+package EA.proto;
+option cc_generic_services = true;
+import "eaproto/common/error_code.proto";
+import "eaproto/common/version.proto";
+
+
+/// for server serialize
+message DictEntity {
+  required string name        = 1;
+  required Version version    = 2;
+  required bool   finish      = 3 [default = false];
+  required bool   tombstone   = 4 [default = false];
+  required string ext         = 5 [default = ""];
+  required int32  size        = 6 [default = 0];
+  required int32  upload_size = 7 [default = 0];
+  required string cksm        = 8 [default = ""];
+  required int32  time        = 9 [default = 0];
+};
+
+message DictInfo {
+  required string  name        = 1;
+  optional Version version     = 2;
+  optional bool    finish      = 3;
+  optional bool    tombstone   = 4;
+  optional string  ext         = 5;
+  optional int32   size        = 6;
+  optional int32   upload_size = 7;
+  optional string  cksm        = 8;
+  optional int32   time        = 9;
+};
+
+message DictRequest {
+  required DictInfo dict        = 1;
+  optional int64    offset      = 2;
+  optional bytes    content     = 3;
+  optional int64    count       = 4;
+}
+
+message DictResponse {
+  repeated DictInfo dict        = 1;
+  optional int64    offset      = 2;
+  optional bytes    content     = 3;
+}
+
+message QueryDictRequest {
+  required string   name        = 1;
+  optional Version  version     = 2;
+  optional int64    offset      = 3;
+  optional int64    count       = 4;
+}
+
+message QueryDictResponse {
+  optional DictInfo    dict        = 1;
+  repeated string      dict_list   = 2;
+  repeated Version     versions    = 3;
+  optional bytes       content     = 4;
+}
+
+message DictRestfulEmptyRequest {
+}
+
+message DictRestfulResponse {
+  required ErrCode             errcode            = 1;
+  optional string              errmsg             = 2;
+  optional DictInfo            dict               = 4;
+  repeated string              dict_list          = 5;
+  repeated Version             versions           = 6;
+};

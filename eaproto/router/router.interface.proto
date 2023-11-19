@@ -43,4 +43,8 @@ service RouterService {
   
   rpc dict_query(QueryOpsServiceRequest) returns (QueryOpsServiceResponse);
 
+  rpc plugin_manage(OpsServiceRequest) returns (OpsServiceResponse);
+  
+  rpc plugin_query(QueryOpsServiceRequest) returns (QueryOpsServiceResponse);
+
 };

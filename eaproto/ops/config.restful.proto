@@ -23,7 +23,7 @@ service ConfigRestfulService {
     // config management
     rpc create_config(ConfigEntity) returns (ConfigRestfulResponse);
     
-    rpc remove_config(ConfigEntity) returns (ConfigRestfulResponse);
+    rpc remove_config(ConfigEmptyRequest) returns (ConfigRestfulResponse);
     // config query
     rpc get_config(ConfigEmptyRequest) returns (ConfigRestfulResponse);
 

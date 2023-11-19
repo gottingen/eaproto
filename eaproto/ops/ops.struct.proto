@@ -19,7 +19,7 @@ option cc_generic_services = true;
 import "eaproto/common/error_code.proto";
 import "eaproto/common/optype.proto";
 import "eaproto/ops/plugin_struct.proto";
-import "eaproto/ops/dict_struct.proto";
+import "eaproto/ops/dict.struct.proto";
 import "eaproto/ops/config.struct.proto";
 import "eaproto/common/version.proto";
 

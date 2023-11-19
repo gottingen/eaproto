@@ -57,7 +57,8 @@ set(PROTO_FILES
         eaproto/common/version.proto
         eaproto/ops/config.struct.proto
         eaproto/ops/config.restful.proto
-        eaproto/ops/dict_struct.proto
+        eaproto/ops/dict.struct.proto
+        eaproto/ops/dict.restful.proto
         eaproto/ops/plugin_struct.proto
         eaproto/ops/ops.struct.proto
         eaproto/ops/ops.interface.proto

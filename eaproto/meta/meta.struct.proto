@@ -1,0 +1,78 @@
+// Copyright 2023 The Turbo Authors.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      https://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+syntax = "proto2";
+import "eaproto/common/error_code.proto";
+import "eaproto/common/optype.proto";
+import "eaproto/raft/raft.proto";
+import "eaproto/meta/schema.struct.proto";
+import "eaproto/meta/user.struct.proto";
+import "eaproto/meta/tso.struct.proto";
+import "eaproto/meta/cluster.struct.proto";
+
+package EA.proto;
+option cc_generic_services = true;
+
+message MetaManagerRequest {
+  required OpType               op_type               = 1;
+  optional NameSpaceInfo        namespace_info        = 2;
+  optional ZoneInfo             zone_info             = 3;
+  optional UserPrivilege        user_privilege        = 4;
+  optional LogicalRoom          logical_rooms         = 5;
+  optional PhysicalRoom         physical_rooms        = 6;
+  optional InstanceInfo         instance              = 7;
+  optional MovePhysicalRequest  move_physical_request = 8;
+  optional AutoIncrementRequest auto_increment        = 9;
+  repeated string               resource_tags         = 10;
+  repeated InstanceParam        instance_params       = 11;
+};
+
+
+message MetaManagerResponse {
+  required ErrCode errcode = 1;
+  optional string errmsg = 2;
+  optional string leader = 3;
+  optional OpType op_type = 5;
+  optional uint64 start_id = 6;
+  optional uint64 end_id = 7;
+};
+
+message QueryRequest {
+  required QueryOpType op_type = 1;
+  optional string logical_room = 2;
+  optional string physical_room = 3;
+  optional string instance_address = 4;
+  optional string user_name = 5;
+  optional string namespace_name = 6;
+  optional string zone = 7;
+  optional string new_peers = 13;
+  optional string resource_tag = 14;
+};
+
+message QueryResponse {
+  required ErrCode            errcode = 1;
+  optional string             errmsg = 2;
+  optional string             leader = 3;
+  repeated PhysicalRoom       physical_rooms = 4;
+  repeated PhysicalInstance   physical_instances = 5;
+  repeated InstanceInfo       instance_infos = 6;
+  repeated UserPrivilege      user_privilege = 7;
+  repeated NameSpaceInfo      namespace_infos = 8;
+  repeated ZoneInfo           zone_infos = 9;
+  repeated QueryInstance      flatten_instances = 12;
+  repeated QueryUserPrivilege flatten_privileges = 13;
+  repeated InstanceParam      instance_params = 22;
+  repeated ResourceTagInfo    resource_tag_infos = 24;
+};
+

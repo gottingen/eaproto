@@ -29,11 +29,19 @@
 syntax = "proto2";
 import "eaproto/raft/raft.proto";
 import "eaproto/ops/ops.struct.proto";
+import "eaproto/meta/meta.struct.proto";
+import "eaproto/meta/tso.struct.proto";
 
 package EA.proto;
 option cc_generic_services = true;
 
 service RouterService {
+
+  rpc meta_manager(MetaManagerRequest) returns (MetaManagerResponse);
+
+  rpc query(QueryRequest) returns (QueryResponse);
+
+  rpc tso_service(TsoRequest) returns (TsoResponse);
 
   rpc config_manage(OpsServiceRequest) returns (OpsServiceResponse);
   

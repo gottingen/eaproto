@@ -55,6 +55,12 @@ set(PROTO_FILES
         eaproto/common/error_code.proto
         eaproto/common/optype.proto
         eaproto/common/version.proto
+        eaproto/meta/cluster.struct.proto
+        eaproto/meta/meta.struct.proto
+        eaproto/meta/meta.interface.proto
+        eaproto/meta/schema.struct.proto
+        eaproto/meta/tso.struct.proto
+        eaproto/meta/user.struct.proto
         eaproto/ops/config.struct.proto
         eaproto/ops/config.restful.proto
         eaproto/ops/dict.struct.proto

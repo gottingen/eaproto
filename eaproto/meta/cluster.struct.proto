@@ -1,0 +1,113 @@
+// Copyright 2023 The Elastic AI Search Authors.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      https://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+
+syntax="proto2";
+package EA.proto;
+option cc_generic_services = true;
+
+
+enum Status {
+  NORMAL = 1;
+  FAULTY = 2;
+  DEAD = 3;
+  MIGRATE = 4;
+  FULL = 5;
+  SLOW = 6;
+  BUSY = 7;
+};
+
+
+message LogicalRoom {
+  repeated string logical_rooms = 1;
+};
+
+message PhysicalRoom {
+  required string logical_room = 1;
+  repeated string physical_rooms = 2;
+};
+
+message MovePhysicalRequest {
+  required string physical_room = 1;
+  required string old_logical_room = 2;
+  required string new_logical_room = 3;
+};
+
+message InstanceInfo {
+  optional string              address = 1;
+  optional int64               capacity = 2;
+  optional int64               used_size = 3;
+  optional string              resource_tag = 4;
+  optional string              physical_room = 5;
+  optional Status              status = 6;
+  optional string              logical_room = 7;
+  optional string              version = 8;
+  optional int64               raft_total_latency = 11;
+  optional int64               raft_total_qps = 12;
+  optional string              network_segment = 15;
+  optional string              container_id = 16;
+  optional int64               rocks_hang_check_cost = 17;
+};
+
+message IdcInfo {
+  repeated PhysicalRoom logical_physical_map = 1;
+  repeated InstanceInfo   instance_infos = 2;
+};
+
+message ParamDesc {
+  optional string key = 1;
+  optional string value = 2;
+  optional bool is_meta_param = 3;
+  optional bool need_delete = 4;
+};
+
+message ReplicaDist {
+  optional string logical_room = 1;
+  required int64  count = 2;
+  optional string resource_tag = 3;
+  optional string physical_room = 4;
+};
+
+message InstanceParam {
+  optional string          resource_tag_or_address = 1;
+  repeated ParamDesc       params = 2;
+};
+
+
+message PhysicalInstance {
+  required string physical_room = 1;
+  required string logical_room = 2;
+  repeated string instances = 3;
+};
+
+message ResourceTagInfo {
+  required string     resource_tag = 1;
+  optional bool       peer_load_balance = 2;
+  optional bool       migrate = 3;
+  optional bool       network_segment_balance = 4;
+}
+
+message QueryInstance {
+  required string        address = 1;
+  optional int64         capacity = 2;
+  optional int64         used_size = 3;
+  optional string        resource_tag = 4;
+  optional Status        status = 5;
+  optional string        physical_room = 6;
+  optional string        logical_room = 7;
+  optional int64         peer_count = 8;
+  optional string        peer_ids = 9;
+  optional string        version = 14;
+};
+

@@ -16,13 +16,59 @@ syntax="proto2";
 package EA.proto;
 //option cc_enable_arenas = true;
 
-// 1-100是预留给store的操作
-// 101-300是meta上的操作
-// 301-400 file op
+
 enum OpType {
     // for store
     OP_NONE                                 = 0;
-   
+
+    // meta op 1-300
+    /// for logical
+    OP_ADD_LOGICAL                         = 1;
+    OP_DROP_LOGICAL                        = 2;
+    QUERY_LOGICAL                          = 3;
+    // for physical
+    OP_ADD_PHYSICAL                        = 11;
+    OP_DROP_PHYSICAL                       = 12;
+    QUERY_PHYSICAL                         = 13;
+    OP_MOVE_PHYSICAL                       = 14;
+
+    OP_GEN_ID_FOR_AUTO_INCREMENT           = 21;
+    OP_UPDATE_FOR_AUTO_INCREMENT           = 22;
+    OP_GEN_TSO                             = 23;
+    OP_RESET_TSO                           = 24;
+    OP_UPDATE_TSO                          = 25;
+    OP_QUERY_TSO_INFO                      = 26;
+
+    OP_CREATE_USER                         = 31;
+    OP_ADD_PRIVILEGE                       = 32;
+    OP_DROP_USER                           = 33;
+    OP_DROP_PRIVILEGE                      = 34;
+    QUERY_USER_PRIVILEGE                   = 35;
+    QUERY_PRIVILEGE_FLATTEN                = 36;
+
+    OP_CREATE_NAMESPACE                    = 41;
+    OP_DROP_NAMESPACE                      = 42;
+    OP_MODIFY_NAMESPACE                    = 43;
+    QUERY_NAMESPACE                        = 44;
+
+    OP_CREATE_ZONE                     = 51;
+    OP_DROP_ZONE                       = 52;
+    OP_MODIFY_ZONE                     = 53;
+    QUERY_ZONE                         = 54;
+
+    OP_ADD_INSTANCE                        = 70;
+    OP_DROP_INSTANCE                       = 71;
+    OP_UPDATE_INSTANCE                     = 72;
+    QUERY_INSTANCE                         = 73;
+    QUERY_INSTANCE_FLATTEN                 = 74;
+
+    OP_CREATE_SERVICE                      = 121;
+    OP_DROP_SERVICE                        = 122;
+    OP_RENAME_SERVICE                      = 123;
+
+
+
+
     // file op
     OP_CREATE_CONFIG                       = 401;
     OP_REMOVE_CONFIG                       = 402;
@@ -39,6 +85,7 @@ enum OpType {
 };
 
 enum QueryOpType {
+
   /// for ops
   QUERY_GET_CONFIG                       = 401;
   QUERY_LIST_CONFIG_VERSION              = 402;

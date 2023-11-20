@@ -32,12 +32,14 @@ enum OpType {
     QUERY_PHYSICAL                         = 13;
     OP_MOVE_PHYSICAL                       = 14;
 
-    OP_GEN_ID_FOR_AUTO_INCREMENT           = 21;
-    OP_UPDATE_FOR_AUTO_INCREMENT           = 22;
-    OP_GEN_TSO                             = 23;
-    OP_RESET_TSO                           = 24;
-    OP_UPDATE_TSO                          = 25;
-    OP_QUERY_TSO_INFO                      = 26;
+    OP_ADD_ID_FOR_AUTO_INCREMENT           = 21;
+    OP_DROP_ID_FOR_AUTO_INCREMENT          = 22;
+    OP_GEN_ID_FOR_AUTO_INCREMENT           = 23;
+    OP_UPDATE_FOR_AUTO_INCREMENT           = 24;
+    OP_GEN_TSO                             = 25;
+    OP_RESET_TSO                           = 26;
+    OP_UPDATE_TSO                          = 27;
+    OP_QUERY_TSO_INFO                      = 28;
 
     OP_CREATE_USER                         = 31;
     OP_ADD_PRIVILEGE                       = 32;

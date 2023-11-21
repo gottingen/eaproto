@@ -29,21 +29,10 @@ enum ConfigType {
   CF_INI = 7;
 };
 
-message ConfigEntity {
+message ConfigInfo {
   required string name = 1;
   optional Version version = 2;
   optional string content = 3;
   optional ConfigType type = 4 [default = CF_JSON];
-  required int32 time = 5;
-}
-
-message QueryConfigRequest {
-  required string name = 1;
-  optional Version version = 2;
-}
-
-message QueryConfigResponse {
-  optional ConfigEntity config = 1;
-  repeated string config_list = 2;
-  repeated Version versions = 3;
+  optional uint32 time = 5;
 }

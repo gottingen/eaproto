@@ -160,6 +160,13 @@ enum OpType {
     OP_SPECIFY_SPLIT_KEYS                   = 199; // 指定RangePartition分区的预分裂Key
     OP_CONVERT_PARTITION                    = 200;
 
+    OP_CREATE_ZONE                          = 301;
+    OP_DROP_ZONE                            = 302; 
+    OP_MODIFY_ZONE                          = 303; 
+    OP_CREATE_SERVLET                       = 304;
+    OP_DROP_SERVLET                         = 305; 
+    OP_MODIFY_SERVLET                       = 306;
+
     // file op
     OP_CREATE_CONFIG                       = 401;
     OP_REMOVE_CONFIG                       = 402;
@@ -203,6 +210,9 @@ enum QueryOpType {
   QUERY_REGION_LEARNER_STATUS                   = 310;
   QUERY_FAST_IMPORTER_TABLES                    = 311;
   QUERY_BINLOG_TIMESTAMPS                       = 312;
+
+  QUERY_ZONE                                    = 350;
+  QUERY_SERVLET                                 = 351;
   /// for ops
   QUERY_GET_CONFIG                       = 401;
   QUERY_LIST_CONFIG_VERSION              = 402;

@@ -1,0 +1,58 @@
+// Copyright 2023 The Elastic AI Search Authors.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      https://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+
+syntax="proto2";
+package EA.proto;
+option cc_generic_services = true;
+import "eaproto/meta/common.proto";
+import "eaproto/meta/cluster.struct.proto";
+import "eaproto/common/version.proto";
+
+message ZoneInfo {
+  required string zone                   = 1;
+  optional int64 zone_id                 = 2;
+  required string namespace_name         = 3;
+  optional int64 namespace_id            = 4;
+  optional int64 quota                   = 5;
+  optional int64 version                 = 6;
+  optional bool   deleted                = 7;
+  optional string resource_tag           = 8;
+  optional Engine engine                 = 9;
+  optional Charset charset               = 10;
+  optional int64 byte_size_per_record    = 11;
+  optional int64 replica_num             = 12;
+  optional int64 region_split_lines      = 13; //region分裂行数阈值
+};
+
+message ServletInfo {
+    optional int64       servlet_id              = 1;
+    required string      servlet_name            = 2;
+    required string      zone                    = 3;
+    optional int64       zone_id                 = 4;
+    required string      namespace_name          = 5;
+    optional int64       namespace_id            = 6;
+    optional int64       replica_num             = 7;
+    optional string      resource_tag            = 8;
+    optional int64       version                 = 9;
+    optional Status      status                  = 10;
+    optional bool        deleted                 = 11;
+    optional uint32      timestamp               = 12; 
+    repeated ReplicaDist dists                   = 13;
+    optional string      main_logical_room       = 14;
+    optional string      conf                    = 15;
+    repeated string      env                     = 16;
+    optional string      comment                 = 17;
+    optional Version     conf_verson             = 18;
+}

@@ -68,15 +68,16 @@ set(PROTO_FILES
         eaproto/exec/plan.proto
         eaproto/meta/cluster.struct.proto
         eaproto/meta/common.proto
+        eaproto/meta/config.struct.proto
         eaproto/meta/expr.proto
         eaproto/meta/meta.interface.proto
         eaproto/meta/meta.struct.proto
         eaproto/meta/schema.struct.proto
         eaproto/meta/statistics.proto
+        eaproto/meta/servlet.struct.proto
         eaproto/meta/tso.struct.proto
         eaproto/meta/unique_id.proto
         eaproto/meta/user.struct.proto
-        eaproto/ops/config_struct.proto
         eaproto/ops/dict_struct.proto
         eaproto/ops/plugin_struct.proto
         eaproto/ops/ops.struct.proto

@@ -40,22 +40,42 @@ message PrivilegeTable {
   optional bool force        = 6;
 };
 
+message PrivilegeZone {
+  required string zone   = 1;
+  optional int64 zone_id = 2;
+  optional RW zone_rw    = 3;
+  optional bool force        = 4;
+};
+
+message PrivilegeServlet {
+  required string zone   = 1;
+  optional int64 zone_id = 2;
+  required string servlet_name = 3;
+  optional int64 servlet_id    = 4;
+  optional RW servlet_rw       = 5;
+  optional bool force        = 6;
+};
+
+
 message UserPrivilege {
-  required string username                                 = 1;
-  optional string password                                 = 2;
-  required string namespace_name                           = 3;
-  optional int64 namespace_id                              = 4;
-  repeated PrivilegeDatabase privilege_database            = 5;
-  repeated PrivilegeTable privilege_table                  = 6;
-  repeated string bns                                      = 7;
-  repeated string ip                                       = 8;
-  optional int64 version                                   = 9;
-  optional bool encrypt                                    = 10; // 加密用户才能访问加密列
-  optional bool need_auth_addr                             = 11;
-  optional string resource_tag                             = 12; // 优先访问的store resource_tag
-  optional bool ddl_permission                             = 13; // ddl权限，空则认为没有权限，默认无权限
-  optional int64 txn_lock_timeout                          = 14; // 事务等锁超时时间，对优先级低的账号减少锁占用时间
-  optional bool use_read_index                             = 15; // 读是否走folloewr read use read idx
-  optional bool enable_plan_cache                          = 16; // 是否缓存执行计划
-  optional RangePartitionType request_range_partition_type = 17; // 访问的Range分区类型
+  required string             username                      = 1;
+  optional string             password                      = 2;
+  required string             namespace_name                = 3;
+  optional int64              namespace_id                  = 4;
+  repeated PrivilegeDatabase  privilege_database            = 5;
+  repeated PrivilegeTable     privilege_table               = 6;
+  repeated PrivilegeZone      privilege_database            = 7;
+  repeated PrivilegeServlet   privilege_table               = 8;
+  repeated string             bns                           = 9;
+  repeated string             ip                            = 10;
+  optional int64              version                       = 11;
+  optional bool               encrypt                       = 12; // 加密用户才能访问加密列
+  optional bool               need_auth_addr                = 13;
+  optional string             resource_tag                  = 14; // 优先访问的store resource_tag
+  optional bool               ddl_permission                = 15; // ddl权限，空则认为没有权限，默认无权限
+  optional int64              txn_lock_timeout              = 16; // 事务等锁超时时间，对优先级低的账号减少锁占用时间
+  optional bool               use_read_index                = 17; // 读是否走folloewr read use read idx
+  optional bool               enable_plan_cache             = 18; // 是否缓存执行计划
+  optional RangePartitionType request_range_partition_type  = 19; // 访问的Range分区类型
+  optional string             token                         = 20;
 };

@@ -1,0 +1,172 @@
+// Copyright 2023 The Turbo Authors.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      https://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+syntax="proto2";
+package EA.proto;
+option cc_generic_services = true;
+//option cc_enable_arenas = true;
+
+enum Status {
+  NORMAL = 1;
+  FAULTY = 2;
+  DEAD   = 3;
+  MIGRATE= 4; // 迁移状态，该状态不能被改变，后续只能删除该实例
+  FULL   = 5;
+  SLOW   = 6; // 同集群比其他实例慢很多
+  BUSY   = 7;
+};
+enum RegionStatus {
+  IDLE = 1;
+  DOING = 2;
+};
+
+//每个逻辑机房的副本数量。第一个逻辑机房为主机房. 目前leader均衡不考虑机房分布。
+message ReplicaDist {
+  optional string logical_room  = 1;
+  required int64  count         = 2;
+  optional string resource_tag  = 3;
+  optional string physical_room = 4;
+};
+
+message LogicalRoom {
+  repeated string logical_rooms = 1;
+};
+
+message PhysicalRoom {
+  required string logical_room     = 1;
+  repeated string physical_rooms   = 2;
+};
+
+message InstanceInfo {
+  optional string address         = 1;
+  optional int64 capacity         = 2;
+  //第一次上报心跳的时候需要填该参数
+  //实际该参数并不需要存储
+  optional int64 used_size        = 3;
+  optional string resource_tag    = 4;
+  optional string physical_room   = 5;
+  optional Status status          = 6;
+  optional string logical_room    = 7;
+  optional string version         = 8;
+  optional int64 dml_latency      = 9;
+  optional int64 dml_qps          = 10;
+  optional int64 raft_total_latency = 11;
+  optional int64 raft_total_qps   = 12;
+  optional int64 select_latency   = 13;
+  optional int64 select_qps       = 14;
+  optional string network_segment = 15;
+  optional string container_id    = 16;
+  optional int64 rocks_hang_check_cost = 17;
+};
+
+message MovePhysicalRequest {
+  required string physical_room    = 1;
+  required string old_logical_room = 2;
+  required string new_logical_room = 3;
+};
+
+message ParamDesc {
+  optional string key     = 1;
+  optional string value   = 2; // 为通用，使用string，如果使用其他类型需要自己转成string
+  optional bool is_meta_param = 3; //true则meta使用，store不需要更新本地配置
+  optional bool need_delete   = 4; //需要删除
+};
+
+message InstanceParam {
+  optional string          resource_tag_or_address    = 1; // 警告！！！db和store共用这个存储结构，后续如果db也使用resource_tag需要确保和store resource_tag不同
+  repeated ParamDesc       params                     = 2;
+};
+
+enum PeerStatus {
+  STATUS_NORMAL             = 0;
+  STATUS_UNSTABLE           = 1; // add_peer
+  STATUS_ERROR              = 3;
+  STATUS_ILLEGAL_PEER       = 4;
+  STATUS_NOT_HEARTBEAT      = 5;
+  STATUS_NO_LEADER          = 6;
+  STATUS_SET_PEER           = 7;
+  STATUS_INITED             = 8;
+};
+
+message BinlogPeerState {
+  required int64   region_id = 1;
+  optional uint32  oldest_timestamp_to_now_interval = 2;
+};
+
+message PeerStateInfo {
+  optional string      peer_id     = 1;
+  optional PeerStatus  peer_status = 2;
+  optional int64       table_id    = 3;
+  optional int64       timestamp   = 4;
+  optional int64       region_id   = 5;
+  optional bool        is_learner  = 6;
+}
+
+message RegionStateInfo {
+  optional int64          table_id           = 1;
+  optional int64          region_id          = 2;
+  optional bool           is_healthy         = 3;
+  optional string         table_name         = 4;
+  repeated PeerStateInfo  peer_status_infos  = 5;
+}
+
+message IdcInfo {
+  //物理机房和逻辑机房对应关系
+  repeated PhysicalRoom logical_physical_map  = 1;
+  //实例和物理机房对应关系
+  repeated InstanceInfo   instance_infos      = 2;
+};
+
+message PhysicalInstance {
+  required string physical_room                 = 1;
+  required string logical_room                  = 2;
+  repeated string instances                     = 3;
+};
+
+message ResourceTagInfo {
+  required string     resource_tag                = 1;
+  optional bool       peer_load_balance           = 2;
+  optional bool       migrate                     = 3;
+  optional bool       network_segment_balance     = 4;
+}
+
+message MigrateInstance {
+  optional string name = 1;
+  optional string event = 2;
+  optional string pre_host = 3;
+  optional string pre_port = 4;
+  optional string post_host = 5;
+  optional string post_port = 6;
+  optional string status = 7;
+};
+
+message TargetsList {
+  repeated MigrateInstance instances = 1;
+};
+
+message MigrateData {
+  optional TargetsList targets_list = 1;
+}
+
+message MigrateRequest {
+  optional string opera_action = 1;
+  optional TargetsList targets_list = 2;
+};
+
+
+message MigrateResponse {
+  optional MigrateData data = 1;
+};
+
+

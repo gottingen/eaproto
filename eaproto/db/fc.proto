@@ -1,8 +1,8 @@
-// requiredÀàÐÍµÄ×Ö¶ÎÎªÉ¾³ýºÍ·ÇÉ¾³ýÀàÐÍ¹²ÓÐ×Ö¶Î
-// optionalÀàÐÍµÄ×Ö¶ÎÖ»ÓÐ·ÇÉ¾³ýÀàÐÍ¾ßÓÐ
-// ·ï³²Êý¾ÝÁ÷
+// requiredï¿½ï¿½ï¿½Íµï¿½ï¿½Ö¶ï¿½ÎªÉ¾ï¿½ï¿½ï¿½Í·ï¿½É¾ï¿½ï¿½ï¿½ï¿½ï¿½Í¹ï¿½ï¿½ï¿½ï¿½Ö¶ï¿½
+// optionalï¿½ï¿½ï¿½Íµï¿½ï¿½Ö¶ï¿½Ö»ï¿½Ð·ï¿½É¾ï¿½ï¿½ï¿½ï¿½ï¿½Í¾ï¿½ï¿½ï¿½
+// ï¿½ï³²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-// level 0 ÎªdasÐÄÌøÔöÁ¿
+// level 0 Îªdasï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 message level0 {
     required uint64 event_id = 1;
     required uint32 op_type = 2;
@@ -100,7 +100,7 @@ message level2 {
     optional uint32 idea_plan_status = 31;
     optional bytes  idea_negative_url = 32;
     optional bytes  idea_negative_word = 33;
-    optional uint32 remarketing_stat = 34; 
+    optional uint32 remarketing_stat = 34;
     optional bytes remarketing_inpeople = 35;
     optional bytes remarketing_outpeople = 36;
     optional uint32 adtype = 37;
@@ -148,7 +148,7 @@ message level2 {
     optional uint32 ocpc_max_bid = 228;
     optional uint32 use_budget_control = 229;
     optional uint32 adopt_ecpa_bid = 230;
-    optional bytes crowdid_priceratio = 231; 
+    optional bytes crowdid_priceratio = 231;
 }
 
 message level3 {
@@ -313,7 +313,6 @@ message level11 {
     required uint32 usr_id = 8;
     required uint32 bid = 9;
     optional uint32 adtype = 10;
-   
 }
 
 message level12 {

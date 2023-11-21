@@ -15,7 +15,7 @@
 syntax="proto2";
 package EA.proto;
 import "eaproto/raft/raft.proto";
-import "eaproto/db/meta.struct.proto";
+import "eaproto/meta/meta.struct.proto";
 import "eaproto/db/store.struct.proto";
 option cc_generic_services = true;
 //option cc_enable_arenas = true;
@@ -28,10 +28,10 @@ service StoreService {
     //   leader调用完成这个之后主动调用一次raft的add_peer接口完成这个迁移过程
     //3、分裂时调用
     rpc init_region(InitRegion) returns (StoreRes);
-    
+
     //raft控制接口，可以手工操作使用
-    rpc region_raft_control(RaftControlRequest) returns (RaftControlResponse); 
-    
+    rpc region_raft_control(RaftControlRequest) returns (RaftControlResponse);
+
     rpc health_check(HealthCheck) returns (StoreRes);
 
     //快速应用raft日志,分裂使用
@@ -42,10 +42,10 @@ service StoreService {
 
     //binlog相关操作
     rpc query_binlog(StoreReq) returns (StoreRes);
-    
+
     //删除region，包括数据
     rpc remove_region(RemoveRegion) returns (StoreRes);
-    
+
     //leader收到的AddPeer请求，分两步执行
     //1、给新增的region所在的store发送init region请求
     //2、leader执行raft的add_peer操作
@@ -64,7 +64,7 @@ service StoreService {
     rpc manual_split_region(RegionIds) returns(StoreRes);
 
     rpc query_region(RegionIds) returns (StoreRes);
-    
+
     rpc query_illegal_region(RegionIds) returns (StoreRes);
 
     rpc backup_region(BackUpReq) returns (BackUpRes);
@@ -72,4 +72,6 @@ service StoreService {
     rpc backup(BackupRequest) returns (BackupResponse);
 
     rpc get_rocks_statistic(RocksStatisticReq) returns (RocksStatisticRes);
+
+    rpc manual_link_external_sst(RegionIds) returns(StoreRes);
 };

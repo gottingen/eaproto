@@ -13,8 +13,10 @@
 // limitations under the License.
 //
 syntax="proto2";
-import "eaproto/db/common.proto";
-import "eaproto/db/meta.struct.proto";
+import "eaproto/meta/common.proto";
+import "eaproto/meta/meta.struct.proto";
+import "eaproto/meta/cluster.struct.proto";
+import "eaproto/meta/user.struct.proto";
 import "eaproto/common/error_code.proto";
 
 package EA.proto;
@@ -51,7 +53,7 @@ message ConsoleRequest {
 
 message ReplicationStatus {
     optional int64   region_count  = 1;
-    optional int64   row_count     = 2;    
+    optional int64   row_count     = 2;
 };
 
 message QueryParam {
@@ -87,7 +89,7 @@ message QueryParam {
 message OverViewInfo {
     optional string   usage                        = 1;
     optional string   instances_status             = 2;
-    optional ReplicationStatus replications_status = 3; 
+    optional ReplicationStatus replications_status = 3;
 };
 
 message WatchTableInfo {
@@ -100,12 +102,13 @@ message WatchTableInfo {
     optional Status             status               = 7;
     optional int64              byte_size_per_record = 8;
     optional string             create_time          = 9;
-    optional int64              region_count         = 10; 
+    optional int64              region_count         = 10;
     optional int64              row_count            = 11;
     optional int64              region_size          = 12;
     optional int64              main_table_id        = 13;
     optional int64              region_split_lines   = 14;
     optional int64              table_size           = 15;
+    optional string             binlog               = 16;
 };
 
 message WatchUserInfo {
@@ -223,7 +226,7 @@ message ConsoleResponse {
     repeated WatchTableInfo     table_infos         = 5;
     repeated WatchInstanceInfo  instance_infos      = 6;
     repeated WatchUserInfo      user_privileges     = 7;
-    repeated WatchRegionInfo    region_infos        = 8; 
+    repeated WatchRegionInfo    region_infos        = 8;
     optional WatchNameSpace     namespaces          = 9;
     repeated WatchDatabaseInfo  databases           = 10;
     optional WatchSchemaInfo    table_schemas       = 11;

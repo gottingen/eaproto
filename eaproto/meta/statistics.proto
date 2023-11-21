@@ -13,7 +13,8 @@
 // limitations under the License.
 //
 syntax="proto2";
-import "eaproto/db/common.proto";
+import "eaproto/meta/common.proto";
+import "eaproto/common/primitive.proto";
 package EA.proto;
 
 message BucketInfo {

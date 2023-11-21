@@ -22,7 +22,7 @@ enum BinlogType {
     DDL       = 3;
     FAKE      = 4;
 }
-  
+
 message Binlog {
     optional BinlogType       type           = 1;
     optional int64            start_ts       = 2;
@@ -38,13 +38,13 @@ message PrewriteValue {
     optional int64 schema_version    = 1;
     repeated TableMutation mutations = 2;
 }
- 
+
 enum MutationType {
     INSERT = 0;
     UPDATE = 1;
     DELETE = 2;
 }
- 
+
 message TableMutation {
     optional int64 table_id        = 1;
     repeated bytes insert_rows     = 2;
@@ -54,3 +54,4 @@ message TableMutation {
     optional bytes sql             = 6;
     optional uint64 sign           = 7;
 }
+

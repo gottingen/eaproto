@@ -54,21 +54,28 @@ include(carbin_cc_proto)
 set(PROTO_FILES
         eaproto/common/error_code.proto
         eaproto/common/optype.proto
+        eaproto/common/primitive.proto
         eaproto/common/version.proto
         eaproto/db/base_subscribe.proto
         eaproto/db/binlog.proto
-        eaproto/db/common.proto
-        eaproto/db/console.proto eaproto/db/event.proto
-        eaproto/db/expr.proto
+        eaproto/db/console.proto
+        eaproto/db/event.proto
         eaproto/db/fc.proto
-        eaproto/db/meta.interface.proto
-        eaproto/db/meta.struct.proto
-        eaproto/db/plan.proto
         eaproto/db/reverse.proto
-        eaproto/db/statistics.proto
         eaproto/db/store.interface.proto
         eaproto/db/store.struct.proto
         eaproto/db/test_decode.proto
+        eaproto/exec/plan.proto
+        eaproto/meta/cluster.struct.proto
+        eaproto/meta/common.proto
+        eaproto/meta/expr.proto
+        eaproto/meta/meta.interface.proto
+        eaproto/meta/meta.struct.proto
+        eaproto/meta/schema.struct.proto
+        eaproto/meta/statistics.proto
+        eaproto/meta/tso.struct.proto
+        eaproto/meta/unique_id.proto
+        eaproto/meta/user.struct.proto
         eaproto/ops/config_struct.proto
         eaproto/ops/dict_struct.proto
         eaproto/ops/plugin_struct.proto

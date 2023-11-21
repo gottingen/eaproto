@@ -1,0 +1,61 @@
+// Copyright 2023 The Elastic AI Search Authors.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      https://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+
+syntax="proto2";
+package EA.proto;
+option cc_generic_services = true;
+
+import "eaproto/meta/common.proto";
+
+enum RW {
+  READ  = 1;
+  WRITE = 2;
+};
+
+message PrivilegeDatabase {
+  required string database   = 1;
+  optional int64 database_id = 2;
+  optional RW database_rw    = 3;
+  optional bool force        = 4;
+};
+
+message PrivilegeTable {
+  required string database   = 1;
+  optional int64 database_id = 2;
+  required string table_name = 3;
+  optional int64 table_id    = 4;
+  optional RW table_rw       = 5;
+  optional bool force        = 6;
+};
+
+message UserPrivilege {
+  required string username                                 = 1;
+  optional string password                                 = 2;
+  required string namespace_name                           = 3;
+  optional int64 namespace_id                              = 4;
+  repeated PrivilegeDatabase privilege_database            = 5;
+  repeated PrivilegeTable privilege_table                  = 6;
+  repeated string bns                                      = 7;
+  repeated string ip                                       = 8;
+  optional int64 version                                   = 9;
+  optional bool encrypt                                    = 10; // 加密用户才能访问加密列
+  optional bool need_auth_addr                             = 11;
+  optional string resource_tag                             = 12; // 优先访问的store resource_tag
+  optional bool ddl_permission                             = 13; // ddl权限，空则认为没有权限，默认无权限
+  optional int64 txn_lock_timeout                          = 14; // 事务等锁超时时间，对优先级低的账号减少锁占用时间
+  optional bool use_read_index                             = 15; // 读是否走folloewr read use read idx
+  optional bool enable_plan_cache                          = 16; // 是否缓存执行计划
+  optional RangePartitionType request_range_partition_type = 17; // 访问的Range分区类型
+};

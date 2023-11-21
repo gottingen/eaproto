@@ -14,7 +14,9 @@
 //
 syntax = "proto2";
 import "eaproto/raft/raft.proto";
-import "eaproto/db/meta.struct.proto";
+import "eaproto/meta/meta.struct.proto";
+import "eaproto/meta/tso.struct.proto";
+import "eaproto/meta/cluster.struct.proto";
 import "eaproto/common/error_code.proto";
 
 package EA.proto;

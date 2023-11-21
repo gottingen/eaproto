@@ -1,0 +1,469 @@
+// Copyright 2023 The Elastic AI Search Authors.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      https://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+
+syntax="proto2";
+package EA.proto;
+option cc_generic_services = true;
+import "eaproto/common/optype.proto";
+import "eaproto/common/error_code.proto";
+import "eaproto/common/primitive.proto";
+import "eaproto/meta/common.proto";
+import "eaproto/meta/cluster.struct.proto";
+import "eaproto/meta/expr.proto";
+
+message NameSpaceInfo {
+  required string namespace_name         = 1;
+  optional int64 namespace_id            = 2;
+  optional int64 quota                   = 3;
+  optional int64 version                 = 4;
+  optional bool deleted                  = 5;
+  optional string resource_tag           = 6;
+  optional Engine engine                 = 7;
+  optional Charset charset               = 8;
+  optional int64 byte_size_per_record    = 9;
+  optional int64 replica_num             = 10;
+  optional int64 region_split_lines      = 11; //region分裂行数阈值
+};
+
+message DataBaseInfo {
+  required string database               = 1;
+  optional int64 database_id             = 2;
+  required string namespace_name         = 3;
+  optional int64 namespace_id            = 4;
+  optional int64 quota                   = 5;
+  optional int64 version                 = 6;
+  optional bool   deleted                = 7;
+  optional string resource_tag           = 8;
+  optional Engine engine                 = 9;
+  optional Charset charset               = 10;
+  optional int64 byte_size_per_record    = 11;
+  optional int64 replica_num             = 12;
+  optional int64 region_split_lines      = 13; //region分裂行数阈值
+};
+
+enum IndexState {
+  IS_PUBLIC          = 1;
+  IS_WRITE_LOCAL     = 2;
+  IS_WRITE_ONLY      = 3;
+  IS_DELETE_ONLY     = 4;
+  IS_DELETE_LOCAL    = 5;
+  IS_NONE            = 6;
+  IS_UNKNOWN         = 7;  //用于状态流转，不会作为schema状态
+};
+
+enum IndexHintStatus {
+  IHS_NORMAL = 1;
+  IHS_DISABLE = 2;
+  IHS_VIRTUAL = 3; // 虚拟索引，只选择不使用，选出虚拟索引后需重选
+};
+
+
+// user MUST ensure that field_id in fields are continuous and sorted,
+// even if a field is deleted
+message SplitKey {
+  optional bytes index_name               = 1;
+  repeated bytes split_keys               = 2;
+};
+
+message BinlogInfo {
+  repeated int64 target_table_ids = 1;
+  optional int64 binlog_table_id = 2; // binlog表自己不设置
+  optional FieldInfo link_field  = 3;
+  optional bool partition_is_same_hint = 4; // 普通表和binlog表分区方式不一样的hit
+};
+/*
+    普通表    binlog表
+    不分区     不分区    binlog分发无需处理分区
+    分区       不分区    binlog分发无需处理分区
+    不分区      分区     binlog分发必须处理分区
+    分区        分区     binlog分发在分区方式一样时可以简化处理，默认分区认为一样，通过partition_is_same_hint显示指定
+*/
+
+enum PartitionType {
+  PT_HASH = 1;
+  PT_RANGE = 2;
+};
+
+
+message PartitionRange {
+  optional Expr left_value  = 1;
+  optional Expr right_value = 2;
+};
+
+
+message RangePartitionInfo {
+  optional int64 partition_id      = 1;
+  optional string partition_name   = 2;
+  optional Expr less_value         = 3;
+  optional PartitionRange range    = 4;
+  optional string resource_tag     = 5;
+  optional bool is_cold            = 6;
+  repeated SplitKey split_keys     = 7; // 仅创建动态分区时使用该字段
+  optional RangePartitionType type = 8; // 默认值为第一个枚举值
+};
+
+message DynamicPartitionAttr {
+  optional bool enable              = 1;
+  optional string time_unit         = 2;
+  optional int32 start              = 3;
+  optional int32 cold               = 4;
+  optional int32 end                = 5;
+  optional string prefix            = 6;
+  optional int32 start_day_of_month = 7;
+};
+
+message PartitionInfo {
+  required PartitionType type = 1;
+  optional FieldInfo field_info = 2;
+  optional int32 partition_field = 3;
+  optional Expr range_partition_field = 4;
+  repeated Expr range_partition_values = 5; // 未使用
+  repeated string partition_names = 6; // 未使用
+  optional Expr hash_expr_value = 7;
+  optional string expr_string = 8;
+  repeated RangePartitionInfo range_partition_infos = 9;
+  optional DynamicPartitionAttr dynamic_partition_attr = 10;
+  optional int64 max_range_partition_id = 11;
+  repeated RangePartitionType gen_range_partition_types = 12;
+  optional RangePartitionType primary_range_partition_type = 13 [default = RPT_DEFAULT];
+};
+
+message SchemaInfo {
+  optional int64 table_id                 = 1;
+  required string table_name              = 2;
+  optional string new_table_name          = 3;
+  optional string upper_table_name        = 4;
+  optional int64 upper_table_id           = 5;
+  optional int64 top_table_id             = 6;
+  repeated int64 lower_table_ids          = 7;
+  required string database                = 8;
+  optional int64 database_id              = 9;
+  required string namespace_name          = 10;
+  optional int64 namespace_id             = 11;
+  optional int64 partition_num            = 12; //若为层次表固定为1
+  optional string partition_exp           = 13; //暂时不用,直接取模做分片
+  repeated PartitionRegion regions        = 14; //维护该信息成本太高，暂时不用。只有层次表的最顶层表存储该信息
+  optional int64 region_size              = 15;
+  optional int64 replica_num              = 16;
+  repeated FieldInfo fields               = 17;
+  repeated IndexInfo indexs               = 18;
+  optional string resource_tag            = 19;
+  optional int32 max_field_id             = 20;
+  optional int64 version                  = 21;
+  optional Status status                  = 22;
+  optional SchemaType schema_type         = 23;
+  optional Engine engine                  = 24;
+  repeated string init_store              = 25;
+  //repeated SplitKey split_keys          = 26;
+  optional bool deleted                   = 27;
+  optional int64  byte_size_per_record    = 28;
+  optional uint64 auto_increment_increment= 29; //自增主键初始值
+  optional uint32 timestamp               = 30; //表创建时间
+  optional Charset charset                = 31;
+  repeated ReplicaDist dists              = 32;
+  optional string main_logical_room       = 33;
+  optional int64  region_split_lines      = 34; //region分裂行数阈值
+  //optional bool   need_merge            = 35; //merge switch
+  repeated SplitKey split_keys            = 36;
+  optional SchemaConf schema_conf         = 37; //一些可以随意修改的配置放在这里
+  optional int64 ttl_duration             = 38; //0表示无ttl，>0表示有ttl，建表时指定
+  optional BinlogInfo    binlog_info      = 39; // 主binlog信息，订阅以此为准
+  optional PartitionInfo partition_info   = 40;
+  optional bool is_binlog                 = 41;
+  optional FieldInfo link_field           = 42;
+  optional int32 region_num               = 43;
+  repeated string learner_resource_tags   = 44;
+  optional int64 online_ttl_expire_time_us = 45;
+  optional string comment                 = 46;
+  optional bool  if_exist                 = 47;
+  optional bool partition_is_same_hint    = 48;
+  repeated BinlogInfo    binlog_infos     = 49;
+};
+
+
+message PartitionRegion {
+  required int64 partition_id = 1;
+  repeated int64 region_id    = 2;
+}
+
+message FieldInfo {
+  required string field_name        = 1;
+  optional string new_field_name    = 2;
+  optional PrimitiveType mysql_type = 3;
+  optional bool can_null            = 4;
+  optional int32 field_id           = 5;
+  optional bool auto_increment      = 6;
+  optional bool deleted             = 7;
+  optional bytes default_value      = 8;
+  optional bytes comment            = 9;
+  optional bytes on_update_value    = 10;
+  optional bytes encrypt            = 11; //指定加密字段
+  optional uint32 flag              = 12;
+  optional bytes default_literal    = 13;
+  optional bool is_unique_indicator = 14; //olap表,是否指标唯一列
+  optional int32  float_total_len    = 15;
+  optional int32 float_precision_len = 16;
+};
+
+
+enum IndexType {
+  I_NONE          = 0;
+  I_PRIMARY       = 1;
+  I_UNIQ          = 2;
+  I_KEY           = 3;
+  I_FULLTEXT      = 4; //query切词，word切词，node无额外信息
+  I_VECTOR        = 5; //向量索引，使用faiss库
+};
+
+enum SegmentType {
+  S_DEFAULT        = 0;
+  S_NO_SEGMENT     = 1;  // 不切词
+  S_WORDRANK       = 2;  // wordrank
+  S_WORDSEG_BASIC  = 3;  // wordseg basic粒度
+  S_UNIGRAMS       = 4;  // 单字切词
+  S_BIGRAMS        = 5;  // 双字切词
+  S_ES_STANDARD    = 6;  // 模拟es标准切词
+  S_WORDRANK_Q2B_ICASE = 7;// 转小写，全角转半角后wordrank切词
+  S_WORDWEIGHT         = 8;
+  S_WORDWEIGHT_NO_FILTER  = 9;
+  S_WORDRANK_Q2B_ICASE_UNLIMIT = 10;// 转小写，全角转半角后wordrank切词，取消长度限制。
+  S_WORDWEIGHT_NO_FILTER_SAME_WEIGHT  = 11; // wordweight，不过滤，每个term weight相同
+};
+
+
+// 普通索引，默认的格式是format1
+// 倒排索引，默认的格式protobuf
+// 为了兼容默认格式复用enum 0值
+// arrow格式倒排性能更好
+// format2格式普通索引为了解决索引字段有null不准确的问题
+enum StorageType {
+  ST_PROTOBUF_OR_FORMAT1 = 0;
+  ST_ARROW = 1;
+  ST_FORMAT2 = 2;
+  ST_UNKNOWN = 3;
+};
+
+// faiss.MetricType，目前只支持METRIC_INNER_PRODUCT和METRIC_L2
+enum MetricType {
+  METRIC_INNER_PRODUCT = 0;
+  METRIC_L2 = 1;
+};
+
+
+message IndexInfo {
+  required string index_name          = 1;
+  optional string new_index_name      = 2;
+  optional IndexType index_type       = 3;
+  repeated string field_names         = 4;
+  repeated int32 field_ids            = 5;
+  optional bool is_global             = 6;
+  optional int64 index_id             = 7; //primary_key的主键id是table_id
+  optional SegmentType segment_type   = 8; //FULLTEXT use for segment
+  optional IndexState state           = 9;
+  optional StorageType storage_type   = 10;
+  optional IndexHintStatus hint_status = 11;
+  optional int64 drop_timestamp = 12;
+  optional string vector_description = 13; // faiss index_factory的描述，暂时支持(数字可改)：IVF1000,PQ16; HNSW16; Flat; 默认是HNSW16
+  optional int32 dimension = 14; //向量维度
+  optional MetricType metric_type = 15;// MetricType，默认是METRIC_L2
+  optional int32 nprobe = 16; //IVF查询的质心数量，默认是5
+};
+
+//address format: ip:port
+message RegionInfo {
+  required int64 region_id               = 1;
+  optional string table_name             = 2;//层次表只保存最上层table_id
+  required int64 table_id                = 3;//全局二级索引表保存索引的index_id
+  required int64 partition_id            = 4;
+  required int64 replica_num             = 5;
+  required int64 version                 = 6;
+  required int64 conf_version            = 7;//用于baikal和meta_server之间同步peer和leader信息
+  optional bytes start_key               = 8;
+  optional bytes end_key                 = 9;
+  repeated string peers                  = 10;//包含leader
+  optional string leader                 = 11;
+  optional RegionStatus status           = 12;
+  optional int64 used_size               = 13;
+  optional int64 log_index               = 14;
+  optional bool deleted                  = 15;
+  optional bool can_add_peer             = 16; //刚分裂出来的region如果没有做过truncate_log_index, 不能增加region
+  optional int64 parent                  = 17; //记录被分裂的region id,方便追查统计,0表示初始化region
+  optional uint32 timestamp              = 18; //region创建时间
+  optional int64 num_table_lines         = 19; //region包含的主表行数
+  optional int64 main_table_id           = 20; //如果是全局二级索引的region保存主表的table_id
+  optional bool is_binlog_region         = 21; //是否为binlog region
+  optional int64 partition_num           = 22; // 当前系统未使用region partition_num，range分区不易维护
+  repeated string learners               = 23;
+  optional bool is_learner               = 24;
+};
+
+message StoreRegionDdlInfo {
+  required int64 region_id               = 1;
+  repeated DdlWorkInfo ddlwork_infos     = 2;
+};
+
+message AlterTableRequest {
+  required string table_name  = 1;
+  required string namespace   = 2;
+  required string database    = 3;
+  optional int64 table_id     = 4;
+  optional int64 namespace_id = 5;
+  optional int64 database_id  = 6;
+  repeated FieldInfo fields   = 7;
+  repeated IndexInfo indexs   = 8;
+};
+
+message RegionMergeRequest {
+  required int64 src_region_id    = 1;
+  required bytes src_start_key    = 2;
+  required bytes src_end_key      = 3;
+  required int64 table_id         = 4;
+  optional int64 partition_id = 5;
+};
+
+
+message RegionMergeResponse {
+  optional int64 dst_region_id = 1;
+  optional string dst_instance = 2;
+  optional bytes dst_start_key = 3;
+  optional bytes dst_end_key   = 4;
+  optional int64  version      = 5;
+  optional RegionInfo dst_region = 6;
+};
+message RegionSplitRequest {
+  required int64 region_id     = 1;
+  required bytes split_key     = 2;
+  optional string new_instance = 3; //新分裂region的实例地址
+  optional bool  tail_split    = 4; //是否是尾分裂 尾分裂不是本机分裂 需要分配实例
+  optional int64 table_id      = 5;
+  optional string resource_tag = 6;
+  optional int64 new_region_num= 7; // 尾分裂多region
+};
+
+// 尾分裂多region，不用new_region_id, new_instance, add_peer_instance
+message MultiSplitRegion {
+  optional int64 new_region_id      = 1;
+  optional string new_instance      = 2;
+  repeated string add_peer_instance = 3;
+}
+message RegionSplitResponse {
+  required int64 old_region_id = 1;
+  optional int64 new_region_id = 2;
+  optional string new_instance = 3;
+  repeated string add_peer_instance = 4;
+  repeated MultiSplitRegion multi_new_regions = 5;
+};
+
+message RestoreRegionRequest {
+  optional int64 restore_region_id = 1;
+  optional int64 lower_region_id = 2;
+  optional int64 upper_region_id = 3;
+};
+
+message IndexDdlRequest {
+  optional int64 table_id = 1;
+  optional int64 region_id = 2;
+  repeated string add_keys = 3;
+  repeated string add_vals = 4;
+  optional RegionDdlWork region_ddl_work = 5;
+};
+
+message VirtualIndexInfluence{
+  optional int64   virtual_index_id                = 1;
+  optional string  virtual_index_name              = 2;
+  optional string  influenced_sql                  = 3;
+};
+
+message VirtualInfoAndSqls{
+  optional string   virtual_index_info =1;
+  optional string   affected_sign      =2;
+  optional string   affected_sqls      =3;
+}
+
+message BinlogRegionInfo {
+  required int64    region_id          =1;
+  repeated string   peer_id            =2;
+  repeated uint32   oldest_ts_to_now   =3;
+}
+
+message TableInfo {
+  optional SchemaInfo  schema_info   = 1;
+  optional int64       row_count     = 2;
+  optional int64       region_count  = 3;
+  optional int64       table_id      = 4;
+  optional bool        deleted       = 5;
+  optional int64       main_table_id = 6;
+};
+
+message RegionChangeInfo {
+  optional RegionInfo  region_info      = 1;
+  optional int64       region_id        = 2;
+  optional int64       used_size        = 3;
+  optional int64       num_table_lines  = 4;
+};
+
+message DdlWorkInfoHeartBeat {               //meta发送给store的心跳请求。
+  optional int64 table_id                 = 1;
+  optional OpType             op_type     = 2;         //操作类型：add_index,del_index
+  optional IndexState         job_state   = 3;        //该ddl work的工作阶段,可以放到indexs中
+  optional int64 region_id                = 4;
+  optional bool rollback                  = 5 [default=false];
+  optional uint32     begin_timestamp     = 6; //开始时间
+  optional ErrCode        errcode         = 7;
+};
+
+message DdlWorkInfo {
+  optional int64 table_id                         = 1;
+  optional OpType             op_type             = 2;         //操作类型：add_index,del_index
+  optional IndexState         job_state           = 3;        //该ddlwork的工作阶段,meta收集store的工作状态
+  optional int64              index_id            = 4;
+  optional int64              begin_timestamp     = 5; //开始时间
+  optional int64              end_timestamp       = 6; //结束时间
+  optional bool               rollback            = 7 [default=false];
+  optional ErrCode            errcode             = 8;
+  optional bool deleted                           = 9 [default=false];
+  optional DdlWorkStatus status                   = 10;
+  optional bool suspend                           = 11;
+  optional int64 update_timestamp                 = 12;
+  optional bool global                            = 13;
+  optional bool drop_index                        = 14;
+  optional ColumnDdlInfo column_ddl_info          = 15;
+  optional string   opt_sql                       = 16;
+};
+
+enum DdlWorkStatus {
+  DdlWorkIdle       = 1;
+  DdlWorkDoing      = 2;
+  DdlWorkDone       = 3;
+  DdlWorkFail       = 4;
+  DdlWorkDupUniq    = 5;
+  DdlWorkError      = 6;
+};
+
+message RegionDdlWork {
+  optional int64 table_id                         = 1;
+  optional int64 region_id                        = 2;
+  optional bytes start_key                        = 3;
+  optional bytes end_key                          = 4;
+  optional DdlWorkStatus status                   = 5;
+  optional OpType  op_type                        = 6;
+  optional int64 index_id                         = 7;
+  optional string address                         = 8;
+  optional uint32 retry_time                      = 9;
+  optional int64 update_timestamp                 = 10;
+  optional int64 partition                        = 11;
+  optional bool  is_global                        = 12;
+  optional ColumnDdlInfo column_ddl_info          = 13;
+};

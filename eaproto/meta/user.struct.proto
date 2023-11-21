@@ -64,8 +64,8 @@ message UserPrivilege {
   optional int64              namespace_id                  = 4;
   repeated PrivilegeDatabase  privilege_database            = 5;
   repeated PrivilegeTable     privilege_table               = 6;
-  repeated PrivilegeZone      privilege_database            = 7;
-  repeated PrivilegeServlet   privilege_table               = 8;
+  repeated PrivilegeZone      privilege_zone                = 7;
+  repeated PrivilegeServlet   privilege_servlet             = 8;
   repeated string             bns                           = 9;
   repeated string             ip                            = 10;
   optional int64              version                       = 11;

@@ -305,7 +305,8 @@ message QueryUserPrivilege {
   required string         namespace_name  = 2;
   required string         privilege       = 3;
   required RW             table_rw        = 4;
-  optional string         password        = 5;
+  required RW             servlet_rw      = 5;
+  optional string         password        = 6;
 };
 
 message QueryInstance {

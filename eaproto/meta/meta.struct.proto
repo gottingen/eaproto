@@ -283,6 +283,7 @@ message QueryResponse {
   repeated ZoneInfo           zone_infos                    = 27;
   repeated ServletInfo        servlet_infos                 = 28;
   repeated ConfigInfo         config_infos                  = 29;
+  repeated QueryUserServletPrivilege flatten_servlet_privileges = 30;
 };
 
 
@@ -305,8 +306,15 @@ message QueryUserPrivilege {
   required string         namespace_name  = 2;
   required string         privilege       = 3;
   required RW             table_rw        = 4;
-  required RW             servlet_rw      = 5;
-  optional string         password        = 6;
+  optional string         password        = 5;
+};
+
+message QueryUserServletPrivilege {
+  required string         username        = 1;
+  required string         namespace_name  = 2;
+  required string         privilege       = 3;
+  required RW             servlet_rw      = 4;
+  optional string         password        = 5;
 };
 
 message QueryInstance {

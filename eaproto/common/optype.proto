@@ -210,9 +210,12 @@ enum QueryOpType {
   QUERY_REGION_LEARNER_STATUS                   = 310;
   QUERY_FAST_IMPORTER_TABLES                    = 311;
   QUERY_BINLOG_TIMESTAMPS                       = 312;
+  
 
   QUERY_ZONE                                    = 350;
   QUERY_SERVLET                                 = 351;
+  QUERY_SERVLET_PRIVILEGE_FLATTEN               = 352;
+  
   /// for ops
   QUERY_GET_CONFIG                       = 401;
   QUERY_LIST_CONFIG_VERSION              = 402;

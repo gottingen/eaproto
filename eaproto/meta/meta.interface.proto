@@ -27,9 +27,9 @@ service MetaService {
   //meta_server raft的控制接口
   rpc raft_control(RaftControlRequest) returns (RaftControlResponse);
   rpc meta_manager(MetaManagerRequest) returns (MetaManagerResponse);
+  rpc meta_query(QueryRequest) returns (QueryResponse);
   rpc store_heartbeat(StoreHeartBeatRequest) returns (StoreHeartBeatResponse);
   rpc baikal_heartbeat(BaikalHeartBeatRequest) returns (BaikalHeartBeatResponse);
-  rpc query(QueryRequest) returns (QueryResponse);
   rpc migrate(MigrateRequest) returns (MigrateResponse);
   rpc console_heartbeat(ConsoleHeartBeatRequest) returns (ConsoleHeartBeatResponse);
   rpc tso_service(TsoRequest) returns (TsoResponse);

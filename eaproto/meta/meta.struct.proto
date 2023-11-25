@@ -62,6 +62,8 @@ message MetaManagerRequest {
   optional ConfigInfo          config_info            = 29;
   optional ZoneInfo            zone_info              = 30;
   optional ServletInfo         servlet_info           = 31;
+  optional ServletInstanceInfo servlet_instance       = 32;
+  optional ServletHeartbeat    servlet_renew          = 33;
 
 };
 
@@ -251,39 +253,43 @@ message QueryRequest {
   optional Version       config_version                = 18;
   optional string        zone                          = 19;
   optional string        servlet                       = 20;
+  optional string        color                         = 21;
+  optional Status        status                        = 22;
+  optional string        env                           = 23;
 };
 
 message QueryResponse {
-  required ErrCode            errcode             = 1;
-  optional string             errmsg              = 2;
-  optional string             leader              = 3;
-  repeated PhysicalRoom       physical_rooms      = 4;
-  repeated PhysicalInstance   physical_instances  = 5;
-  repeated InstanceInfo       instance_infos      = 6;
-  repeated UserPrivilege      user_privilege      = 7;
-  repeated NameSpaceInfo      namespace_infos     = 8;
-  repeated DataBaseInfo       database_infos      = 9;
-  repeated SchemaInfo         schema_infos        = 10;
-  repeated RegionInfo         region_infos        = 11;
-  repeated QueryInstance      flatten_instances   = 12;
-  repeated QueryUserPrivilege flatten_privileges  = 13;
-  repeated QueryRegion        flatten_regions     = 14;
-  repeated QueryTable         flatten_tables      = 15;
-  repeated QuerySchema        flatten_schema_infos= 16;
-  repeated int64              peer_ids            = 17;
-  repeated int64              region_ids          = 18;
-  repeated DdlWorkInfo        ddlwork_infos       = 19;
-  repeated QueryDdlInfo       query_ddl_infos     = 20;
-  repeated RegionStateInfo    region_status_infos = 21;
-  repeated InstanceParam      instance_params     = 22;
-  repeated RegionDdlWork      region_ddl_infos    = 23;
-  repeated ResourceTagInfo    resource_tag_infos  = 24;
-  repeated VirtualInfoAndSqls virtual_index_influence_info  = 25;
-  repeated BinlogRegionInfo   binlog_region_state           = 26;
-  repeated ZoneInfo           zone_infos                    = 27;
-  repeated ServletInfo        servlet_infos                 = 28;
-  repeated ConfigInfo         config_infos                  = 29;
-  repeated QueryUserServletPrivilege flatten_servlet_privileges = 30;
+  required ErrCode                   errcode                       = 1;
+  optional string                    errmsg                        = 2;
+  optional string                    leader                        = 3;
+  repeated PhysicalRoom              physical_rooms                = 4;
+  repeated PhysicalInstance          physical_instances            = 5;
+  repeated InstanceInfo              instance_infos                = 6;
+  repeated UserPrivilege             user_privilege                = 7;
+  repeated NameSpaceInfo             namespace_infos               = 8;
+  repeated DataBaseInfo              database_infos                = 9;
+  repeated SchemaInfo                schema_infos                  = 10;
+  repeated RegionInfo                region_infos                  = 11;
+  repeated QueryInstance             flatten_instances             = 12;
+  repeated QueryUserPrivilege        flatten_privileges            = 13;
+  repeated QueryRegion               flatten_regions               = 14;
+  repeated QueryTable                flatten_tables                = 15;
+  repeated QuerySchema               flatten_schema_infos          = 16;
+  repeated int64                     peer_ids                      = 17;
+  repeated int64                     region_ids                    = 18;
+  repeated DdlWorkInfo               ddlwork_infos                 = 19;
+  repeated QueryDdlInfo              query_ddl_infos               = 20;
+  repeated RegionStateInfo           region_status_infos           = 21;
+  repeated InstanceParam             instance_params               = 22;
+  repeated RegionDdlWork             region_ddl_infos              = 23;
+  repeated ResourceTagInfo           resource_tag_infos            = 24;
+  repeated VirtualInfoAndSqls        virtual_index_influence_info  = 25;
+  repeated BinlogRegionInfo          binlog_region_state           = 26;
+  repeated ZoneInfo                  zone_infos                    = 27;
+  repeated ServletInfo               servlet_infos                 = 28;
+  repeated ConfigInfo                config_infos                  = 29;
+  repeated QueryUserServletPrivilege flatten_servlet_privileges    = 30;
+  repeated ServletInstance           servlet_instance              = 31;
 };
 
 

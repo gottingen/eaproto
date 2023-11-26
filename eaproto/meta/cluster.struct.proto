@@ -49,15 +49,17 @@ message PhysicalRoom {
 };
 
 message TableInstanceInfo {
-    optional int64 dml_latency      = 1;
-    optional int64 dml_qps          = 2;
-    optional int64 raft_total_latency = 3;
-    optional int64 raft_total_qps   = 4;
-    optional int64 select_latency   = 5;
-    optional int64 select_qps       = 6;
-    optional string network_segment = 7;
-    optional string container_id    = 8;
-    optional int64 rocks_hang_check_cost = 9;
+    optional int64   dml_latency      = 1;
+    optional int64   dml_qps          = 2;
+    optional int64   raft_total_latency = 3;
+    optional int64   raft_total_qps   = 4;
+    optional int64   select_latency   = 5;
+    optional int64   select_qps       = 6;
+    optional string  network_segment = 7;
+    optional string  container_id    = 8;
+    optional int64   rocks_hang_check_cost = 9;
+    optional string  resource_tag    = 10;
+    optional string  version         = 11;
 };
 
 message ServletInstanceInfo {
@@ -73,13 +75,11 @@ message InstanceInfo {
   optional string              address         = 1;
   optional int64               capacity        = 2;
   optional int64               used_size       = 3;
-  optional string              resource_tag    = 4;
-  optional string              physical_room   = 5;
-  optional Status              status          = 6;
-  optional string              logical_room    = 7;
-  optional string              version         = 8;
-  optional TableInstanceInfo   table_info      = 9;
-  optional ServletInstanceInfo servlet_info    = 10;
+  optional string              physical_room   = 4;
+  optional Status              status          = 5;
+  optional string              logical_room    = 6;
+  optional TableInstanceInfo   table_info      = 7;
+  optional ServletInstanceInfo servlet_info    = 8;
 };
 
 message MovePhysicalRequest {

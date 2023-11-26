@@ -62,7 +62,6 @@ message MetaManagerRequest {
   optional ConfigInfo          config_info            = 29;
   optional ZoneInfo            zone_info              = 30;
   optional ServletInfo         servlet_info           = 31;
-  optional ServletInstanceInfo servlet_instance       = 32;
   optional ServletHeartbeat    servlet_renew          = 33;
 
 };

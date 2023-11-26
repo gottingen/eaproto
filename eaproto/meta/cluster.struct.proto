@@ -48,26 +48,38 @@ message PhysicalRoom {
   repeated string physical_rooms   = 2;
 };
 
+message TableInstanceInfo {
+    optional int64 dml_latency      = 1;
+    optional int64 dml_qps          = 2;
+    optional int64 raft_total_latency = 3;
+    optional int64 raft_total_qps   = 4;
+    optional int64 select_latency   = 5;
+    optional int64 select_qps       = 6;
+    optional string network_segment = 7;
+    optional string container_id    = 8;
+    optional int64 rocks_hang_check_cost = 9;
+};
+
+message ServletInstanceInfo {
+    required string namespace_name  = 1;
+    required string zone_name       = 2;
+    required string servlet_name    = 3;
+    optional string color           = 4;
+    optional string env             = 5;
+};
+
+
 message InstanceInfo {
-  optional string address         = 1;
-  optional int64 capacity         = 2;
-  //第一次上报心跳的时候需要填该参数
-  //实际该参数并不需要存储
-  optional int64 used_size        = 3;
-  optional string resource_tag    = 4;
-  optional string physical_room   = 5;
-  optional Status status          = 6;
-  optional string logical_room    = 7;
-  optional string version         = 8;
-  optional int64 dml_latency      = 9;
-  optional int64 dml_qps          = 10;
-  optional int64 raft_total_latency = 11;
-  optional int64 raft_total_qps   = 12;
-  optional int64 select_latency   = 13;
-  optional int64 select_qps       = 14;
-  optional string network_segment = 15;
-  optional string container_id    = 16;
-  optional int64 rocks_hang_check_cost = 17;
+  optional string              address         = 1;
+  optional int64               capacity        = 2;
+  optional int64               used_size       = 3;
+  optional string              resource_tag    = 4;
+  optional string              physical_room   = 5;
+  optional Status              status          = 6;
+  optional string              logical_room    = 7;
+  optional string              version         = 8;
+  optional TableInstanceInfo   table_info      = 9;
+  optional ServletInstanceInfo servlet_info    = 10;
 };
 
 message MovePhysicalRequest {

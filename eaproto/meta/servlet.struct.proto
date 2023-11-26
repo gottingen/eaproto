@@ -58,22 +58,6 @@ message ServletInfo {
     optional Version     conf_verson             = 18;
 }
 
-message ServletInstanceInfo {
-    required string namespace_name  = 1;
-    required string zone_name       = 2;
-    required string servlet_name    = 3;
-    required string logical_room    = 4;
-    required string physical_room   = 5;
-    required string address         = 6;
-    optional string color           = 7;
-    optional string env             = 8;
-    optional Status status          = 9;
-    optional string version         = 10;
-    optional string user_name       = 11;
-    optional string passwd          = 12;
-    optional string token           = 13;
-};
-
 message ServletInstance {
     required string namespace_name  = 1;
     required string zone_name       = 2;

@@ -144,59 +144,33 @@ message SchemaInfo {
   optional int64 table_id                 = 1;
   required string table_name              = 2;
   optional string new_table_name          = 3;
-  optional string upper_table_name        = 4;
-  optional int64 upper_table_id           = 5;
-  optional int64 top_table_id             = 6;
-  repeated int64 lower_table_ids          = 7;
-  required string database                = 8;
-  optional int64 database_id              = 9;
-  required string namespace_name          = 10;
-  optional int64 namespace_id             = 11;
-  optional int64 partition_num            = 12; //若为层次表固定为1
-  optional string partition_exp           = 13; //暂时不用,直接取模做分片
-  repeated PartitionRegion regions        = 14; //维护该信息成本太高，暂时不用。只有层次表的最顶层表存储该信息
-  optional int64 region_size              = 15;
-  optional int64 replica_num              = 16;
-  repeated FieldInfo fields               = 17;
-  repeated IndexInfo indexs               = 18;
-  optional string resource_tag            = 19;
-  optional int32 max_field_id             = 20;
-  optional int64 version                  = 21;
-  optional Status status                  = 22;
-  optional SchemaType schema_type         = 23;
-  optional Engine engine                  = 24;
-  repeated string init_store              = 25;
-  //repeated SplitKey split_keys          = 26;
-  optional bool deleted                   = 27;
-  optional int64  byte_size_per_record    = 28;
-  optional uint64 auto_increment_increment= 29; //自增主键初始值
-  optional uint32 timestamp               = 30; //表创建时间
-  optional Charset charset                = 31;
-  repeated ReplicaDist dists              = 32;
-  optional string main_logical_room       = 33;
-  optional int64  region_split_lines      = 34; //region分裂行数阈值
-  //optional bool   need_merge            = 35; //merge switch
-  repeated SplitKey split_keys            = 36;
-  optional SchemaConf schema_conf         = 37; //一些可以随意修改的配置放在这里
-  optional int64 ttl_duration             = 38; //0表示无ttl，>0表示有ttl，建表时指定
-  optional BinlogInfo    binlog_info      = 39; // 主binlog信息，订阅以此为准
-  optional PartitionInfo partition_info   = 40;
-  optional bool is_binlog                 = 41;
-  optional FieldInfo link_field           = 42;
-  optional int32 region_num               = 43;
-  repeated string learner_resource_tags   = 44;
-  optional int64 online_ttl_expire_time_us = 45;
-  optional string comment                 = 46;
-  optional bool  if_exist                 = 47;
-  optional bool partition_is_same_hint    = 48;
-  repeated BinlogInfo    binlog_infos     = 49;
+  required string database                = 4;
+  optional int64 database_id              = 5;
+  required string namespace_name          = 6;
+  optional int64 namespace_id             = 7;
+  optional int64 partition_num            = 8;
+  optional int64 region_num              = 9;
+  optional int64 replica_num              = 10;
+  repeated FieldInfo fields               = 11;
+  repeated IndexInfo indexes               = 12;
+  optional string resource_tag            = 13;
+  optional int32 max_field_id             = 14;
+  optional int64 version                  = 15;
+  optional Status status                  = 16;
+  optional SchemaType schema_type         = 17;
+  repeated string init_store              = 18;
+  optional bool deleted                   = 19;
+  optional int64  byte_size_per_record    = 20;
+  optional uint32 timestamp               = 21; //表创建时间
+  repeated ReplicaDist dists              = 22;
+  optional string main_logical_room       = 23;
+  optional SchemaConf schema_conf         = 24; //一些可以随意修改的配置放在这里
+  optional int64 ttl_duration             = 25; //0表示无ttl，>0表示有ttl，建表时指定
+  repeated string learner_resource_tags   = 26;
+  optional int64 online_ttl_expire_time_us = 27;
+  optional string comment                 = 28;
+  optional bool  if_exist                 = 29;
 };
-
-
-message PartitionRegion {
-  required int64 partition_id = 1;
-  repeated int64 region_id    = 2;
-}
 
 message FieldInfo {
   required string field_name        = 1;
@@ -209,10 +183,8 @@ message FieldInfo {
   optional bytes default_value      = 8;
   optional bytes comment            = 9;
   optional bytes on_update_value    = 10;
-  optional bytes encrypt            = 11; //指定加密字段
   optional uint32 flag              = 12;
   optional bytes default_literal    = 13;
-  optional bool is_unique_indicator = 14; //olap表,是否指标唯一列
   optional int32  float_total_len    = 15;
   optional int32 float_precision_len = 16;
 };
@@ -242,25 +214,27 @@ enum SegmentType {
   S_WORDWEIGHT_NO_FILTER_SAME_WEIGHT  = 11; // wordweight，不过滤，每个term weight相同
 };
 
+enum AnnMetricType{
+  ANN_METRIC_INNER_PRODUCT               =  0;
+  ANN_METRIC_L2                          =  1;
+  ANN_METRIC_COSINE                      =  2;
+  ANN_METRIC_HAMMING                     =  3;
+  ANN_METRIC_NORMALIZED_COSINE           =  4;
+}
 
-// 普通索引，默认的格式是format1
-// 倒排索引，默认的格式protobuf
-// 为了兼容默认格式复用enum 0值
-// arrow格式倒排性能更好
-// format2格式普通索引为了解决索引字段有null不准确的问题
-enum StorageType {
-  ST_PROTOBUF_OR_FORMAT1 = 0;
-  ST_ARROW = 1;
-  ST_FORMAT2 = 2;
-  ST_UNKNOWN = 3;
-};
 
-// faiss.MetricType，目前只支持METRIC_INNER_PRODUCT和METRIC_L2
-enum MetricType {
-  METRIC_INNER_PRODUCT = 0;
-  METRIC_L2 = 1;
-};
+message AnnIndexInfo {
+  required AnnMetricType   metric      = 1;
+  required int32           dimension   = 2;
+  optional int32           nprobe      = 3;
+  optional int32           em          = 4;
+  optional int32           ef          = 5;
+  optional string          description = 6;
+}
 
+message TermIndexInfo {
+  optional SegmentType segment_type   = 1;
+}
 
 message IndexInfo {
   required string index_name          = 1;
@@ -268,17 +242,12 @@ message IndexInfo {
   optional IndexType index_type       = 3;
   repeated string field_names         = 4;
   repeated int32 field_ids            = 5;
-  optional bool is_global             = 6;
   optional int64 index_id             = 7; //primary_key的主键id是table_id
-  optional SegmentType segment_type   = 8; //FULLTEXT use for segment
-  optional IndexState state           = 9;
-  optional StorageType storage_type   = 10;
-  optional IndexHintStatus hint_status = 11;
-  optional int64 drop_timestamp = 12;
-  optional string vector_description = 13; // faiss index_factory的描述，暂时支持(数字可改)：IVF1000,PQ16; HNSW16; Flat; 默认是HNSW16
-  optional int32 dimension = 14; //向量维度
-  optional MetricType metric_type = 15;// MetricType，默认是METRIC_L2
-  optional int32 nprobe = 16; //IVF查询的质心数量，默认是5
+  optional IndexState state           = 8;
+  optional int64 drop_timestamp       = 9;
+  optional int64 create_timestamp     = 10;
+  optional AnnIndexInfo  ann_info     = 11;
+  optional TermIndexInfo term_info    = 12;
 };
 
 //address format: ip:port
